@@ -17,3 +17,24 @@
     width: 128px;
     height: 64px;
 }
+#imagining {
+    background-image: url(../img/Imagining.png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    width: 400px;
+    height: 300px;
+}
+#studyHard {
+    background-image: url(../img/study-hard.jpg);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    width: 400px;
+    height: 300px;
+}
+#workTogether {
+    background-image: url(../img/workTogether.jpg);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    width: 400px;
+    height: 300px;
+}
