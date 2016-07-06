@@ -1,0 +1,26 @@
+header {
+    background: #109fd4;
+    width: 100%;
+    height: 86px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    opacity: 0.95;
+}
+#logo {
+    font-size: 200%;
+    margin: 20px;
+    float: left;
+    text-decoration: none;
+}
+#headerNav {
+    float: right;
+    padding: 35px 20px 20px 0;
+}
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
