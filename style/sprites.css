@@ -1,0 +1,19 @@
+#english, #swedish, #japanese {
+    background-image: url(../img/sprites.png);
+    background-repeat: no-repeat;
+}
+#english {
+    background-position: 0 0;
+    width: 128px;
+    height: 64px;
+}
+#swedish {
+    background-position: 0 -64px;
+    width: 128px;
+    height: 64px;
+}
+#japanese {
+    background-position: 0 -128px;
+    width: 128px;
+    height: 64px;
+}
