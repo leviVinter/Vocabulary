@@ -6,7 +6,6 @@ header {
     top: 0;
     left: 0;
     z-index: 100;
-    opacity: 1;
 }
 a {
     text-decoration: none;
@@ -18,15 +17,14 @@ section {
     background: #dcdcdc;
     margin: 0 auto;
     text-align: center;
-    width: 50%;
-    min-width: 700px;
+    width: 100%;
 }
 footer {
     text-align: center;
 }
 #headerContent {
     margin: 0 auto;
-    width: 50%;
+    width: 1080px;
 }
 #logo {
     font-size: 200%;
@@ -61,4 +59,16 @@ a:hover#menuIcon {
 
 .picture {
     margin: 0 auto;
+}
+h1 {
+    font-size: 400%;
+}
+h2 {
+    font-size: 250%;
+}
+#welcome h1 {
+    padding-top: 60px;
+}
+#welcome h2 {
+    padding-top: 20px;
 }
