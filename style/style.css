@@ -18,14 +18,15 @@ section {
     background: #a9a9a9;
     margin: 0 auto;
     text-align: center;
-    width: 70%;
+    width: 50%;
+    min-width: 700px;
 }
 footer {
     text-align: center;
 }
 #headerContent {
     margin: 0 auto;
-    width: 70%;
+    width: 50%;
 }
 #logo {
     font-size: 200%;
@@ -53,7 +54,7 @@ a:hover#menuIcon {
 #welcome {
     margin-top: 86px;
 }
-.languages {
+#chooseLanguage a {
     display: inline-block;
     margin: 0 40px;
 }
