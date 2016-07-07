@@ -9,6 +9,7 @@ header {
     opacity: 1;
 }
 #headerContent {
+    margin: 0 auto;
     width: 70%;
 }
 #logo {
@@ -53,7 +54,7 @@ section {
     text-align: center;
     width: 70%;
 }
-div {
+.picture {
     margin: 0 auto;
 }
 footer {
