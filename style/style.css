@@ -8,6 +8,21 @@ header {
     z-index: 100;
     opacity: 1;
 }
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+section {
+    background: #a9a9a9;
+    margin: 0 auto;
+    text-align: center;
+    width: 70%;
+}
+footer {
+    text-align: center;
+}
 #headerContent {
     margin: 0 auto;
     width: 70%;
@@ -42,21 +57,7 @@ a:hover#menuIcon {
     display: inline-block;
     margin: 0 40px;
 }
-a {
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: underline;
-}
-section {
-    background: #a9a9a9;
-    margin: 0 auto;
-    text-align: center;
-    width: 70%;
-}
+
 .picture {
     margin: 0 auto;
-}
-footer {
-    text-align: center;
 }
