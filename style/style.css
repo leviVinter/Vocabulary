@@ -6,7 +6,7 @@ header {
     top: 0;
     left: 0;
     z-index: 100;
-    opacity: 0.95;
+    opacity: 1;
 }
 #logo {
     font-size: 200%;
@@ -16,7 +16,23 @@ header {
 }
 #headerNav {
     float: right;
-    padding: 35px 20px 20px 0;
+    padding: 30px 20px;
+}
+#login, #signup {
+    font-size: 120%;
+    padding: 10px;
+}
+#menuIcon {
+    display: none;
+    width: 40px;
+    height: 40px;
+    background: url(../img/menu-icon.png) center;
+}
+a:hover#menuIcon {
+    border-radius: 4px 4px 0 0;
+}
+#welcome {
+    margin-top: 86px;
 }
 a {
     text-decoration: none;
