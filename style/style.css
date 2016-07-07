@@ -37,6 +37,10 @@ a:hover#menuIcon {
 #welcome {
     margin-top: 86px;
 }
+.languages {
+    display: inline-block;
+    margin: 0 40px;
+}
 a {
     text-decoration: none;
 }
