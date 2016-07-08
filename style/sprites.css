@@ -23,6 +23,7 @@
     background-position: 0 0;
     width: 400px;
     height: 300px;
+    background-size: 100% auto;
 }
 #studyHard {
     background-image: url(../img/study-hard.jpg);
@@ -30,6 +31,7 @@
     background-position: 0 0;
     width: 400px;
     height: 300px;
+    background-size: 100% auto;
 }
 #workTogether {
     background-image: url(../img/workTogether.jpg);
@@ -37,4 +39,5 @@
     background-position: 0 0;
     width: 400px;
     height: 300px;
+    background-size: 100% auto;
 }
