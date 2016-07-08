@@ -14,17 +14,33 @@ a:hover {
     text-decoration: underline;
 }
 section {
-    background: #dcdcdc;
-    margin: 0 auto;
-    text-align: center;
     width: 100%;
+}
+.sectionA {
+    background-color: #dcdcdc;
+}
+.sectionB {
+    background-color: #e0e0e0;
+}
+section div, section nav {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1080px;
+    text-align: center;
 }
 footer {
     text-align: center;
 }
+h1 {
+    font-size: 400%;
+}
+h2 {
+    font-size: 250%;
+}
 #headerContent {
     margin: 0 auto;
-    width: 1080px;
+    width: 100%;
+    max-width: 1080px;
 }
 #logo {
     font-size: 200%;
@@ -52,23 +68,28 @@ a:hover#menuIcon {
 #welcome {
     margin-top: 86px;
 }
-#chooseLanguage a {
-    display: inline-block;
-    margin: 0 40px;
-}
-
-.picture {
-    margin: 0 auto;
-}
-h1 {
-    font-size: 400%;
-}
-h2 {
-    font-size: 250%;
+#welcome div {
+    padding-top: 200px;
 }
 #welcome h1 {
     padding-top: 60px;
 }
 #welcome h2 {
     padding-top: 20px;
+}
+#welcome nav {
+    padding: 150px 0 50px 0;
+}
+#chooseLanguage nav {
+    padding: 85px 0;
+}
+#chooseLanguage a {
+    display: inline-block;
+    margin: 0 80px;
+}
+.picture {
+    margin: 0 auto;
+}
+#howItWorks ol {
+    text-align: left;
 }
