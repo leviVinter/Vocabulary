@@ -1,5 +1,6 @@
-body {
+body * {
     font-family: Arial, sans-serif;
+    position: relative;
 }
 header {
     background: #109fd4;
@@ -108,8 +109,45 @@ a:hover#menuIcon {
     font-weight: bold;
 }
 .picture {
-    margin: 0 auto;
+    margin: 0 0;
+    display: inline-block;
+    width: 400px;
+    height: 300px;
+}
+.picture.right {
+    float: right;
+}
+.picture.left {
+    float: left;
 }
 #howItWorks ol {
+    text-align: left;
+}
+#description {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.descriptionDiv {
+    display: block;
+    width: 900px;
+    height: 300px;
+    margin: 0 auto;
+}
+.descriptionDiv .left {
+    width: 400px;
+    height: 300px;
+    font-size: 150%;
+    display: flex;
+    align-items: center;
+    float: left;
+    text-align: left;
+}
+.descriptionDiv .right {
+    width: 400px;
+    height: 300px;
+    font-size: 150%;
+    display: flex;
+    align-items: center;
+    float: right;
     text-align: left;
 }
