@@ -5,7 +5,7 @@ body * {
 header {
     background: #109fd4;
     width: 100%;
-    height: 86px;
+    height: 4em;
     position: fixed;
     top: 0;
     left: 0;
@@ -55,13 +55,13 @@ h3 {
 }
 #logo {
     font-size: 200%;
-    margin: 20px;
+    padding: 0.4em;
     float: left;
     text-decoration: none;
 }
 #headerNav {
     float: right;
-    padding: 30px 20px;
+    padding: 1.2em 1.2em;
 }
 #login, #signup {
     font-size: 120%;
@@ -77,7 +77,7 @@ a:hover#menuIcon {
     border-radius: 4px 4px 0 0;
 }
 #welcome {
-    margin-top: 86px;
+    margin-top: 4em;
 }
 #welcome div {
     padding-top: 200px;
