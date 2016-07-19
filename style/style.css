@@ -36,6 +36,7 @@ section div, section nav {
     text-align: center;
 }
 footer {
+    padding: 1em 0;
     text-align: center;
 }
 h1 {
@@ -120,8 +121,24 @@ a:hover#menuIcon {
 .picture.left {
     float: left;
 }
+#howItWorks div {
+    padding-bottom: 30px;
+}
 #howItWorks ol {
     text-align: left;
+}
+#howItWorks li {
+    margin-left: 20px;
+    padding: 10px 0;
+    line-height: 150%;
+    font-weight: bold;
+}
+#howItWorks p {
+    font-weight: normal;
+    font-size: 100%;
+}
+#howItWorks h2 {
+    padding: 30px 0;
 }
 #description {
     padding-top: 30px;
@@ -136,7 +153,6 @@ a:hover#menuIcon {
 .descriptionDiv .left {
     width: 400px;
     height: 300px;
-    font-size: 150%;
     display: flex;
     align-items: center;
     float: left;
@@ -145,7 +161,6 @@ a:hover#menuIcon {
 .descriptionDiv .right {
     width: 400px;
     height: 300px;
-    font-size: 150%;
     display: flex;
     align-items: center;
     float: right;
