@@ -27,21 +27,15 @@
     background-image: url(../img/study-hard.png);
     background-repeat: no-repeat;
     background-position: 0 0;
-    width: 400px;
-    height: 300px;
     background-size: 100% auto;
 }
 #workTogether {
     background-image: url(../img/workTogether.png);
     background-repeat: no-repeat;
     background-position: 0 0;
-    width: 400px;
-    height: 300px;
     background-size: 100% auto;
 }
 #createUser {
     background: url(../img/create-user.jpg) no-repeat 0 -45px;
-    width: 400px;
-    height: 300px;
     background-size: 100% auto;
 }
