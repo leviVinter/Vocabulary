@@ -18,13 +18,13 @@
     height: 64px;
 }
 #imagining {
-    background-image: url(../img/imagining.jpg);
+    background-image: url(../img/imagining.png);
     background-repeat: no-repeat;
     background-position: 0 0;
     background-size: 100% auto;
 }
 #studyHard {
-    background-image: url(../img/study-hard.jpg);
+    background-image: url(../img/study-hard.png);
     background-repeat: no-repeat;
     background-position: 0 0;
     width: 400px;
@@ -32,7 +32,7 @@
     background-size: 100% auto;
 }
 #workTogether {
-    background-image: url(../img/workTogether.jpg);
+    background-image: url(../img/workTogether.png);
     background-repeat: no-repeat;
     background-position: 0 0;
     width: 400px;
