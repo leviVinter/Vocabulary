@@ -13,6 +13,7 @@ header {
 }
 a {
     text-decoration: none;
+    color: #000;
 }
 a:hover {
     text-decoration: underline;
@@ -139,6 +140,7 @@ a:hover#menuIcon {
 }
 #howItWorks h2 {
     padding: 30px 0;
+    text-align: left;
 }
 #description {
     padding-top: 30px;

@@ -1,0 +1,78 @@
+body * {
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+header {
+    background: #109fd4;
+    width: 100%;
+    height: 4em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+#header2 {
+    background: #81D7F7;
+    top: 4em;
+    height: 2em;
+    text-align: center;
+}
+#header2 > div > div {
+    display: inline-block;
+    padding: 0.4em 3em;
+}
+#topic {
+    font-weight: bold;
+    font-style: oblique;
+}
+a {
+    text-decoration: none;
+    color: #000;
+}
+a:hover {
+    text-decoration: underline;
+}
+a:visited {
+    color: inherit;
+}
+footer {
+    padding: 1em 0;
+    text-align: center;
+}
+h1 {
+    font-size: 400%;
+}
+h2 {
+    font-size: 250%;
+}
+h3 {
+    font-size: 120%;
+}
+.headerContent {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1080px;
+}
+#logo {
+    font-size: 200%;
+    padding: 0.4em;
+    float: left;
+    text-decoration: none;
+}
+#headerNav {
+    float: right;
+    padding: 1.2em 1.2em;
+}
+#login, #signup {
+    font-size: 120%;
+    padding: 10px;
+}
+#menuIcon {
+    display: none;
+    width: 40px;
+    height: 40px;
+    background: url(../img/menu-icon.png) center;
+}
+a:hover#menuIcon {
+    border-radius: 4px 4px 0 0;
+}
