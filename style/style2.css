@@ -27,13 +27,18 @@ header {
     max-width: 1080px;
 }
 #wordForm {
+    background-color: #81D7F7;
     position: absolute;
     top: 2em;
     left: 0;
     display: block;
-    width: 14em;
-    height: 30em;
+    border: 2px solid #109fd4;
+    border-top-style: none;
     text-align: left;
+}
+#wordForm label {
+    float: left;
+    width: 80px;
 }
 #topic {
     font-weight: bold;
