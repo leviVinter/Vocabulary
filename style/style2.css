@@ -21,6 +21,20 @@ header {
     display: inline-block;
     padding: 0.4em 3em;
 }
+.headerContent {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1080px;
+}
+#wordForm {
+    position: absolute;
+    top: 2em;
+    left: 0;
+    display: block;
+    width: 14em;
+    height: 30em;
+    text-align: left;
+}
 #topic {
     font-weight: bold;
     font-style: oblique;
@@ -47,11 +61,6 @@ h2 {
 }
 h3 {
     font-size: 120%;
-}
-.headerContent {
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1080px;
 }
 #logo {
     font-size: 200%;
