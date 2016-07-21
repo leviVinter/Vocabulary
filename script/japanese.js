@@ -38,7 +38,7 @@ function outsideClick(e) {
         }
     }
 }
-/*function createInputText(e) {
+function createInputText(e) {
     if(document.getElementsByClassName("roadmapPlaces")) {
         var removeInput = document.getElementsByClassName("roadmapPlaces");
         var n = removeInput.length;
@@ -46,38 +46,46 @@ function outsideClick(e) {
             removeInput[0].parentNode.removeChild(removeInput[0]);
         }
     }
-    var x = document.getElementById(e.currentTarget.id);
-    var n = x.options[x.selectedIndex].value;
-    var div = document.createDocumentFragment();
+    var x = document.getElementById("number");
+    var n = x.value;
+    var tempCont = document.createDocumentFragment();
     var input = null;
+    var label = null;
     for(var i = 0; i < n; i++) {
+        label = document.createElement("label");
+        label.setAttribute("for", i);
+        label.setAttribute("class", "roadmapPlaces");
+        label.innerHTML = i + 1;
         input = document.createElement("input");
         input.setAttribute("type", "text");
-        input.setAttribute("class", "roadmapPlaces")
-        div.appendChild(input);
+        input.setAttribute("name", i);
+        input.setAttribute("class", "roadmapPlaces");
+        tempCont.appendChild(label);
+        tempCont.appendChild(input);
     }
     var br = document.createElement("br");
-    div.appendChild(br);
+    tempCont.appendChild(br);
     var submit = document.createElement("input");
     submit.setAttribute("type", "submit");
+    submit.setAttribute("id", "roadmapSubmit");
     submit.setAttribute("value", "Submit");
     submit.setAttribute("class", "roadmapPlaces");
-    div.appendChild(submit);
+    tempCont.appendChild(submit);
     
-    document.getElementById("roadmapForm").appendChild(div);
-} */
+    document.getElementById("roadmapForm").appendChild(tempCont);
+}
 var activeBlock = null;
 var word = document.getElementById("addWord");
 var category = document.getElementById("addCategory");
 var roadmaps = document.getElementById("roadmaps")
 var addRoadmap = document.getElementById("addRoadmap");
-// var selectRoadmap = document.getElementById("selectRoadmap");
+var createInputs = document.getElementById("createInputs")
 
 word.addEventListener("mouseup", toggleDropDown);
 category.addEventListener("mouseup", toggleDropDown);
 roadmaps.addEventListener("mouseup", toggleDropDown);
 addRoadmap.addEventListener("mouseup", toggleDropDown);
-/* selectRoadmap.addEventListener("change", createInputText); */
+createInputs.addEventListener("mouseup", createInputText);
 window.addEventListener("mousedown", outsideClick);
 
 

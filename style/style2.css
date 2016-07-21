@@ -75,7 +75,17 @@ header {
     top: -2px;
     left: 13em;
     border-left-width: 1px;
+    
 }
+label.roadmapPlaces {
+    width: 1.5em;
+    float: left;
+    margin-left: 1.9em;
+}
+#roadmapSubmit {
+    margin-left: 6.5em;
+}
+
 #topic {
     font-weight: bold;
     font-style: oblique;
