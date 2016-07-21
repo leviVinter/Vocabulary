@@ -1,25 +1,21 @@
 function showWordForm(e) {
-    var x = document.getElementById("wordForm");
-    var y = e.target.parentNode;
-    if (x.className === "wordForm") {
+    var x = document.getElementById("addWordForm");
+    if (x.className === "addWordForm") {
         x.className = "show";
-    } else if (e.target != x && y != x && y.parentNode != x && y.parentNode.parentNode != x) {
-        x.className = "wordForm";
-    }
+    } else {
+        x.className = "addWordForm";
+    }  
 }
-var addWord = document.getElementById("addWord");
 
+var h4 = document.getElementById("addWordHead");
 
-addWord.addEventListener("mouseup", showWordForm);
+h4.addEventListener("mouseup", showWordForm);
 
 window.addEventListener("mousedown", function(e) {
-    var x = document.getElementById("addWord");
-    var y = e.target.parentNode;
-    if (y.parentNode != null) {
-        if (e.target != x && y != x && y.parentNode != x && y.parentNode.parentNode != x) {
-            document.getElementById("wordForm").className = "wordForm";
-        }
-    } else if (e.target != x && y != x && y.parentNode != x) {
-        document.getElementById("wordForm").className = "wordForm";
+    var x = document.getElementById("addWordForm");
+    var y = document.getElementById("addWordHead");
+    var z = e.target;
+    if (z != x && z.parentNode != x && z.parentNode.parentNode != x && z != y) {
+        document.getElementById("addWordForm").className = "addWordForm";
     }
 });
