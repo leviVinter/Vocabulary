@@ -28,12 +28,12 @@
 	<header id="header2">
         <div class="headerContent">
             <div>
-                <h4 id="topic">Japanese</h4>
+                <a href="#" onclick="return false;" id="topic">Japanese</a>
             </div>
-            <div id="addWord">
-                <h4 id="addWordHead">Add Word</h4>
-				<div id="addWordForm" class="addWordForm">
-					<form id="wordForm">
+            <div>
+                <a href="#" onclick="return false;" id="addWord">Add Word</a>
+				<div id="addWordForm" class="hideDropDown">
+					<form>
 						<label for="word">Word</label>
 						<input type="text" name="word"><br>
 						<label for="meaning">Meaning</label>
@@ -47,13 +47,20 @@
 				</div>
             </div>
             <div>
-                <h4>Add Category</h4>
+                <a href="#" onclick="return false;" id="addCategory">Add Category</a>
+				<div id="addCategoryForm" class="hideDropDown">
+					<form>
+						<label for="name">Name</label>
+						<input type="text" name="name"><br>
+						<input type="submit" value="Submit">
+					</form>
+				</div>
             </div>
             <div>
-                <h4>Roadmaps</h4>
+                <a href="#" onclick="return false;">Roadmaps</a>
             </div>
             <div>
-                <h4>Search</h4>
+                <a href="#" onclick="return false;">Search</a>
             </div>
         </div>
     </header>

@@ -26,17 +26,10 @@ header {
     width: 100%;
     max-width: 1080px;
 }
-.addWordForm {
-    background-color: #81D7F7;
-    position: absolute;
-    top: 2em;
-    left: 0;
+.hideDropDown {
     display: none;
-    border: 2px solid #109fd4;
-    border-top-style: none;
-    text-align: left;
 }
-.show {
+.showDropDown {
     display: block;
     background-color: #81D7F7;
     position: absolute;
@@ -46,7 +39,7 @@ header {
     border-top-style: none;
     text-align: left;
 }
-.addWordForm label, .show label {
+.hideDropDown label, .showDropDown label {
     float: left;
     width: 80px;
 }
