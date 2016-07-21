@@ -11,15 +11,20 @@ header {
     left: 0;
     z-index: 100;
 }
-#header2 {
+#navigation {
     background: #81D7F7;
+    width: 100%;
     top: 4em;
     height: 2em;
+    position: fixed;
+    left: 0;
+    z-index: 100;
     text-align: center;
 }
-#header2 > div > div {
+#navigation > div > div {
     display: inline-block;
-    padding: 0.4em 3em;
+    width: 13em;
+    padding: 0.4em 0;
 }
 .headerContent {
     margin: 0 auto;
@@ -35,17 +40,25 @@ header {
     position: absolute;
     top: 2em;
     left: 0;
+    min-width: 13em; 
     border: 2px solid #109fd4;
     border-top-style: none;
     text-align: left;
 }
-.hideDropDown label, .showDropDown label {
+.showDropDown label {
     float: left;
-    width: 80px;
+    width: 5em;
+}
+.showDropDown #categoryLabel {
+    width: 4em;
 }
 #topic {
     font-weight: bold;
     font-style: oblique;
+}
+#search input {
+    height: 1em;
+    width: 8em;
 }
 a {
     text-decoration: none;

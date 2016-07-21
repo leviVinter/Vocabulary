@@ -1,32 +1,36 @@
-function showForm(e) {
-    var x = document.getElementById(e.currentTarget.id + "Form");
-    if (activeForm) {
-        if (x.id != activeForm) {
-            document.getElementById(activeForm).className = "hideDropDown";
+function toggleDropDown(e) {
+    var x = document.getElementById(e.currentTarget.id + "Block");
+    if (activeBlock) {
+        if (x.id != activeBlock) {
+            document.getElementById(activeBlock).className = "hideDropDown";
         }
     }
     if (x.className === "hideDropDown") {
         x.className = "showDropDown";
-        activeForm = x.id;
+        activeBlock = x.id;
     } else {
         x.className = "hideDropDown";
     }  
 }
-var activeForm = null;
-var word = document.getElementById("addWord");
-var category = document.getElementById("addCategory");
-
-word.addEventListener("mouseup", showForm);
-category.addEventListener("mouseup", showForm);
-
-window.addEventListener("mousedown", function(e) {
-    if (activeForm) {
-        var x = document.getElementById(activeForm);
-        var y = document.getElementById("addWord");
-        var a = document.getElementById("addCategory");
-        var z = e.target;
-        if (z != x && z.parentNode != x && z.parentNode.parentNode != x && z != y && z != a) {
-            document.getElementById(activeForm).className = "hideDropDown";
+function outsideClick(e) {
+    if (activeBlock) {
+        var a = document.getElementById(activeBlock);
+        var w = document.getElementById("addWord");
+        var c = document.getElementById("addCategory");
+        var r = document.getElementById("roadmaps");
+        var t = e.target;
+        if (t != a && t.parentNode != a && t.parentNode.parentNode != a && 
+            t != w && t != c && t != r) {
+            document.getElementById(activeBlock).className = "hideDropDown";
         }
     }
-});
+}
+var activeBlock = null;
+var word = document.getElementById("addWord");
+var category = document.getElementById("addCategory");
+var roadmaps = document.getElementById("roadmaps")
+
+word.addEventListener("mouseup", toggleDropDown);
+category.addEventListener("mouseup", toggleDropDown);
+roadmaps.addEventListener("mouseup", toggleDropDown);
+window.addEventListener("mousedown", outsideClick);

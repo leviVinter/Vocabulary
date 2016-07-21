@@ -25,14 +25,14 @@
 			</nav>
 		</div>
 	</header>
-	<header id="header2">
+	<nav id="navigation">
         <div class="headerContent">
             <div>
                 <a href="#" onclick="return false;" id="topic">Japanese</a>
             </div>
             <div>
                 <a href="#" onclick="return false;" id="addWord">Add Word</a>
-				<div id="addWordForm" class="hideDropDown">
+				<div id="addWordBlock" class="hideDropDown">
 					<form>
 						<label for="word">Word</label>
 						<input type="text" name="word"><br>
@@ -48,22 +48,26 @@
             </div>
             <div>
                 <a href="#" onclick="return false;" id="addCategory">Add Category</a>
-				<div id="addCategoryForm" class="hideDropDown">
+				<div id="addCategoryBlock" class="hideDropDown">
 					<form>
-						<label for="name">Name</label>
+						<label for="name" id="categoryLabel">Name</label>
 						<input type="text" name="name"><br>
 						<input type="submit" value="Submit">
 					</form>
 				</div>
             </div>
             <div>
-                <a href="#" onclick="return false;">Roadmaps</a>
+                <a href="#" onclick="return false;" id="roadmaps">Roadmaps</a>
+				<div id="roadmapsBlock" class="hideDropDown">
+					<a href="#" onclick="return false;">Add Roadmap</a>
+				</div>
             </div>
-            <div>
-                <a href="#" onclick="return false;">Search</a>
+            <div id="search">
+                <label for="search">Search</label>
+				<input type="text" name="search">
             </div>
         </div>
-    </header>
+    </nav>
 	<footer>
 		<p>E-mail: <a href="#">Some email</a></p>
 	</footer>
