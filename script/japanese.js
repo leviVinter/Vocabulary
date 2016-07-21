@@ -38,7 +38,7 @@ function outsideClick(e) {
         }
     }
 }
-function createInputText(e) {
+/*function createInputText(e) {
     if(document.getElementsByClassName("roadmapPlaces")) {
         var removeInput = document.getElementsByClassName("roadmapPlaces");
         var n = removeInput.length;
@@ -65,19 +65,19 @@ function createInputText(e) {
     div.appendChild(submit);
     
     document.getElementById("roadmapForm").appendChild(div);
-}
+} */
 var activeBlock = null;
 var word = document.getElementById("addWord");
 var category = document.getElementById("addCategory");
 var roadmaps = document.getElementById("roadmaps")
 var addRoadmap = document.getElementById("addRoadmap");
-var selectRoadmap = document.getElementById("selectRoadmap");
+// var selectRoadmap = document.getElementById("selectRoadmap");
 
 word.addEventListener("mouseup", toggleDropDown);
 category.addEventListener("mouseup", toggleDropDown);
 roadmaps.addEventListener("mouseup", toggleDropDown);
 addRoadmap.addEventListener("mouseup", toggleDropDown);
-selectRoadmap.addEventListener("change", createInputText);
+/* selectRoadmap.addEventListener("change", createInputText); */
 window.addEventListener("mousedown", outsideClick);
 
 

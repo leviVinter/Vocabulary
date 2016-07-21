@@ -49,8 +49,13 @@ header {
 .showDropDown label, .showDropDown input, select, span {
     margin: 3px 0;
 }
-select {
-    margin-top: 1.5em;
+#number {
+    width: 3em;
+    margin-left: 1em;
+}
+#createInputs {
+    float: right;
+    margin-right: 0.3em;
 }
 .submit {
     text-align: center;
