@@ -59,7 +59,26 @@
             <div>
                 <a href="#" onclick="return false;" id="roadmaps">Roadmaps</a>
 				<div id="roadmapsBlock" class="hideDropDown">
-					<a href="#" onclick="return false;">Add Roadmap</a>
+					<a href="#" onclick="return false;" id="addRoadmap">Add Roadmap</a>
+					<div id="addRoadmapBlock" class="hideDropDown">
+						<form>
+							<label for="name">Name</label>
+							<input type="text" name="name"><br>
+							<select>
+								<option value="" disabled="disabled" selected="selected">
+									Number of points</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+							</select>
+								<input type="text">
+								<input type="text">
+								<input type="text">
+								<input type="text">
+							<input type="submit" value="Submit">
+						</form>
+					</div>
 				</div>
             </div>
             <div id="search">
