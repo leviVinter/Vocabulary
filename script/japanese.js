@@ -6,6 +6,9 @@ function toggleDropDown(e) {
             a.className = "hideDropDown";
             if (a.parentNode.className == "showDropDown") {
                 a.parentNode.className = "hideDropDown";
+                if (x == a.parentNode) {
+                    return;
+                }
             }
         }
 

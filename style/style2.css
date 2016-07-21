@@ -40,17 +40,36 @@ header {
     position: absolute;
     top: 2em;
     left: 0;
-    min-width: 13em; 
-    border: 2px solid #109fd4;
+    min-width: 14.5em; 
+    border: 2px solid #000;
     border-top-style: none;
     text-align: left;
+    padding: 8px;
+}
+.showDropDown label, .showDropDown input, select, span {
+    margin: 3px 0;
+}
+select {
+    margin-top: 1.5em;
+}
+.submit {
+    text-align: center;
 }
 .showDropDown label {
     float: left;
     width: 5em;
+    margin-bottom: 0;
 }
 .showDropDown #categoryLabel {
-    width: 4em;
+    width: 3.5em;
+}
+#roadmapLabel {
+    width: 3.5em;
+}
+#addRoadmapBlock {
+    top: -2px;
+    left: 13em;
+    border-left-width: 1px;
 }
 #topic {
     font-weight: bold;
