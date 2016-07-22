@@ -2,6 +2,30 @@ body * {
     font-family: Arial, sans-serif;
     position: relative;
 }
+a {
+    text-decoration: none;
+    color: #000;
+}
+a:hover {
+    font-weight: bold;
+}
+a:visited {
+    color: inherit;
+}
+h1 {
+    font-size: 400%;
+}
+h2 {
+    font-size: 250%;
+}
+h3 {
+    font-size: 120%;
+}
+ul {
+    list-style: none;
+    font-size: 130%;
+    line-height: 1.4em;
+}
 header {
     background: #109fd4;
     width: 100%;
@@ -11,6 +35,32 @@ header {
     left: 0;
     z-index: 100;
 }
+.headerContent {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1080px;
+}
+footer {
+    background-color: #109fd4;
+    padding: 1em 0;
+    text-align: center;
+}
+/* header */
+#logo {
+    font-size: 200%;
+    padding: 0.4em;
+    float: left;
+    text-decoration: none;
+}
+#headerNav {
+    float: right;
+    padding: 1.2em 1.2em;
+}
+#login, #signup {
+    font-size: 120%;
+    padding: 10px;
+}
+/* navigation */
 #navigation {
     background: #81D7F7;
     width: 100%;
@@ -25,11 +75,6 @@ header {
     display: inline-block;
     width: 10em;
     padding: 0.4em 0;
-}
-.headerContent {
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1080px;
 }
 .hideDropDown {
     display: none;
@@ -49,29 +94,19 @@ header {
 .showDropDown label, .showDropDown input, select, span {
     margin: 3px 0;
 }
-#roadmapLabel {
-    width: 3.5em;
-}
-#number {
-    margin: 1em 0 0.5em 0.8em;
-    width: 3em;
-    
-}
-#createInputs {
-    margin: 1em 0 0.5em 1.1em;
-}
-#roadmapForm span {
-    margin: 1em 0 0.5em 0.1em;
-}
-.submit {
-    text-align: center;
-}
 .showDropDown label {
     float: left;
     width: 5em;
     margin-bottom: 0;
 }
-.showDropDown #categoryLabel {
+.submit {
+    text-align: center;
+}
+#topic {
+    font-weight: bold;
+    font-style: oblique;
+}
+#categoryLabel {
     width: 3.5em;
 }
 #roadmapsBlock {
@@ -84,6 +119,25 @@ header {
     min-width: 16.5em;
     padding-right: 0;
 }
+#roadmapForm {
+    margin-right: 0.3em;
+    min-height: 60px;
+    max-height: 28em;
+    overflow: auto;
+}
+#roadmapLabel {
+    width: 3.5em;
+}
+#roadmapForm span {
+    margin: 1em 0 0.5em 0.1em;
+}
+#number {
+    margin: 1em 0 0.5em 0.8em;
+    width: 3em;
+}
+#createInputs {
+    margin: 1em 0 0.5em 1.1em;
+}
 label.roadmapPlaces {
     width: 2em;
     float: left;
@@ -92,67 +146,7 @@ label.roadmapPlaces {
 #roadmapSubmit {
     margin-left: 6.5em;
 }
-#roadmapForm {
-    margin-right: 0.3em;
-    min-height: 60px;
-    max-height: 28em;
-    overflow: auto;
-}
-#topic {
-    font-weight: bold;
-    font-style: oblique;
-}
-#search input {
-    height: 1em;
-    width: 8em;
-}
-a {
-    text-decoration: none;
-    color: #000;
-}
-a:hover {
-    font-weight: bold;
-}
-a:visited {
-    color: inherit;
-}
-footer {
-    background-color: #109fd4;
-    padding: 1em 0;
-    text-align: center;
-}
-h1 {
-    font-size: 400%;
-}
-h2 {
-    font-size: 250%;
-}
-h3 {
-    font-size: 120%;
-}
-#logo {
-    font-size: 200%;
-    padding: 0.4em;
-    float: left;
-    text-decoration: none;
-}
-#headerNav {
-    float: right;
-    padding: 1.2em 1.2em;
-}
-#login, #signup {
-    font-size: 120%;
-    padding: 10px;
-}
-#menuIcon {
-    display: none;
-    width: 40px;
-    height: 40px;
-    background: url(../img/menu-icon.png) center;
-}
-a:hover#menuIcon {
-    border-radius: 4px 4px 0 0;
-}
+/* rest of page */
 #vocabulary {
     background-color: #e0e0e0;
     padding-top: 6em;
@@ -171,11 +165,11 @@ a:hover#menuIcon {
 #vocabulary > div > div:last-child {
     border-bottom: none;
 }
-#vocabulary h2 {
-    display: inline;
-}
 #vocabulary a {
     display: inline-block;
+}
+#vocabulary h2 {
+    display: inline;
 }
 .categoryArrow {
     width: 1em;
@@ -183,4 +177,16 @@ a:hover#menuIcon {
     display: block;
     float: right;
     margin: 1em 1em;
+}
+.categoryCont {
+    background-color: #fff;
+    display: block;
+    min-height: 2em;
+    border: 2px solid #7F8385;
+    border-radius: 15px;
+    columns: 100px 3;
+    padding: 1em 1em;
+}
+.categoryCont ul {
+    
 }
