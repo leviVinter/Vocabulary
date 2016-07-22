@@ -1,3 +1,5 @@
+// Navigation
+
 function toggleDropDown(e) {
     var x = document.getElementById(e.currentTarget.id + "Block");
     if (activeBlock) {
@@ -82,17 +84,33 @@ function createInputText(e) {
     document.getElementById("roadmapForm").appendChild(tempCont);
 }
 var activeBlock = null;
-var word = document.getElementById("addWord");
-var category = document.getElementById("addCategory");
+var addWord = document.getElementById("addWord");
+var addCategory = document.getElementById("addCategory");
 var roadmaps = document.getElementById("roadmaps")
 var addRoadmap = document.getElementById("addRoadmap");
 var createInputs = document.getElementById("createInputs")
 
-word.addEventListener("mouseup", toggleDropDown);
-category.addEventListener("mouseup", toggleDropDown);
+addWord.addEventListener("mouseup", toggleDropDown);
+addCategory.addEventListener("mouseup", toggleDropDown);
 roadmaps.addEventListener("mouseup", toggleDropDown);
 addRoadmap.addEventListener("mouseup", toggleDropDown);
 createInputs.addEventListener("mouseup", createInputText);
 window.addEventListener("mousedown", outsideClick);
 
+// Vocabulary section
+
+function toggleCategoryCont(e) {
+    var x = document.getElementById(e.currentTarget.parentNode.id + "Block");
+    if(x.className == "hideDropDown") {
+        x.className = "categoryCont";
+    } else {
+        x.className = "hideDropDown";
+    }
+}
+
+var category = document.getElementsByClassName("category");
+
+for(var i = 0; i < category.length; i++) {
+    category[i].addEventListener("click", toggleCategoryCont);
+}
 
