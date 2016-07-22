@@ -22,7 +22,7 @@ header {
 }
 #navigation > div > div {
     display: inline-block;
-    width: 13em;
+    width: 10em;
     padding: 0.4em 0;
 }
 .headerContent {
@@ -48,13 +48,19 @@ header {
 .showDropDown label, .showDropDown input, select, span {
     margin: 3px 0;
 }
+#roadmapLabel {
+    width: 3.5em;
+}
 #number {
+    margin: 1em 0 0.5em 0.8em;
     width: 3em;
-    margin-left: 1em;
+    
 }
 #createInputs {
-    float: right;
-    margin-right: 0.3em;
+    margin: 1em 0 0.5em 1.1em;
+}
+#roadmapForm span {
+    margin: 1em 0 0.5em 0.1em;
 }
 .submit {
     text-align: center;
@@ -67,26 +73,28 @@ header {
 .showDropDown #categoryLabel {
     width: 3.5em;
 }
-#roadmapLabel {
-    width: 3.5em;
+#roadmapsBlock {
+    min-width: 10em;
 }
 #addRoadmapBlock {
     top: -2px;
-    left: 13em;
+    left: 7.5em;
     border-left-width: 1px;
+    min-width: 16.5em;
+    padding-right: 0;
 }
 label.roadmapPlaces {
-    width: 1.5em;
+    width: 2em;
     float: left;
-    margin-left: 1.9em;
+    margin-left: 1.5em;
 }
 #roadmapSubmit {
     margin-left: 6.5em;
 }
 #roadmapForm {
+    margin-right: 0.3em;
     min-height: 60px;
-    max-height: 500px;
-    width: 250px;
+    max-height: 28em;
     overflow: auto;
 }
 #topic {

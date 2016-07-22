@@ -48,6 +48,7 @@ function createInputText(e) {
     }
     var x = document.getElementById("number");
     var n = x.value;
+    if (!n) return;
     var tempCont = document.createDocumentFragment();
     var input = null;
     var label = null;
@@ -55,7 +56,12 @@ function createInputText(e) {
         label = document.createElement("label");
         label.setAttribute("for", i);
         label.setAttribute("class", "roadmapPlaces");
-        label.innerHTML = i + 1;
+        if (i < 9) {
+            label.innerHTML = "&nbsp&nbsp";
+            label.innerHTML += i + 1;
+        } else {
+            label.innerHTML = i + 1;
+        }
         input = document.createElement("input");
         input.setAttribute("type", "text");
         input.setAttribute("name", i);
@@ -64,6 +70,7 @@ function createInputText(e) {
         tempCont.appendChild(input);
     }
     var br = document.createElement("br");
+    br.setAttribute("class", "roadmapPlaces");
     tempCont.appendChild(br);
     var submit = document.createElement("input");
     submit.setAttribute("type", "submit");
