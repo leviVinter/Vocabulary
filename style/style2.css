@@ -21,22 +21,6 @@ h2 {
 h3 {
     font-size: 120%;
 }
-ul {
-    list-style: none;
-    font-size: 130%;
-    line-height: 1.4em;
-}
-li {
-    cursor: pointer;
-    padding-left: 0.5em;
-    text-indent: -0.5em;
-    -webkit-column-break-inside: avoid;
-    page-break-inside: avoid;
-    break-inside: avoid;
-}
-li:hover {
-    font-weight: bold;
-}
 header {
     background: #109fd4;
     width: 100%;
@@ -195,6 +179,31 @@ label.roadmapPlaces {
     min-height: 2em;
     border: 2px solid #7F8385;
     border-radius: 15px;
-    columns: 100px 3;
+    columns: 100px 2;
     padding: 1em 1em;
+}
+.description {
+    font-size: 80%;
+    margin-left: -0.5em;
+    text-indent: 0;
+    font-weight: normal;
+}
+ul {
+    list-style: none;
+    font-size: 130%;
+    line-height: 1.4em;
+}
+li {
+    cursor: pointer;
+    padding-left: 0.5em;
+    text-indent: -0.5em;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+li:hover {
+    font-weight: bold;
+}
+.description textarea {
+    
 }

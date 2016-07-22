@@ -10,6 +10,7 @@
 	<link href="style/style2.css" rel="stylesheet">
 	<link href="style/sprites.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="script/japanese2.js"></script>
     <title>MemoNet</title>
 	<!--[if lt IE 9]>
   		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -101,7 +102,7 @@
 			<div id="ka">
 				<a href="#" class="category" onclick="return false"><h2>Ka Ki Ku Ke Ko</h2>
 				<div id="categoryArrow" class="categoryArrow"></div></a>
-				<div id="kaBlock" class="hideDropDown">
+				<div id="kaBlock" class="categoryCont">
 					<ul>
 						<li>Kaisha</li>
 						<li>Kaidan</li>
@@ -110,7 +111,24 @@
 						<li>Kaesu</li>
 						<li>Kakaru</li>
 						<li>Kaku</li>
-						<li>Kaesu</li>
+						<li id="clickedLi">Kaesu
+							<div class="description">
+								<form>
+									<lable for="meaning">Meaning</label>
+									<input type="text" name="meaning" value="To take time or
+										money"><br>
+									<label for="grammar">Grammar</label>
+									<input type="text" name="grammar" value="Goudan verb"><br>
+									<label for="story">Story</label><br>
+									<textarea id="note" name="story" cols="40">Någon har köpt 
+										för många dyra kakor som han inte hinner 
+										äta upp innan helvetet brakar löst. Han sitter där med 
+										en KAKA (KAKOR) och känner att det tar alldeles för lång 
+										tid att äta upp det.</textarea>
+										
+								</form>
+							</div>
+						</li>
 						<li>Kakeru</li>
 						<li>Kasu</li>
 						<li>Kaze</li>
@@ -132,6 +150,9 @@
 	<footer>
 		<p>E-mail: <a href="#">Some email</a></p>
 	</footer>
+	<!--<script type="text/javascript">
+		AutoGrowTextArea(document.getElementById("note"));
+	</script>-->
 	<script src="script/japanese.js"></script>
 </body>
 </html>

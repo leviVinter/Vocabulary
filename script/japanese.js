@@ -114,3 +114,9 @@ for(var i = 0; i < category.length; i++) {
     category[i].addEventListener("click", toggleCategoryCont);
 }
 
+var note = document.getElementById("note");
+
+
+
+var li = document.getElementById("clickedLi");
+li.addEventListener("change", AutoGrowTextArea(note));
