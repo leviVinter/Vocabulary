@@ -26,6 +26,17 @@ ul {
     font-size: 130%;
     line-height: 1.4em;
 }
+li {
+    cursor: pointer;
+    padding-left: 0.5em;
+    text-indent: -0.5em;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+li:hover {
+    font-weight: bold;
+}
 header {
     background: #109fd4;
     width: 100%;
@@ -186,7 +197,4 @@ label.roadmapPlaces {
     border-radius: 15px;
     columns: 100px 3;
     padding: 1em 1em;
-}
-.categoryCont ul {
-    
 }
