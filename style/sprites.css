@@ -39,3 +39,7 @@
     background: url(../img/create-user.jpg) no-repeat 0 -45px;
     background-size: 100% auto;
 }
+#categoryArrow {
+    background: url(../img/category-arrow.png) no-repeat 0 0;
+    background-size: 80% auto;
+}
