@@ -223,7 +223,9 @@ section {
     min-height: 2em;
     border: 2px solid #7F8385;
     border-radius: 15px;
-    columns: 100px 2;
+    -webkit-columns: 25em 2;
+    -moz-columns: 25em 2;
+    columns: 25em 2;
     padding: 1em 1em;
 }
 .description {
@@ -270,6 +272,7 @@ section {
     width: 16em;
 }
 #clickedLi textarea {
+    width: 22em;
     background-color: inherit;
     overflow: hidden;
     font-size: 110%;
@@ -278,6 +281,7 @@ section {
     border: none;
     font-family: "Dekko", "cursive";
     line-height: 1.4em;
+    
     text-align: justify;
     resize: none;
 }
