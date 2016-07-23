@@ -258,10 +258,11 @@ section {
     padding-top: 0.5em;
     padding-bottom: 0.3em;
 }
-#vocabulary li#clickedLi {
+#vocabulary li.activeLi {
     background: url(../img/tiled-paper.jpg) repeat 0 0;
     border: 1px solid #D6C85C;
     padding: 0.5em 0.5em 0.5em 1em;
+    font-weight: bold;
 }
 #vocabulary ul {
     list-style: none;
@@ -279,11 +280,11 @@ section {
 #vocabulary li:hover {
     font-weight: bold;
 }
-#clickedLi label {
+.activeLi label {
     display: inline-block;
     width: 5em;
 }
-#clickedLi input[type=text] {
+.activeLi input[type=text] {
     background-color: transparent;
     font-family: "Dekko", "cursive";
     font-size: 110%;
@@ -293,7 +294,7 @@ section {
     outline: 0;
     width: 16em;
 }
-#clickedLi textarea {
+.activeLi textarea {
     width: 20em;
     background-color: transparent;
     overflow: hidden;
@@ -306,6 +307,6 @@ section {
     text-align: justify;
     resize: none;
 }
-#clickedLi textarea:focus {
+.activeLi textarea:focus {
     outline: none;
 }

@@ -108,6 +108,11 @@ function toggleCategoryCont(e) {
         x.className = "categoryCont";
     } else {
         x.className = "hideDropDown";
+        var li = x.children[0].children;
+        for (var i = 0; i < li.length; i++) {
+            li[i].className = "liCont";
+            li[i].children[0].className = "hideDropDown";
+        }
     }
 }
 
@@ -128,5 +133,28 @@ function autoGrowTextArea() {
 }
 var note = document.getElementById("note");
 
-var li = document.getElementById("clickedLi");
-li.addEventListener("click", autoGrowTextArea);
+
+var liCont = document.getElementsByClassName("liCont");
+
+for (var i = 0; i < liCont.length; i++) {
+    liCont[i].addEventListener("click", toggleActiveLi);
+}
+
+function toggleActiveLi(e) {
+    var x = e.target;
+    var child = x.children[0];
+    if (x.className == "liCont") {
+        x.className = "liCont activeLi";
+    } else {
+        x.className = "liCont";
+    }
+    if (child.className == "hideDropDown") {
+        child.className = "description";
+    } else {
+        child.className = "hideDropDown";
+    }
+
+
+    //activeLi[0].addEventListener("click", autoGrowTextArea);
+
+}
