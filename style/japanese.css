@@ -2,9 +2,12 @@ body * {
     font-family: Arial, sans-serif;
     position: relative;
 }
+header, nav, footer {
+    color: #ffffff;
+}
 a {
     text-decoration: none;
-    color: #000;
+    color: inherit;
 }
 a:hover {
     font-weight: bold;
@@ -22,7 +25,7 @@ h3 {
     font-size: 120%;
 }
 header {
-    background: #109fd4;
+    background-color: #3A518A;
     width: 100%;
     height: 4em;
     position: fixed;
@@ -36,7 +39,7 @@ header {
     max-width: 1080px;
 }
 footer {
-    background-color: #109fd4;
+    background-color: #3A518A;
     padding: 1em 0;
     text-align: center;
 }
@@ -57,7 +60,7 @@ footer {
 }
 /* navigation */
 #navigation {
-    background: #81D7F7;
+    background-color: #5E7FCC;
     width: 100%;
     top: 4em;
     height: 2em;
@@ -76,7 +79,7 @@ footer {
 }
 .showDropDown {
     display: block;
-    background-color: #81D7F7;
+    background-color: #5E7FCC;
     position: absolute;
     top: 2em;
     left: 0;
@@ -128,26 +131,62 @@ footer {
     width: 3em;
 }
 #createInputs {
-    margin: 1em 0 0.5em 1.1em;
+    margin: 1em 0 0.5em 1.3em;
+    padding: 3px 18px;
 }
 label.roadmapPlaces {
     width: 2em;
     float: left;
     margin-left: 1.5em;
 }
+input[type=submit], input[type=button] {
+    -moz-box-shadow:inset 0px 1px 0px 0px #cf866c;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #cf866c;
+	box-shadow:inset 0px 1px 0px 0px #cf866c;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #d0451b), color-stop(1, #bc3315));
+	background:-moz-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:-webkit-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:-o-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:-ms-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d0451b', endColorstr='#bc3315',GradientType=0);
+	background-color:#d0451b;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #942911;
+	color:#ffffff;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #854629;
+}
+input[type=submit]:hover, input[type=button]:hover {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #bc3315), color-stop(1, #d0451b));
+	background:-moz-linear-gradient(top, #bc3315 5%, #d0451b 100%);
+	background:-webkit-linear-gradient(top, #bc3315 5%, #d0451b 100%);
+	background:-o-linear-gradient(top, #bc3315 5%, #d0451b 100%);
+	background:-ms-linear-gradient(top, #bc3315 5%, #d0451b 100%);
+	background:linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bc3315', endColorstr='#d0451b',GradientType=0);
+	background-color:#bc3315;
+}
 .submit {
-    margin-left: 0;
-    position: relative;
     text-align: center;
     display: block;
-    margin: 0 auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 0.3em !important;
 }
+
 /*#roadmapSubmit {
     margin-left: 6.5em;
 }*/
 /* Vocabulary section */
+section {
+    color: #000000;
+}
 #vocabulary {
-    background-color: #e0e0e0;
+    background-color: #EBEBEB;
     padding-top: 6em;
     width: 100%;
     min-height: 50.55em;
@@ -178,7 +217,7 @@ label.roadmapPlaces {
     margin: 1em 1em;
 }
 .categoryCont {
-    background-color: #fff;
+    background: url(../img/tiled-paper.jpg) repeat 0 0;
     display: block;
     min-height: 2em;
     border: 2px solid #7F8385;
@@ -191,16 +230,20 @@ label.roadmapPlaces {
     margin-left: -0.5em;
     text-indent: 0;
     font-weight: normal;
+    padding-top: 0.5em;
+    padding-bottom: 0.3em;
 }
-#clickedLi {
-    border: 1px solid #000;
+#vocabulary li#clickedLi {
+    background: url(../img/yellow.jpg) repeat 0 0;
+    border: 1px solid #D6C85C;
+    padding: 0.5em 0.5em 0.5em 1em;
 }
-ul {
+#vocabulary ul {
     list-style: none;
     font-size: 130%;
     line-height: 1.4em;
 }
-li {
+#vocabulary li {
     cursor: pointer;
     padding-left: 0.5em;
     text-indent: -0.5em;
@@ -208,10 +251,35 @@ li {
     page-break-inside: avoid;
     break-inside: avoid;
 }
-li:hover {
+#vocabulary li:hover {
     font-weight: bold;
 }
-.description textarea {
+#clickedLi label {
+    display: inline-block;
+    width: 5em;
+}
+#clickedLi input[type=text] {
+    background-color: inherit;
+    font-family: "Dekko", "cursive";
+    font-size: 110%;
+    border-style: solid;
+    border-width: 0px 0px 0px 0px;
+    border-color: darkred;
+    outline: 0;
+    width: 16em;
+}
+#clickedLi textarea {
+    background-color: inherit;
     overflow: hidden;
-    font-size: 93%;
+    font-size: 110%;
+    padding: 0.3em 0.7em 0 0.7em;
+    border-color: darkred;
+    border: none;
+    font-family: "Dekko", "cursive";
+    line-height: 1.4em;
+    text-align: justify;
+    resize: none;
+}
+#clickedLi textarea:focus {
+    outline: none;
 }

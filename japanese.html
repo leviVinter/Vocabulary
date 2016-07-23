@@ -7,8 +7,9 @@
 	<meta name="keywords" content="Japanese, English, Svenska, Glossary">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="style/reset.css" rel="stylesheet">
-	<link href="style/style2.css" rel="stylesheet">
+	<link href="style/japanese.css" rel="stylesheet">
 	<link href="style/sprites.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Dekko|Itim|Walter+Turncoat" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <title>MemoNet</title>
 	<!--[if lt IE 9]>
@@ -42,9 +43,9 @@
 						<input type="text" name="grammar"><br>
 						<label for="story">Story</label><br>
 						<textarea rows="10" cols="33" name="story"></textarea>
-						<div class="submit">
-						<input type="submit" value="Submit">
-						</div>
+						
+						<input type="submit" class="submit" value="Add">
+						
 					</form>
 				</div>
             </div>
@@ -54,9 +55,7 @@
 					<form>
 						<label for="name" id="categoryLabel">Name</label>
 						<input type="text" name="name"><br>
-						<div class="submit">
-						<input type="submit" value="Submit">
-						</div>
+						<input type="submit" class="submit" value="Add">
 					</form>
 				</div>
             </div>
@@ -113,15 +112,14 @@
 						<li id="clickedLi">Kaesu
 							<div class="description">
 								<form>
-									<label for="meaning">Meaning</label>
-									<input type="text" name="meaning" value="To take time or
-										money"><br>
-									<label for="grammar">Grammar</label>
+									<label for="meaning">Meaning:</label>
+									<input type="text" name="meaning" value="To take time or money"><br>
+									<label for="grammar">Grammar:</label>
 									<input type="text" name="grammar" value="Goudan verb"><br>
 									<label for="story">Story</label><br>
-									<textarea id="note" name="story" cols="47">Någon har köpt för många dyra kakor som han inte hinner äta upp innan helvetet brakar löst. Han sitter där med en KAKA (KAKOR) och känner att det tar alldeles för lång tid att äta upp det.</textarea>
+									<textarea id="note" name="story" cols="49">Någon har köpt för många dyra kakor som han inte hinner äta upp innan helvetet brakar löst. Han sitter där med en KAKA (KAKOR) och känner att det tar alldeles för lång tid att äta upp det.</textarea>
 									<br>
-									<input type="submit" class="submit" value="Submit Changes">
+									<input type="submit" class="submit" value="Save Changes">
 								</form>
 							</div>
 						</li>

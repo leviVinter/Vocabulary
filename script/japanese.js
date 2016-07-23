@@ -77,7 +77,7 @@ function createInputText(e) {
     var submit = document.createElement("input");
     submit.setAttribute("type", "submit");
     submit.setAttribute("id", "roadmapSubmit");
-    submit.setAttribute("value", "Submit");
+    submit.setAttribute("value", "Add");
     submit.setAttribute("class", "submit roadmapPlaces");
     tempCont.appendChild(submit);
     
