@@ -50,6 +50,9 @@ function createInputText(e) {
     }
     var x = document.getElementById("number");
     var n = x.value;
+    if(n > 30) {
+        n = 30;
+    }
     if (!n) return;
     var tempCont = document.createDocumentFragment();
     var input = null;
