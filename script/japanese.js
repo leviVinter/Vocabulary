@@ -78,7 +78,7 @@ function createInputText(e) {
     submit.setAttribute("type", "submit");
     submit.setAttribute("id", "roadmapSubmit");
     submit.setAttribute("value", "Submit");
-    submit.setAttribute("class", "roadmapPlaces");
+    submit.setAttribute("class", "submit roadmapPlaces");
     tempCont.appendChild(submit);
     
     document.getElementById("roadmapForm").appendChild(tempCont);
@@ -113,10 +113,17 @@ var category = document.getElementsByClassName("category");
 for(var i = 0; i < category.length; i++) {
     category[i].addEventListener("click", toggleCategoryCont);
 }
-
+function autoGrowTextArea() {
+    var textField = document.getElementById("note");
+    if (textField.clientHeight < textField.scrollHeight) {
+        textField.style.height = textField.scrollHeight + "px";
+        if (textField.clientHeight < textField.scrollHeight) {
+            textField.style.height = 
+            (textField.scrollHeight * 2 - textField.clientHeight) + "px";
+        }
+    }
+}
 var note = document.getElementById("note");
 
-
-
 var li = document.getElementById("clickedLi");
-li.addEventListener("change", AutoGrowTextArea(note));
+li.addEventListener("click", autoGrowTextArea);

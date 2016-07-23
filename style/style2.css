@@ -94,9 +94,6 @@ footer {
     width: 5em;
     margin-bottom: 0;
 }
-.submit {
-    text-align: center;
-}
 #topic {
     font-weight: bold;
     font-style: oblique;
@@ -138,9 +135,16 @@ label.roadmapPlaces {
     float: left;
     margin-left: 1.5em;
 }
-#roadmapSubmit {
-    margin-left: 6.5em;
+.submit {
+    margin-left: 0;
+    position: relative;
+    text-align: center;
+    display: block;
+    margin: 0 auto !important;
 }
+/*#roadmapSubmit {
+    margin-left: 6.5em;
+}*/
 /* Vocabulary section */
 #vocabulary {
     background-color: #e0e0e0;
@@ -188,6 +192,9 @@ label.roadmapPlaces {
     text-indent: 0;
     font-weight: normal;
 }
+#clickedLi {
+    border: 1px solid #000;
+}
 ul {
     list-style: none;
     font-size: 130%;
@@ -205,5 +212,6 @@ li:hover {
     font-weight: bold;
 }
 .description textarea {
-    
+    overflow: hidden;
+    font-size: 93%;
 }
