@@ -217,7 +217,8 @@ section {
     margin: 1em 1em;
 }
 .categoryCont {
-    background: url(../img/tiled-paper.jpg) repeat 0 0;
+    background: url(../img/yellow.jpg) repeat 0 0;
+    background-size: 100%;
     display: block;
     min-height: 2em;
     border: 2px solid #7F8385;
@@ -234,7 +235,7 @@ section {
     padding-bottom: 0.3em;
 }
 #vocabulary li#clickedLi {
-    background: url(../img/yellow.jpg) repeat 0 0;
+    background: url(../img/tiled-paper.jpg) repeat 0 0;
     border: 1px solid #D6C85C;
     padding: 0.5em 0.5em 0.5em 1em;
 }
