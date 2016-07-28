@@ -9,7 +9,8 @@
 	<link href="style/reset.css" rel="stylesheet">
 	<link href="style/japanese.css" rel="stylesheet">
 	<link href="style/sprites.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Dekko|Itim|Walter+Turncoat" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Dekko|Itim|Walter+Turncoat|Permanent+Marker|
+				Schoolbell" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <title>MemoNet</title>
 	<!--[if lt IE 9]>
@@ -61,9 +62,9 @@
 				</div>
             </div>
             <div>
-                <a href="#" onclick="return false;" id="roadmaps">Roadmaps</a>
+                <a href="#" onclick="return false;" id="roadmaps">Memory Palaces</a>
 				<div id="roadmapsBlock" class="hideDropDown">
-					<a href="#" onclick="return false;" id="addRoadmap">Add Roadmap</a>
+					<a href="#" onclick="return false;" id="addRoadmap">Add Memory Palace</a>
 					<div id="addRoadmapBlock" class="hideDropDown">
 						<form id="roadmapForm">
 							<label for="name" id="roadmapLabel">Name</label>
@@ -153,7 +154,7 @@
 									<label for="grammar">Grammar:</label>
 									<input type="text" name="grammar" value="Goudan verb"><br>
 									<label for="story">Story</label><br>
-									<textarea name="story">Någon har köpt för många dyra kakor som han inte hinner äta upp innan helvetet brakar löst. Han sitter där med en KAKA (KAKOR) och känner att det tar alldeles för lång tid att äta upp det.</textarea>
+									<textarea name="story" onkeyup=>Någon har köpt för många dyra kakor som han inte hinner äta upp innan helvetet brakar löst. Han sitter där med en KAKA (KAKOR) och känner att det tar alldeles för lång tid att äta upp det.</textarea>
 									<br>
 									<input type="submit" class="submit" value="Save Changes">
 								</form>
