@@ -89,9 +89,9 @@ function createInputText(e) {
 var activeBlock = null;
 var addWord = document.getElementById("addWord");
 var addCategory = document.getElementById("addCategory");
-var roadmaps = document.getElementById("roadmaps")
+var roadmaps = document.getElementById("roadmaps");
 var addRoadmap = document.getElementById("addRoadmap");
-var createInputs = document.getElementById("createInputs")
+var createInputs = document.getElementById("createInputs");
 
 addWord.addEventListener("mouseup", toggleDropDown);
 addCategory.addEventListener("mouseup", toggleDropDown);
