@@ -121,8 +121,11 @@ var category = document.getElementsByClassName("category");
 for(var i = 0; i < category.length; i++) {
     category[i].addEventListener("click", toggleCategoryCont);
 }
-function autoGrowTextArea() {
-    var textField = document.getElementById("note");
+function autoGrowTextArea(textArea) {
+    var textField = textArea;
+    if(textArea.target) {
+        textField = textArea.target;
+    }
     if (textField.clientHeight < textField.scrollHeight) {
         textField.style.height = textField.scrollHeight + "px";
         if (textField.clientHeight < textField.scrollHeight) {
@@ -153,8 +156,7 @@ function toggleActiveLi(e) {
     } else {
         child.className = "hideDropDown";
     }
-
-
-    //activeLi[0].addEventListener("click", autoGrowTextArea);
-
+    var textarea = child.children[0].children[8];
+    autoGrowTextArea(textarea);
+    textarea.addEventListener("keyup", autoGrowTextArea);
 }

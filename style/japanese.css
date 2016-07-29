@@ -209,7 +209,6 @@ section {
     padding-bottom: 0;
 }
 #vocabulary {
-    background-color: #EBEBEB;
     padding-top: 6em;
     width: 100%;
 }
@@ -239,7 +238,7 @@ section {
     margin: 1em 1em;
 }
 .categoryCont {
-    background: url(../img/yellow.jpg) repeat 0 0;
+    background: url(../img/blackboard.png) repeat 0 0;
     background-size: 100%;
     display: block;
     min-height: 2em;
@@ -249,6 +248,8 @@ section {
     -moz-columns: 25em 2;
     columns: 25em 2;
     padding: 1em 1em;
+    color: #fff;
+    
 }
 .description {
     font-size: 80%;
@@ -263,6 +264,7 @@ section {
     border: 1px solid #D6C85C;
     padding: 0.5em 0.5em 0.5em 1em;
     font-weight: bold;
+    color: #000;
 }
 #vocabulary ul {
     list-style: none;
