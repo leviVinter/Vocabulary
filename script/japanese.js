@@ -122,14 +122,16 @@ function createCategoryCont(arr) {
     var tempCont = document.createDocumentFragment();
     var n = arr.length;
     var li = null;
-    for (var i = 0; i < n; i++) {
+    for (var i = 1; i < n; i++) {
         li = document.createElement("li");
         li.className = "liCont";
         li.innerHTML = arr[i].word;
         tempCont.appendChild(li);
     }
-    var categoryBlock = document.getElementById("aiueo" + "Block");
-    categoryBlock.children[0].appendChild(tempCont);
+    var categoryBlock = document.getElementById(arr[0] + "Block");
+    if(n > 1) {
+        categoryBlock.children[0].appendChild(tempCont);
+    }
     categoryBlock.className = "categoryCont";
 }
 function categoryContHandleResponse() {
@@ -149,7 +151,7 @@ function categoryContHandleResponse() {
 
 function toggleCategoryCont(e) {
     var x = document.getElementById(e.currentTarget.parentNode.id + "Block");
-    if (!x.children[0].children[0]) {
+    if (!x.children[0].children[0] && x.className == "hideDropDown") {
         var id = e.currentTarget.parentNode.id;
         var params = "category=" + id;
         var request = new ajaxRequest();

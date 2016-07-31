@@ -22,6 +22,7 @@ if (isset($_POST['category'])) {
     $rows = $result->num_rows;
 
     $wordsArray = [];
+    array_push($wordsArray, $category);
 
     for($j = 0; $j < $rows; $j++) {
         $result->data_seek($j);
