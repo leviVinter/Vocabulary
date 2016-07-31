@@ -131,9 +131,9 @@ function createCategoryCont(arr) {
             '<div class="hideDropDown">' +
                 '<form>' +
                     '<label for="meaning">Meaning:</label>' +
-                    '<input type="text" name="meaning" value=' + arr[i].meaning + '><br>' +
+                    '<input type="text" name="meaning" value="' + arr[i].meaning + '"><br>' +
                     '<label for="grammar">Grammar:</label>' +
-                    '<input type="text" name="grammar" value=' + arr[i].grammar + '><br>' +
+                    '<input type="text" name="grammar" value="' + arr[i].grammar + '"><br>' +
                     '<label for="story">Story</label><br>' +
                     '<textarea name="story">' + arr[i].story + '</textarea>' +
                     '<br>' +
