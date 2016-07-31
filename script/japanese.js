@@ -121,11 +121,26 @@ function ajaxRequest() {
 function createCategoryCont(arr) {
     var tempCont = document.createDocumentFragment();
     var n = arr.length;
-    var li = null;
+    var li = null, div = null, form = null, label1 = null, label2 = null, label3 = null;
+    var input1 = null, input2 = null, input3 = null, textarea = null, input4 = null;
+    var liHtml = null;
     for (var i = 1; i < n; i++) {
         li = document.createElement("li");
         li.className = "liCont";
-        li.innerHTML = arr[i].word;
+        liHtml =
+            '<div class="hideDropDown">' +
+                '<form>' +
+                    '<label for="meaning">Meaning:</label>' +
+                    '<input type="text" name="meaning" value=' + arr[i].meaning + '><br>' +
+                    '<label for="grammar">Grammar:</label>' +
+                    '<input type="text" name="grammar" value=' + arr[i].grammar + '><br>' +
+                    '<label for="story">Story</label><br>' +
+                    '<textarea name="story">' + arr[i].story + '</textarea>' +
+                    '<br>' +
+                    '<input type="submit" class="submit" value="Save Changes">' +
+                '</form>' +
+            '</div>';
+        li.innerHTML = arr[i].word + liHtml;
         tempCont.appendChild(li);
     }
     var categoryBlock = document.getElementById(arr[0] + "Block");
@@ -133,6 +148,11 @@ function createCategoryCont(arr) {
         categoryBlock.children[0].appendChild(tempCont);
     }
     categoryBlock.className = "categoryCont";
+    var liCont = document.getElementsByClassName("liCont");
+
+    for (var i = 0; i < liCont.length; i++) {
+        liCont[i].addEventListener("click", toggleActiveLi);
+    }
 }
 function categoryContHandleResponse() {
     if (this.readyState == 4) {
@@ -191,8 +211,6 @@ function autoGrowTextArea(textArea) {
         }
     }
 }
-var note = document.getElementById("note");
-
 
 var liCont = document.getElementsByClassName("liCont");
 
