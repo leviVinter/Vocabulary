@@ -1,6 +1,6 @@
 function HttpRequest(url, callback) {
     this.request = new XMLHttpRequest();
-    this.request.open("GET", url);
+    this.request.open("POST", url);
 
     var tempRequest = this.request;
 

@@ -1,6 +1,6 @@
 <?php
 	$hn = 'localhost';
 	$un = 'root';
-	$pw = 'starbow';
+	$pw = 'beethoven5';
 	$db = 'memonet';
 ?>

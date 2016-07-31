@@ -1,4 +1,5 @@
 <?php
+if (isset($_POST['category'])) {
     require_once 'login.php';
     $conn = new mysqli($hn, $un, $pw, $db);
     if($conn->connect_error) die($conn->connect_error);
@@ -37,5 +38,7 @@
     $conn->close();
 
     echo json_encode($wordsArray);
-
+} else {
+    echo "Can't find category";
+}
     ?>

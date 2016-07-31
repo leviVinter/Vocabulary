@@ -101,17 +101,72 @@ createInputs.addEventListener("mouseup", createInputText);
 window.addEventListener("mousedown", outsideClick);
 
 // Vocabulary section
+function ajaxRequest() {
+    var request = null;
+    try {
+        request = new XMLHttpRequest();
+    } catch(e1) {
+        try {
+            request = new ActiveXObject("Msxm12.XMLHTTP");
+        } catch(e2) {
+            try {
+                request = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch(e3) {
+                request = false;
+            }
+        }
+    }
+    return request;
+}
+function createCategoryCont(arr) {
+    var tempCont = document.createDocumentFragment();
+    var n = arr.length;
+    var li = null;
+    for (var i = 0; i < n; i++) {
+        li = document.createElement("li");
+        li.className = "liCont";
+        li.innerHTML = arr[i].word;
+        tempCont.appendChild(li);
+    }
+    var categoryBlock = document.getElementById("aiueo" + "Block");
+    categoryBlock.children[0].appendChild(tempCont);
+    categoryBlock.className = "categoryCont";
+}
+function categoryContHandleResponse() {
+    if (this.readyState == 4) {
+        if (this.status == 200) {
+            if (this.responseText !== null) {
+                var arr = JSON.parse(this.responseText);
+                createCategoryCont(arr);
+            } else {
+                alert("Ajax error: No data received");
+            }
+        } else {
+            alert("Ajax error: " + this.statusText);
+        }
+    }
+}
 
 function toggleCategoryCont(e) {
     var x = document.getElementById(e.currentTarget.parentNode.id + "Block");
-    if(x.className == "hideDropDown") {
-        x.className = "categoryCont";
+    if (!x.children[0].children[0]) {
+        var id = e.currentTarget.parentNode.id;
+        var params = "category=" + id;
+        var request = new ajaxRequest();
+        request.open("POST", "getWords.php", true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.onreadystatechange = categoryContHandleResponse;
+        request.send(params);
     } else {
-        x.className = "hideDropDown";
-        var li = x.children[0].children;
-        for (var i = 0; i < li.length; i++) {
-            li[i].className = "liCont";
-            li[i].children[0].className = "hideDropDown";
+        if (x.className == "hideDropDown") {
+            x.className = "categoryCont";
+        } else {
+            x.className = "hideDropDown";
+            var li = x.children[0].children;
+            for (var i = 0; i < li.length; i++) {
+                li[i].className = "liCont";
+                li[i].children[0].className = "hideDropDown";
+            }
         }
     }
 }
