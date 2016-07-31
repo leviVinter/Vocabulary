@@ -62,4 +62,6 @@
     $result->close();
     $conn->close();
 
+    echo json_encode($wordsArray);
+
 ?>

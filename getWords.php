@@ -3,7 +3,11 @@
     $conn = new mysqli($hn, $un, $pw, $db);
     if($conn->connect_error) die($conn->connect_error);
 
-    $category = "AIUEO";
+    class wordObject {
+        public $word, $meaning, $grammar, $story;
+    }
+    
+    $category = $_POST['category'];
 
     $query = "SELECT categoryNo FROM categories WHERE category='$category'";
     $result = $conn->query($query);
@@ -16,9 +20,6 @@
 
     $rows = $result->num_rows;
 
-    class wordObject {
-        public $word, $meaning, $grammar, $story;
-    }
     $wordsArray = [];
 
     for($j = 0; $j < $rows; $j++) {
@@ -32,8 +33,9 @@
         array_push($wordsArray, $object);
     }
 
-    print_r($wordsArray); echo "<br>";
-
     $result->close();
     $conn->close();
-?>
+
+    echo json_encode($wordsArray);
+
+    ?>
