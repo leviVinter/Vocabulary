@@ -12,15 +12,15 @@
     $subject = $_POST['subject'];
     $place = $_POST['place'];
 
-    $query = "SELECT subjectNo FROM subjects WHERE subject=$subject";
+    $query = "SELECT subjectNo FROM subjects WHERE subject='$subject'";
     $result = $conn->query($query);
     $subjectNo = $result->fetch_array(MYSQLI_NUM);
 
-    $query = "SELECT categoryNo FROM categories WHERE category=$category";
+    $query = "SELECT categoryNo FROM categories WHERE category='$category'";
     $result = $conn->query($query);
     $categoryNo = $result->fetch_array(MYSQLI_NUM);
 
-    $query = "SELECT placeNo FROM places WHERE place=$place";
+    $query = "SELECT placeNo FROM places WHERE place='$place'";
     $result = $conn->query($query);
     $placeNo = $result->fetch_array(MYSQLI_NUM);
 
@@ -32,11 +32,12 @@
     // display words in category
     $category = $_POST['category'];
 
-    $query = "SELECT categoryNo FROM categories WHERE category=$category";
+    $query = "SELECT categoryNo FROM categories WHERE category='$category'";
     $result = $conn->query($query);
+    if(!$result) die("Database access failed: " . $conn->error);
     $categoryNo = $result->fetch_array(MYSQLI_NUM);
 
-    $query = "SELECT word,meaning,grammar,story FROM words WHERE categoryNo=$categoryNo[0]";
+    $query = "SELECT word,meaning,grammar,story FROM words WHERE categoryNo='$categoryNo[0]'";
     $result = $conn->query($query);
     if(!$result) die("Database access failed: " . $conn->error);
 

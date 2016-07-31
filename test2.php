@@ -1,21 +1,39 @@
 <?php
+    require_once 'login.php';
+    $conn = new mysqli($hn, $un, $pw, $db);
+    if($conn->connect_error) die($conn->connect_error);
+
+    $category = "AIUEO";
+
+    $query = "SELECT categoryNo FROM categories WHERE category='$category'";
+    $result = $conn->query($query);
+    if(!$result) die("Database access failed: " . $conn->error);
+    $categoryNo = $result->fetch_array(MYSQLI_NUM);
+
+    $query = "SELECT word,meaning,grammar,story FROM words WHERE categoryNo='$categoryNo[0]'";
+    $result = $conn->query($query);
+    if(!$result) die("Database access failed: " . $conn->error);
+
+    $rows = $result->num_rows;
+
     class wordObject {
         public $word, $meaning, $grammar, $story;
     }
-    $test = [];
+    $wordsArray = [];
 
-    $word1 = "hello";
-    $word2 = "hi";
-    $word3 = "no";
-    $word4 = "way";
-    $word5 = "jose";
-    $test2 = array($word1, $word2, $word3, $word4, $word5);
-
-    for($i = 0; $i < 3; $i++) {
-        $word = new wordObject();
-        $word->word = $test2[$i];
-        $word->meaning = $test2[$i+1];
-        array_push($test, $word);
+    for($j = 0; $j < $rows; $j++) {
+        $result->data_seek($j);
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        $object = new wordObject();
+        $object->word = $row["word"];
+        $object->meaning = $row["meaning"];
+        $object->grammar = $row["grammar"];
+        $object->story = $row["story"];
+        array_push($wordsArray, $object);
     }
-    print_r($test); echo "<br>";
+
+    print_r($wordsArray); echo "<br>";
+
+    $result->close();
+    $conn->close();
 ?>
