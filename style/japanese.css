@@ -259,6 +259,9 @@ section {
     font-weight: normal;
     padding-top: 0.5em;
     padding-bottom: 0.3em;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
 }
 #vocabulary li.activeLi {
     background: url(../img/tiled-paper.jpg) repeat 0 0;
