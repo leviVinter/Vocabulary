@@ -1,6 +1,7 @@
 // Navigation
 
 function toggleDropDown(e) {
+    e.preventDefault();
     var x = document.getElementById(e.currentTarget.id + "Block");
     if (activeBlock) {
         if (x.id != activeBlock && x.parentNode.id != activeBlock) {
@@ -93,12 +94,12 @@ var roadmaps = document.getElementById("roadmaps");
 var addRoadmap = document.getElementById("addRoadmap");
 var createInputs = document.getElementById("createInputs");
 
-addWord.addEventListener("mouseup", toggleDropDown);
-addCategory.addEventListener("mouseup", toggleDropDown);
-roadmaps.addEventListener("mouseup", toggleDropDown);
-addRoadmap.addEventListener("mouseup", toggleDropDown);
-createInputs.addEventListener("mouseup", createInputText);
-window.addEventListener("mousedown", outsideClick);
+addWord.addEventListener("click", toggleDropDown);
+addCategory.addEventListener("click", toggleDropDown);
+roadmaps.addEventListener("click", toggleDropDown);
+addRoadmap.addEventListener("click", toggleDropDown);
+createInputs.addEventListener("click", createInputText);
+window.addEventListener("click", outsideClick);
 
 // Vocabulary section
 function ajaxRequest() {

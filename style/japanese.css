@@ -138,7 +138,7 @@ footer {
     width: 3.4em;
 }
 #roadmapsBlock {
-    min-width: 10em;
+    min-width: 12em;
 }
 #addRoadmapBlock {
     top: -2px;
@@ -146,6 +146,7 @@ footer {
     border-left-width: 1px;
     min-width: 16.5em;
     padding-right: 0;
+    z-index: 100;
 }
 #roadmapForm {
     margin-right: 0.3em;
@@ -153,6 +154,7 @@ footer {
     max-height: 28em;
     overflow: auto;
 }
+
 #roadmapLabel {
     width: 3.5em;
 }
@@ -211,6 +213,43 @@ input[type=button]:hover {
     margin-right: auto !important;
     margin-top: 0.3em !important;
 }
+#firstMp {
+    padding-top: 1em;
+}
+.mpList {
+    display: block;
+    padding: 0.3em 0 0.3em 0.3em;
+}
+#activeMpList {
+    background-color: #3A518A;
+    font-weight: bold;
+}
+#activeMpListForm {
+    background-color: #3A518A;
+    padding-left: 0.2em;
+    padding-bottom: 0.3em;
+}
+#activeMpListForm > label {
+    display: inline-block;
+    width: 1em;
+    margin-left: 0.2em;
+    margin-right: 0.7em;
+    font-size: 90%;
+}
+#activeMpListForm > input[type=text] {
+    display: inline-block;
+    color: #ffffff;
+    background-color: transparent;
+    border-width: 0px 0px 0px 0px;
+    outline: none;
+    width: 11.5em;
+    font-size: 85%;
+}
+#activeMpListForm > input[type=button] {
+    display: block;
+    padding: 3px 9px;
+    margin: 0.5em auto 0 auto;
+}
 /* Vocabulary section */
 section {
     color: #000000;
@@ -257,7 +296,9 @@ section {
     columns: 25em 2;
     padding: 1em 1em;
     color: #fff;
-    
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
 }
 .description {
     font-size: 80%;
@@ -276,6 +317,9 @@ section {
     padding: 0.5em 0.5em 0 1em;
     font-weight: bold;
     color: #000;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
 }
 #vocabulary ul {
     list-style: none;
@@ -286,9 +330,6 @@ section {
     cursor: pointer;
     padding-left: 0.5em;
     text-indent: -0.5em;
-    -webkit-column-break-inside: avoid;
-    page-break-inside: avoid;
-    break-inside: avoid;
 }
 #vocabulary li:hover {
     font-weight: bold;

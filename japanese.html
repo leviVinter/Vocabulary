@@ -21,7 +21,7 @@
 	<div id="wrapper">
 	<header>
 		<div class="headerContent">
-			<a href="#" id="logo">MemoNet</a>
+			<a href="index.html" id="logo">MemoNet</a>
 			<nav id="headerNav">
 				<a href="#" id="login">Login</a>
 				<a href="#" id="signup">Signup</a>
@@ -31,10 +31,10 @@
 	<nav id="navigation">
         <div class="headerContent">
             <div>
-                <a href="#" onclick="return false;" id="topic">Japanese</a>
+                <a href="japanese.html" id="topic">Japanese</a>
             </div>
             <div>
-                <a href="#" onclick="return false;" id="addWord">Add Word</a>
+                <a href="#" id="addWord">Add Word</a>
 				<div id="addWordBlock" class="hideDropDown">
 					<form>
 						<label for="word">Word</label>
@@ -54,7 +54,7 @@
 				</div>
             </div>
             <div>
-                <a href="#" onclick="return false;" id="addCategory">Add Category</a>
+                <a href="#" id="addCategory">Add Category</a>
 				<div id="addCategoryBlock" class="hideDropDown">
 					<form>
 						<label for="name" id="categoryLabel">Name</label>
@@ -64,7 +64,7 @@
 				</div>
             </div>
             <div>
-                <a href="#" onclick="return false;" id="roadmaps">Memory Palaces</a>
+                <a href="#" id="roadmaps">Memory Palaces</a>
 				<div id="roadmapsBlock" class="hideDropDown">
 					<a href="#" onclick="return false;" id="addRoadmap">Add New</a>
 					<div id="addRoadmapBlock" class="hideDropDown">
@@ -75,6 +75,36 @@
 							<input id="number" type="number" max="30" min="1">
 							<input id="createInputs" type="button" value="Create">
 						</form>
+					</div>
+					<a href="#" onclick="return false;" class="mpList" id="firstMp">Vuollerim</a>
+					<div class="mpListForm hideDropDown">
+						<input type="text" value=""><br>
+						<input type="text" value=""><br>
+						<input type="text" value=""><br>
+						<input type="text" value=""><br>
+						<input type="text" value="">
+					</div>
+					<a href="#" onclick="return false;" id="activeMpList" class="mpList">Mormor</a>
+					<div id="activeMpListForm">
+						<label>&nbsp;&nbsp;1</label>
+						<input class="mpListFormInput" type="text" value="Källaren"><br>
+						<label>&nbsp;&nbsp;2</label>
+						<input class="mpListFormInput" type="text" value="Garaget"><br>
+						<label>&nbsp;&nbsp;3</label>
+						<input class="mpListFormInput" type="text" value="Köket"><br>
+						<label>&nbsp;&nbsp;4</label>
+						<input class="mpListFormInput" type="text" value="Sovrummet"><br>
+						<label>10</label>
+						<input class="mpListFormInput" type="text" value="Vardagsrummet"><br>
+						<input type="button" value="Update">
+					</div>
+					<a href="#" onclick="return false;" class="mpList">Farmor</a>
+					<div class="mpListForm hideDropDown">
+						<input type="text" value=""><br>
+						<input type="text" value=""><br>
+						<input type="text" value=""><br>
+						<input type="text" value=""><br>
+						<input type="text" value="">
 					</div>
 				</div>
             </div>
