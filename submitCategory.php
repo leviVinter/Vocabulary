@@ -12,7 +12,9 @@
     $result = $conn->query($query);
     if(!$result) die("Database access failed: " . $conn->error);
 
-    echo json_encode("Category was added");
+    $returnArr = [$newCategory];
+
+    echo json_encode($returnArr);
 
     $conn->close();
     }

@@ -253,7 +253,7 @@ function displayCategories(arr) {
 				'</div>' +
 			'</div>';
     }
-    document.getElementById("vocabularyDiv").innerHTML = htmlString;
+    document.getElementById("vocabularyDiv").innerHTML += htmlString;
     var category = document.getElementsByClassName("category");
 
     for(var j = 0; j < category.length; j++) {
@@ -274,7 +274,8 @@ function submitCategoryHandleResponse() {
     if (this.readyState == 4) {
         if (this.status == 200) {
             if (this.responseText !== null) {
-                alert(this.responseText);
+                var arr = JSON.parse(this.responseText);
+                displayCategories(arr);
             } else {
                 alert("Ajax error: No data received");
             }
