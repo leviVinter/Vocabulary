@@ -78,7 +78,7 @@ function createInputText(e) {
     br.setAttribute("class", "roadmapPlaces");
     tempCont.appendChild(br);
     var submit = document.createElement("input");
-    submit.setAttribute("type", "submit");
+    submit.setAttribute("type", "button");
     submit.setAttribute("id", "roadmapSubmit");
     submit.setAttribute("value", "Add");
     submit.setAttribute("class", "submit roadmapPlaces");
@@ -147,7 +147,7 @@ function createCategoryCont(arr) {
                         '<label for="story">Story</label><br>' +
                         '<textarea name="story">' + arr[i].story + '</textarea>' +
                         '<br>' +
-                        '<input type="submit" class="submit" value="Save Changes">' +
+                        '<input type="button" class="submit" value="Save Changes">' +
                     '</form>' +
                 '</div>' +
             '</li>';
@@ -222,25 +222,24 @@ function toggleActiveLi(e) {
 }
 
 // Add category
-createCategoriesAjaxRequest();
-function createCategoriesAjaxRequest() {
+getCategories();
+function getCategories() {
     var request = new ajaxRequest();
-    request.open("POST", "getCategories.php", true);
-    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    request.onreadystatechange = categoriesHandleResponse;
+    request.open("GET", "getCategories.php", true);
+    request.onreadystatechange = getCategoriesHandleResponse;
     request.send(null);
 }
-function categoriesHandleResponse() {
+function getCategoriesHandleResponse() {
     if(this.readyState == 4) {
         if(this.status == 200) {
             if(this.responseText !== null) {
                 var arr = JSON.parse(this.responseText);
-                createCategories(arr);
+                displayCategories(arr);
             }
         }
     }
 }
-function createCategories(arr) {
+function displayCategories(arr) {
     var htmlString = '';
     for(var i = 0; i < arr.length; i++) {
         var id = arr[i].replace(/\s/g, "");
@@ -257,7 +256,30 @@ function createCategories(arr) {
     document.getElementById("vocabularyDiv").innerHTML = htmlString;
     var category = document.getElementsByClassName("category");
 
-    for(var i = 0; i < category.length; i++) {
-        category[i].addEventListener("click", toggleCategoryCont);
+    for(var j = 0; j < category.length; j++) {
+        category[j].addEventListener("click", toggleCategoryCont);
+    }
+}
+// Add Category
+document.getElementById("submitCategory").addEventListener("click", submitCategory);
+function submitCategory() {
+    var params = "newCategory=" + document.getElementById("categoryName").value;
+    var request = new ajaxRequest();
+    request.open("POST", "submitCategory.php", true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.onreadystatechange = submitCategoryHandleResponse;
+    request.send(params);
+}
+function submitCategoryHandleResponse() {
+    if (this.readyState == 4) {
+        if (this.status == 200) {
+            if (this.responseText !== null) {
+                alert(this.responseText);
+            } else {
+                alert("Ajax error: No data received");
+            }
+        } else {
+            alert("Ajax error: " + this.statusText);
+        }
     }
 }
