@@ -121,14 +121,21 @@ footer {
     width: 13.1em;
 }
 .showDropDown textarea {
-    width: 19em;
+    width: 15.8em;
+    height: 10em;
+    margin-top: 0.5em;
+    font-size: 100%;
+    line-height: 1em;
+}
+#addWordBlock {
+    min-width: 16.3em;
 }
 #topic {
     font-weight: bold;
     font-style: oblique;
 }
 #categoryLabel {
-    width: 3.5em;
+    width: 3.4em;
 }
 #roadmapsBlock {
     min-width: 10em;
@@ -258,7 +265,7 @@ section {
     text-indent: 0;
     font-weight: normal;
     padding-top: 0.5em;
-    padding-bottom: 0.3em;
+    padding-bottom: 1em;
     -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
     break-inside: avoid;
@@ -266,7 +273,7 @@ section {
 #vocabulary li.activeLi {
     background: url(../img/tiled-paper.jpg) repeat 0 0;
     border: 1px solid #D6C85C;
-    padding: 0.5em 0.5em 0.5em 1em;
+    padding: 0.5em 0.5em 0 1em;
     font-weight: bold;
     color: #000;
 }
