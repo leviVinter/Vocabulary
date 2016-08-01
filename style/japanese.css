@@ -296,9 +296,6 @@ section {
     columns: 25em 2;
     padding: 1em 1em;
     color: #fff;
-    -webkit-column-break-inside: avoid;
-    page-break-inside: avoid;
-    break-inside: avoid;
 }
 .description {
     font-size: 80%;
@@ -308,6 +305,7 @@ section {
     padding-top: 0.5em;
     padding-bottom: 1em;
     -webkit-column-break-inside: avoid;
+    -moz-column-break-inside:avoid;
     page-break-inside: avoid;
     break-inside: avoid;
 }
@@ -317,7 +315,9 @@ section {
     padding: 0.5em 0.5em 0 1em;
     font-weight: bold;
     color: #000;
+    overflow: hidden;
     -webkit-column-break-inside: avoid;
+    -moz-column-break-inside:avoid;
     page-break-inside: avoid;
     break-inside: avoid;
 }
