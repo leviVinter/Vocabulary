@@ -118,42 +118,6 @@ function ajaxRequest() {
     }
     return request;
 }
-function createCategoryCont(arr) {
-    var tempCont = document.createDocumentFragment();
-    var n = arr.length;
-    var li = null, div = null, form = null, label1 = null, label2 = null, label3 = null;
-    var input1 = null, input2 = null, input3 = null, textarea = null, input4 = null;
-    var liHtml = null;
-    for (var i = 1; i < n; i++) {
-        li = document.createElement("li");
-        li.className = "liCont";
-        liHtml =
-            '<div class="hideDropDown">' +
-                '<form>' +
-                    '<label for="meaning">Meaning:</label>' +
-                    '<input type="text" name="meaning" value="' + arr[i].meaning + '"><br>' +
-                    '<label for="grammar">Grammar:</label>' +
-                    '<input type="text" name="grammar" value="' + arr[i].grammar + '"><br>' +
-                    '<label for="story">Story</label><br>' +
-                    '<textarea name="story">' + arr[i].story + '</textarea>' +
-                    '<br>' +
-                    '<input type="submit" class="submit" value="Save Changes">' +
-                '</form>' +
-            '</div>';
-        li.innerHTML = arr[i].word + liHtml;
-        tempCont.appendChild(li);
-    }
-    var categoryBlock = document.getElementById(arr[0] + "Block");
-    if(n > 1) {
-        categoryBlock.children[0].appendChild(tempCont);
-    }
-    categoryBlock.className = "categoryCont";
-    var liCont = document.getElementsByClassName("liCont");
-
-    for (var i = 0; i < liCont.length; i++) {
-        liCont[i].addEventListener("click", toggleActiveLi);
-    }
-}
 function categoryContHandleResponse() {
     if (this.readyState == 4) {
         if (this.status == 200) {
@@ -168,11 +132,43 @@ function categoryContHandleResponse() {
         }
     }
 }
+function createCategoryCont(arr) {
+    var n = arr.length;
+    var li = "";
+    for (var i = 1; i < n; i++) {
+        li +=
+            '<li class="liCont">' + arr[i].word +
+                '<div class="hideDropDown">' +
+                    '<form>' +
+                        '<label for="meaning">Meaning:</label>' +
+                        '<input type="text" name="meaning" value="' + arr[i].meaning + '"><br>' +
+                        '<label for="grammar">Grammar:</label>' +
+                        '<input type="text" name="grammar" value="' + arr[i].grammar + '"><br>' +
+                        '<label for="story">Story</label><br>' +
+                        '<textarea name="story">' + arr[i].story + '</textarea>' +
+                        '<br>' +
+                        '<input type="submit" class="submit" value="Save Changes">' +
+                    '</form>' +
+                '</div>' +
+            '</li>';
+    }
+    var id = arr[0].replace(/\s/g, "");
+    var categoryBlock = document.getElementById(id + "Block");
+    if(n > 1) {
+        categoryBlock.children[0].innerHTML = li;
+    }
+    categoryBlock.className = "categoryCont";
+    var liCont = document.getElementsByClassName("liCont");
+
+    for (var i = 0; i < liCont.length; i++) {
+        liCont[i].addEventListener("click", toggleActiveLi);
+    }
+}
 
 function toggleCategoryCont(e) {
     var x = document.getElementById(e.currentTarget.parentNode.id + "Block");
     if (!x.children[0].children[0] && x.className == "hideDropDown") {
-        var id = e.currentTarget.parentNode.id;
+        var id = e.currentTarget.children[0].innerHTML;
         var params = "category=" + id;
         var request = new ajaxRequest();
         request.open("POST", "getWords.php", true);
@@ -193,11 +189,6 @@ function toggleCategoryCont(e) {
     }
 }
 
-var category = document.getElementsByClassName("category");
-
-for(var i = 0; i < category.length; i++) {
-    category[i].addEventListener("click", toggleCategoryCont);
-}
 function autoGrowTextArea(textArea) {
     var textField = textArea;
     if(textArea.target) {
@@ -210,12 +201,6 @@ function autoGrowTextArea(textArea) {
             (textField.scrollHeight * 2 - textField.clientHeight) + "px";
         }
     }
-}
-
-var liCont = document.getElementsByClassName("liCont");
-
-for (var i = 0; i < liCont.length; i++) {
-    liCont[i].addEventListener("click", toggleActiveLi);
 }
 
 function toggleActiveLi(e) {
@@ -234,4 +219,45 @@ function toggleActiveLi(e) {
     var textarea = child.children[0].children[8];
     autoGrowTextArea(textarea);
     textarea.addEventListener("keyup", autoGrowTextArea);
+}
+
+// Add category
+createCategoriesAjaxRequest();
+function createCategoriesAjaxRequest() {
+    var request = new ajaxRequest();
+    request.open("POST", "getCategories.php", true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.onreadystatechange = categoriesHandleResponse;
+    request.send(null);
+}
+function categoriesHandleResponse() {
+    if(this.readyState == 4) {
+        if(this.status == 200) {
+            if(this.responseText !== null) {
+                var arr = JSON.parse(this.responseText);
+                createCategories(arr);
+            }
+        }
+    }
+}
+function createCategories(arr) {
+    var htmlString = '';
+    for(var i = 0; i < arr.length; i++) {
+        var id = arr[i].replace(/\s/g, "");
+        htmlString +=		
+            '<div id="' + id + '">' +
+				'<a href="#" class="category" onclick="return false"><h2>' + arr[i] + '</h2>' +
+					'<div id="categoryArrow" class="categoryArrow"></div></a>' +
+				'<div id="' + id + 'Block" class="hideDropDown">' +
+					'<ul>' +
+					'</ul>' +
+				'</div>' +
+			'</div>';
+    }
+    document.getElementById("vocabularyDiv").innerHTML = htmlString;
+    var category = document.getElementsByClassName("category");
+
+    for(var i = 0; i < category.length; i++) {
+        category[i].addEventListener("click", toggleCategoryCont);
+    }
 }

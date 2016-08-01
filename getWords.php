@@ -4,6 +4,9 @@ if (isset($_POST['category'])) {
     $conn = new mysqli($hn, $un, $pw, $db);
     if($conn->connect_error) die($conn->connect_error);
 
+    header("Content-Type: application/json");
+    header("Cache-Control: no-cache");
+
     class wordObject {
         public $word, $meaning, $grammar, $story;
     }
