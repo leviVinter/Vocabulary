@@ -112,12 +112,12 @@ footer {
 .showDropDown label, .showDropDown input, select, span {
     margin: 3px 0;
 }
-.showDropDown label {
+.showDropDown label, #addWordCategory {
     float: left;
     width: 5em;
     margin-bottom: 0;
 }
-.showDropDown input[type=text] {
+.showDropDown input[type=text], .showDropDown select {
     width: 13.1em;
 }
 .showDropDown textarea {

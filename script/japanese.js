@@ -241,7 +241,9 @@ function getCategoriesHandleResponse() {
 }
 function displayCategories(arr) {
     var htmlString = '';
+    var optionString = '';
     for(var i = 0; i < arr.length; i++) {
+        //Display categories in main section
         var id = arr[i].replace(/\s/g, "");
         htmlString +=		
             '<div id="' + id + '">' +
@@ -252,6 +254,12 @@ function displayCategories(arr) {
 					'</ul>' +
 				'</div>' +
 			'</div>';
+        //Display options in AddWord select tag
+        if(arr[i] == "Various") {
+            optionString += '<option selected>' + arr[i] + '</option>';
+            continue;
+        }
+        optionString += '<option>' + arr[i] + '</option>';
     }
     document.getElementById("vocabularyDiv").innerHTML += htmlString;
     var category = document.getElementsByClassName("category");
@@ -259,6 +267,7 @@ function displayCategories(arr) {
     for(var j = 0; j < category.length; j++) {
         category[j].addEventListener("click", toggleCategoryCont);
     }
+    document.getElementById("chooseCategory").innerHTML += optionString;
 }
 // Add Category
 document.getElementById("submitCategory").addEventListener("click", submitCategory);
@@ -285,3 +294,4 @@ function submitCategoryHandleResponse() {
         }
     }
 }
+// Display categories in add Word
