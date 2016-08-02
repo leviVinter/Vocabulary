@@ -1,4 +1,4 @@
-var activeBlock = null;
+var activeDropdown = null;
 main();
 
 function main() {
@@ -7,9 +7,9 @@ function main() {
         mpList[i].addEventListener("click", toggleMpForm);
     }
 
-    document.getElementById("addWord").addEventListener("click", toggleDropDown);
-    document.getElementById("addCategory").addEventListener("click", toggleDropDown);
-    document.getElementById("roadmaps").addEventListener("click", toggleDropDown);
+    document.getElementById("addWord").addEventListener("click", toggleDropdown);
+    document.getElementById("addCategory").addEventListener("click", toggleDropdown);
+    document.getElementById("roadmaps").addEventListener("click", toggleDropdown);
     document.getElementById("addRoadmap").addEventListener("click", toggleAddRoadmap);
     document.getElementById("createInputs").addEventListener("click", createInputText);
     document.getElementById("submitCategory").addEventListener("click", submitCategory);
@@ -18,72 +18,77 @@ function main() {
 
 // Navigation
 
-function toggleDropDown(e) {
+function toggleDropdown(e) {
     e.preventDefault();
-    var targetBlock = document.getElementById(e.currentTarget.id + "Block");
-    if (activeBlock) {
-        if (targetBlock.id != activeBlock && targetBlock.parentNode.id != activeBlock) {
-            // Hide other dropdown
-            var a = document.getElementById(activeBlock);
-            a.className = "hideDropDown";
-            if (a.parentNode.className == "showDropDown") {
-                // Also hide Add New Memory Palace's parent
-                a.parentNode.className = "hideDropDown";
-                if (targetBlock == a.parentNode) {
-                    // Avoid re-showing parent
-                    return;
-                }
-            }
-        }
-
-    }
-    if (targetBlock.className === "hideDropDown") {
-        targetBlock.className = "showDropDown";
-        activeBlock = targetBlock.id;
-    } else {
-        targetBlock.className = "hideDropDown";
-
-    }
-    // Close Memory Palace list
+    // Hide Memory Palace forms if they're open
     var mpList = document.getElementsByClassName("mpList activeMpList");
     var mpListForm = document.getElementsByClassName("activeMpListForm");
     while (mpList.length > 0) {
         mpList[0].className = "mpList";
-        mpListForm[0].className = "hideDropDown";
+        mpListForm[0].className = "hideDropdown";
     }
-    
+    // Hide other navigation Dropdown if any is open
+    var targetDropdown = document.getElementById(e.currentTarget.id + "Dropdown");
+    if (activeDropdown && targetDropdown != activeDropdown) {
+        activeDropdown.className = "hideDropdown";
+        // Hide parent of open Dropdown if any
+        if (activeDropdown.parentNode.className == "showDropdown") 
+            activeDropdown.parentNode.className = "hideDropdown";
+    }
+    if (targetDropdown.className == "showDropdown") {
+        targetDropdown.className = "hideDropdown";
+        return;
+    }
+    targetDropdown.className = "showDropdown";
+    activeDropdown = targetDropdown;
 }
 function toggleAddRoadmap(e) {
     e.preventDefault();
-    var target = document.getElementById(e.currentTarget.id + "Block");
+    var target = document.getElementById(e.currentTarget.id + "Dropdown");
     if(target.className == "") {
-        target.className = "hideDropDown";
-        activeBlock = target.parentNode.id;
+        target.className = "hideDropdown";
+        activeDropdown = target.parentNode;
         return;
     }
     target.className = "";
-    activeBlock = target.id;
+    activeDropdown = target;
+}
+function toggleMpForm(e) {
+    var target = e.currentTarget;
+    var form = document.getElementById(target.id + "Form");
+    if (target.className !== "mpList activeMpList") {
+        target.className = "mpList activeMpList";
+        form.className = "activeMpListForm";
+    } else {
+        target.className = "mpList";
+        form.className = "hideDropdown";
+    }
+    if (activeDropdown.id == "addRoadmapDropdown") {
+        return;
+    }
+    activeDropdown = target.parentNode;
 }
 function outsideClick(e) {
-    if (activeBlock) {
-        var a = document.getElementById(activeBlock);
+    if (activeDropdown) {
+        var a = activeDropdown;
         var w = document.getElementById("addWord");
         var c = document.getElementById("addCategory");
         var r = document.getElementById("roadmaps");
         var ar = document.getElementById("addRoadmap");
+        var ard = document.getElementById("addRoadmapDropdown");
         var t = e.target;
         if (t != a && t.parentNode != a && t.parentNode.parentNode != a && 
-            t != w && t != c && t != r && t != ar) {
-            var active = document.getElementById(activeBlock);
-            active.className = "hideDropDown";
-            if (active.parentNode.className == "showDropDown") {
-                active.parentNode.className = "hideDropDown";
+            t != w && t != c && t != r && t != ar &&
+            t.parentNode.children[1] != a) {
+            activeDropdown.className = "hideDropdown";
+            if (activeDropdown.parentNode.className == "showDropdown") {
+                activeDropdown.parentNode.className = "hideDropdown";
             }
             var mpList = document.getElementsByClassName("mpList activeMpList");
             var mpListForm = document.getElementsByClassName("activeMpListForm");
             while (mpList.length > 0) {
                 mpList[0].className = "mpList";
-                mpListForm[0].className = "hideDropDown";
+                mpListForm[0].className = "hideDropdown";
             }
         }
     }
@@ -174,7 +179,7 @@ function createCategoryCont(arr) {
     for (var i = 1; i < n; i++) {
         li +=
             '<li class="liCont">' + arr[i].word +
-                '<div class="hideDropDown">' +
+                '<div class="hideDropdown">' +
                     '<form>' +
                         '<label for="meaning">Meaning:</label>' +
                         '<input type="text" name="meaning" value="' + arr[i].meaning + '"><br>' +
@@ -189,11 +194,11 @@ function createCategoryCont(arr) {
             '</li>';
     }
     var id = arr[0].replace(/\s/g, "");
-    var categoryBlock = document.getElementById(id + "Block");
+    var categoryDropdown = document.getElementById(id + "Dropdown");
     if(n > 1) {
-        categoryBlock.children[0].innerHTML = li;
+        categoryDropdown.children[0].innerHTML = li;
     }
-    categoryBlock.className = "categoryCont";
+    categoryDropdown.className = "categoryCont";
     var liCont = document.getElementsByClassName("liCont");
 
     for (var i = 0; i < liCont.length; i++) {
@@ -202,8 +207,8 @@ function createCategoryCont(arr) {
 }
 
 function toggleCategoryCont(e) {
-    var x = document.getElementById(e.currentTarget.parentNode.id + "Block");
-    if (!x.children[0].children[0] && x.className == "hideDropDown") {
+    var x = document.getElementById(e.currentTarget.parentNode.id + "Dropdown");
+    if (!x.children[0].children[0] && x.className == "hideDropdown") {
         var id = e.currentTarget.children[0].innerHTML;
         var params = "category=" + id;
         var request = new ajaxRequest();
@@ -212,14 +217,14 @@ function toggleCategoryCont(e) {
         request.onreadystatechange = categoryContHandleResponse;
         request.send(params);
     } else {
-        if (x.className == "hideDropDown") {
+        if (x.className == "hideDropdown") {
             x.className = "categoryCont";
         } else {
-            x.className = "hideDropDown";
+            x.className = "hideDropdown";
             var li = x.children[0].children;
             for (var i = 0; i < li.length; i++) {
                 li[i].className = "liCont";
-                li[i].children[0].className = "hideDropDown";
+                li[i].children[0].className = "hideDropdown";
             }
         }
     }
@@ -247,10 +252,10 @@ function toggleActiveLi(e) {
     } else {
         x.className = "liCont";
     }
-    if (child.className == "hideDropDown") {
+    if (child.className == "hideDropdown") {
         child.className = "description";
     } else {
-        child.className = "hideDropDown";
+        child.className = "hideDropdown";
     }
     var textarea = child.children[0].children[8];
     autoGrowTextArea(textarea);
@@ -285,7 +290,7 @@ function displayCategories(arr) {
             '<div id="' + id + '">' +
 				'<a href="#" class="category" onclick="return false"><h2>' + arr[i] + '</h2>' +
 					'<div id="categoryArrow" class="categoryArrow"></div></a>' +
-				'<div id="' + id + 'Block" class="hideDropDown">' +
+				'<div id="' + id + 'Dropdown" class="hideDropdown">' +
 					'<ul>' +
 					'</ul>' +
 				'</div>' +
@@ -331,16 +336,3 @@ function submitCategoryHandleResponse() {
     document.getElementById("categoryName").value = "";
 }
 // Memory Palaces
-
-function toggleMpForm(e) {
-    var target = e.currentTarget;
-    var form = document.getElementById(target.id + "Form");
-    if (target.className !== "mpList activeMpList") {
-        target.className = "mpList activeMpList";
-        form.className = "activeMpListForm";
-    } else {
-        target.className = "mpList";
-        form.className = "hideDropDown";
-    }
-    activeBlock = target.parentNode.id;
-}

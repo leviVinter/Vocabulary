@@ -94,10 +94,10 @@ footer {
     width: 10em;
     padding: 0.4em 0;
 }
-.hideDropDown {
+.hideDropdown {
     display: none;
 }
-.showDropDown {
+.showDropdown {
     display: block;
     background-color: #5E7FCC;
     position: absolute;
@@ -109,25 +109,25 @@ footer {
     text-align: left;
     padding: 8px;
 }
-.showDropDown label, .showDropDown input, select, span {
+.showDropdown label, .showDropdown input, select, span {
     margin: 3px 0;
 }
-.showDropDown label, #addWordCategory {
+.showDropdown label, #addWordCategory {
     float: left;
     width: 5em;
     margin-bottom: 0;
 }
-.showDropDown input[type=text], .showDropDown select {
+.showDropdown input[type=text], .showDropdown select {
     width: 13.1em;
 }
-.showDropDown textarea {
+.showDropdown textarea {
     width: 15.8em;
     height: 10em;
     margin-top: 0.5em;
     font-size: 100%;
     line-height: 1em;
 }
-#addWordBlock {
+#addWordDropdown {
     min-width: 16.3em;
 }
 #topic {
@@ -140,12 +140,12 @@ footer {
 #test {
     overflow-y: auto;
 }
-#roadmapsBlock {
+#roadmapsDropdown {
     min-width: 13em;
     max-height: 30em;
     overflow: auto;
 }
-#addRoadmapBlock {
+#addRoadmapDropdown {
     border-left-width: 1px;
     min-width: 16.5em;
     padding-right: 0;
