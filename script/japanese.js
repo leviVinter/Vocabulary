@@ -1,17 +1,35 @@
+var activeBlock = null;
+main();
+
+function main() {
+    var mpList = document.getElementsByClassName("mpList");
+    for (var i = 0; i < mpList.length; i++) {
+        mpList[i].addEventListener("click", toggleMpForm);
+    }
+
+    document.getElementById("addWord").addEventListener("click", toggleDropDown);
+    document.getElementById("addCategory").addEventListener("click", toggleDropDown);
+    document.getElementById("roadmaps").addEventListener("click", toggleDropDown);
+    document.getElementById("addRoadmap").addEventListener("click", toggleAddRoadmap);
+    document.getElementById("createInputs").addEventListener("click", createInputText);
+    document.getElementById("submitCategory").addEventListener("click", submitCategory);
+    window.addEventListener("click", outsideClick);
+}
+
 // Navigation
 
 function toggleDropDown(e) {
     e.preventDefault();
-    var x = document.getElementById(e.currentTarget.id + "Block");
+    var targetBlock = document.getElementById(e.currentTarget.id + "Block");
     if (activeBlock) {
-        if (x.id != activeBlock && x.parentNode.id != activeBlock) {
+        if (targetBlock.id != activeBlock && targetBlock.parentNode.id != activeBlock) {
             // Hide other dropdown
             var a = document.getElementById(activeBlock);
             a.className = "hideDropDown";
             if (a.parentNode.className == "showDropDown") {
                 // Also hide Add New Memory Palace's parent
                 a.parentNode.className = "hideDropDown";
-                if (x == a.parentNode) {
+                if (targetBlock == a.parentNode) {
                     // Avoid re-showing parent
                     return;
                 }
@@ -19,11 +37,11 @@ function toggleDropDown(e) {
         }
 
     }
-    if (x.className === "hideDropDown") {
-        x.className = "showDropDown";
-        activeBlock = x.id;
+    if (targetBlock.className === "hideDropDown") {
+        targetBlock.className = "showDropDown";
+        activeBlock = targetBlock.id;
     } else {
-        x.className = "hideDropDown";
+        targetBlock.className = "hideDropDown";
 
     }
     // Close Memory Palace list
@@ -34,6 +52,17 @@ function toggleDropDown(e) {
         mpListForm[0].className = "hideDropDown";
     }
     
+}
+function toggleAddRoadmap(e) {
+    e.preventDefault();
+    var target = document.getElementById(e.currentTarget.id + "Block");
+    if(target.className == "") {
+        target.className = "hideDropDown";
+        activeBlock = target.parentNode.id;
+        return;
+    }
+    target.className = "";
+    activeBlock = target.id;
 }
 function outsideClick(e) {
     if (activeBlock) {
@@ -105,19 +134,7 @@ function createInputText(e) {
     
     document.getElementById("addRoadmapForm").appendChild(tempCont);
 }
-var activeBlock = null;
-var addWord = document.getElementById("addWord");
-var addCategory = document.getElementById("addCategory");
-var roadmaps = document.getElementById("roadmaps");
-var addRoadmap = document.getElementById("addRoadmap");
-var createInputs = document.getElementById("createInputs");
 
-addWord.addEventListener("click", toggleDropDown);
-addCategory.addEventListener("click", toggleDropDown);
-roadmaps.addEventListener("click", toggleDropDown);
-addRoadmap.addEventListener("click", toggleDropDown);
-createInputs.addEventListener("click", createInputText);
-window.addEventListener("click", outsideClick);
 
 // Vocabulary section
 function ajaxRequest() {
@@ -240,7 +257,7 @@ function toggleActiveLi(e) {
     textarea.addEventListener("keyup", autoGrowTextArea);
 }
 
-// Add category
+// Display category
 getCategories();
 function getCategories() {
     var request = new ajaxRequest();
@@ -288,8 +305,7 @@ function displayCategories(arr) {
     }
     document.getElementById("chooseCategory").innerHTML += optionString;
 }
-// Add Category
-document.getElementById("submitCategory").addEventListener("click", submitCategory);
+// Create Category
 function submitCategory() {
     var params = "newCategory=" + document.getElementById("categoryName").value;
     var request = new ajaxRequest();
@@ -298,26 +314,24 @@ function submitCategory() {
     request.onreadystatechange = submitCategoryHandleResponse;
     request.send(params);
 }
+
 function submitCategoryHandleResponse() {
-    if (this.readyState == 4) {
-        if (this.status == 200) {
-            if (this.responseText !== null) {
-                var arr = JSON.parse(this.responseText);
-                displayCategories(arr);
-                document.getElementById("categoryName").value = "";
-            } else {
-                alert("Ajax error: No data received");
-            }
-        } else {
-            alert("Ajax error: " + this.statusText);
-        }
+    if (this.readyState != 4) 
+        return;
+    if (this.status != 200) {
+        alert("Ajax error: " + this.statusText);
+        return;
     }
+    if (this.responseText === null) {
+        alert("Ajax error: No data received");
+        return;
+    }
+    var arr = JSON.parse(this.responseText);
+    displayCategories(arr);
+    document.getElementById("categoryName").value = "";
 }
 // Memory Palaces
-var mpList = document.getElementsByClassName("mpList");
-for (var i = 0; i < mpList.length; i++) {
-    mpList[i].addEventListener("click", toggleMpForm);
-}
+
 function toggleMpForm(e) {
     var target = e.currentTarget;
     var form = document.getElementById(target.id + "Form");
@@ -327,9 +341,6 @@ function toggleMpForm(e) {
     } else {
         target.className = "mpList";
         form.className = "hideDropDown";
-    }
-    if (activeBlock == "addRoadmapBlock") {
-        document.getElementById(activeBlock).className = "hideDropDown";
     }
     activeBlock = target.parentNode.id;
 }

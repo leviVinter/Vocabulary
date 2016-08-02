@@ -137,14 +137,15 @@ footer {
 #categoryLabel {
     width: 3.4em;
 }
+#test {
+    overflow-y: auto;
+}
 #roadmapsBlock {
     min-width: 13em;
     max-height: 30em;
     overflow: auto;
 }
 #addRoadmapBlock {
-    top: -2px;
-    left: 7.5em;
     border-left-width: 1px;
     min-width: 16.5em;
     padding-right: 0;
@@ -153,10 +154,7 @@ footer {
 #addRoadmapForm {
     margin-right: 0.3em;
     min-height: 60px;
-    max-height: 28em;
-    overflow: auto;
 }
-
 #addRoadmapLabel {
     width: 3.5em;
 }
