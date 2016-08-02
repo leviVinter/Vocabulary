@@ -213,30 +213,31 @@ input[type=button]:hover {
     margin-right: auto !important;
     margin-top: 0.3em !important;
 }
-#firstMp {
-    padding-top: 1em;
-}
 .mpList {
     display: block;
     padding: 0.3em 0 0.3em 0.3em;
 }
-#activeMpList {
+/* First Memory Palace in navigation list */
+#__0 {
+    padding-top: 1em;
+}
+.activeMpList {
     background-color: #3A518A;
     font-weight: bold;
 }
-#activeMpListForm {
+.activeMpListForm {
     background-color: #3A518A;
     padding-left: 0.2em;
     padding-bottom: 0.3em;
 }
-#activeMpListForm > label {
+.activeMpListForm > label {
     display: inline-block;
     width: 1em;
     margin-left: 0.2em;
     margin-right: 0.7em;
     font-size: 90%;
 }
-#activeMpListForm > input[type=text] {
+.activeMpListForm > input[type=text] {
     display: inline-block;
     color: #ffffff;
     background-color: transparent;
@@ -245,7 +246,7 @@ input[type=button]:hover {
     width: 11.5em;
     font-size: 85%;
 }
-#activeMpListForm > input[type=button] {
+.activeMpListForm > input[type=button] {
     display: block;
     padding: 3px 9px;
     margin: 0.5em auto 0 auto;

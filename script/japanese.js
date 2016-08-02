@@ -5,11 +5,14 @@ function toggleDropDown(e) {
     var x = document.getElementById(e.currentTarget.id + "Block");
     if (activeBlock) {
         if (x.id != activeBlock && x.parentNode.id != activeBlock) {
+            // Hide other dropdown
             var a = document.getElementById(activeBlock);
             a.className = "hideDropDown";
             if (a.parentNode.className == "showDropDown") {
+                // Also hide Add New Memory Palace's parent
                 a.parentNode.className = "hideDropDown";
                 if (x == a.parentNode) {
+                    // Avoid re-showing parent
                     return;
                 }
             }
@@ -21,7 +24,16 @@ function toggleDropDown(e) {
         activeBlock = x.id;
     } else {
         x.className = "hideDropDown";
-    }  
+
+    }
+    // Close Memory Palace list
+    var mpList = document.getElementsByClassName("mpList activeMpList");
+    var mpListForm = document.getElementsByClassName("activeMpListForm");
+    while (mpList) {
+        mpList[0].className = "mpList";
+        mpListForm[0].className = "hideDropDown";
+    }
+    
 }
 function outsideClick(e) {
     if (activeBlock) {
@@ -37,6 +49,12 @@ function outsideClick(e) {
             active.className = "hideDropDown";
             if (active.parentNode.className == "showDropDown") {
                 active.parentNode.className = "hideDropDown";
+            }
+            var mpList = document.getElementsByClassName("mpList activeMpList");
+            var mpListForm = document.getElementsByClassName("activeMpListForm");
+            while (mpList) {
+                mpList[0].className = "mpList";
+                mpListForm[0].className = "hideDropDown";
             }
         }
     }
@@ -295,4 +313,23 @@ function submitCategoryHandleResponse() {
         }
     }
 }
-// Display categories in add Word
+// Memory Palaces
+var mpList = document.getElementsByClassName("mpList");
+for (var i = 0; i < mpList.length; i++) {
+    mpList[i].addEventListener("click", toggleMpForm);
+}
+function toggleMpForm(e) {
+    var target = e.currentTarget;
+    var form = document.getElementById(target.id + "Form");
+    if (target.className !== "mpList activeMpList") {
+        target.className = "mpList activeMpList";
+        form.className = "activeMpListForm";
+    } else {
+        target.className = "mpList";
+        form.className = "hideDropDown";
+    }
+    if (activeBlock == "addRoadmapBlock") {
+        document.getElementById(activeBlock).className = "hideDropDown";
+    }
+    activeBlock = target.parentNode.id;
+}
