@@ -17,23 +17,13 @@ function main() {
 }
 
 // Navigation
-
 function toggleDropdown(e) {
     e.preventDefault();
-    // Hide Memory Palace forms if they're open
-    var mpList = document.getElementsByClassName("mpList activeMpList");
-    var mpListForm = document.getElementsByClassName("activeMpListForm");
-    while (mpList.length > 0) {
-        mpList[0].className = "mpList";
-        mpListForm[0].className = "hideDropdown";
-    }
+    hideMpDropdowns();
     // Hide other navigation Dropdown if any is open
     var targetDropdown = document.getElementById(e.currentTarget.id + "Dropdown");
     if (activeDropdown && targetDropdown != activeDropdown) {
         activeDropdown.className = "hideDropdown";
-        // Hide parent of open Dropdown if any
-        if (activeDropdown.parentNode.className == "showDropdown") 
-            activeDropdown.parentNode.className = "hideDropdown";
     }
     if (targetDropdown.className == "showDropdown") {
         targetDropdown.className = "hideDropdown";
@@ -45,17 +35,15 @@ function toggleDropdown(e) {
 function toggleAddRoadmap(e) {
     e.preventDefault();
     var target = document.getElementById(e.currentTarget.id + "Dropdown");
-    if(target.className == "") {
+    if(target.className === "") {
         target.className = "hideDropdown";
-        activeDropdown = target.parentNode;
         return;
     }
     target.className = "";
-    activeDropdown = target;
 }
 function toggleMpForm(e) {
     var target = e.currentTarget;
-    var form = document.getElementById(target.id + "Form");
+    var form = document.getElementById(target.id + "Dropdown");
     if (target.className !== "mpList activeMpList") {
         target.className = "mpList activeMpList";
         form.className = "activeMpListForm";
@@ -63,46 +51,46 @@ function toggleMpForm(e) {
         target.className = "mpList";
         form.className = "hideDropdown";
     }
-    if (activeDropdown.id == "addRoadmapDropdown") {
-        return;
-    }
-    activeDropdown = target.parentNode;
 }
 function outsideClick(e) {
-    if (activeDropdown) {
-        var a = activeDropdown;
-        var w = document.getElementById("addWord");
-        var c = document.getElementById("addCategory");
-        var r = document.getElementById("roadmaps");
-        var ar = document.getElementById("addRoadmap");
-        var ard = document.getElementById("addRoadmapDropdown");
-        var t = e.target;
-        if (t != a && t.parentNode != a && t.parentNode.parentNode != a && 
-            t != w && t != c && t != r && t != ar &&
-            t.parentNode.children[1] != a) {
-            activeDropdown.className = "hideDropdown";
-            if (activeDropdown.parentNode.className == "showDropdown") {
-                activeDropdown.parentNode.className = "hideDropdown";
-            }
-            var mpList = document.getElementsByClassName("mpList activeMpList");
-            var mpListForm = document.getElementsByClassName("activeMpListForm");
-            while (mpList.length > 0) {
-                mpList[0].className = "mpList";
-                mpListForm[0].className = "hideDropdown";
-            }
-        }
+    if (!activeDropdown) 
+        return;
+    var a = activeDropdown;
+    var w = document.getElementById("addWord");
+    var c = document.getElementById("addCategory");
+    var r = document.getElementById("roadmaps");
+    var ar = document.getElementById("addRoadmap");
+    var ard = document.getElementById("addRoadmapDropdown");
+    var t = e.target;
+
+    if (t != a && t.parentNode != a && t.parentNode.parentNode != a &&  
+        t.parentNode.parentNode.parentNode != a &&
+        t != w && t != c && t != r && t != ar) {
+        activeDropdown.className = "hideDropdown";
+        hideMpDropdowns();
+    }
+}
+function hideMpDropdowns() {
+    document.getElementById("addRoadmapDropdown").className = "hideDropdown";
+    var mpList = document.getElementsByClassName("mpList activeMpList");
+    var mpListForm = document.getElementsByClassName("activeMpListForm");
+    while (mpList.length > 0) {
+        mpList[0].className = "mpList";
+        mpListForm[0].className = "hideDropdown";
     }
 }
 function createInputText(e) {
     if(document.getElementsByClassName("addRoadmapPlaces")) {
         var removeInput = document.getElementsByClassName("addRoadmapPlaces");
-        var n = removeInput.length;
-        for(var i = 0; i < n; i++) {
+        var length = removeInput.length;
+        for(var i = 0; i < length; i++) {
             removeInput[0].parentNode.removeChild(removeInput[0]);
         }
     }
-    var x = document.getElementById("number");
-    var n = x.value;
+    var n = document.getElementById("number").value;
+    if (n <= 0) {
+        return;
+    }
     if(n > 30) {
         n = 30;
     }
@@ -110,19 +98,19 @@ function createInputText(e) {
     var tempCont = document.createDocumentFragment();
     var input = null;
     var label = null;
-    for(var i = 0; i < n; i++) {
+    for(var j = 0; j < n; j++) {
         label = document.createElement("label");
-        label.setAttribute("for", i);
+        label.setAttribute("for", j);
         label.setAttribute("class", "addRoadmapPlaces");
-        if (i < 9) {
+        if (j < 9) {
             label.innerHTML = "&nbsp&nbsp";
-            label.innerHTML += i + 1;
+            label.innerHTML += j + 1;
         } else {
-            label.innerHTML = i + 1;
+            label.innerHTML = j + 1;
         }
         input = document.createElement("input");
         input.setAttribute("type", "text");
-        input.setAttribute("name", i);
+        input.setAttribute("name", j);
         input.setAttribute("class", "addRoadmapPlaces");
         tempCont.appendChild(label);
         tempCont.appendChild(input);
@@ -201,8 +189,8 @@ function createCategoryCont(arr) {
     categoryDropdown.className = "categoryCont";
     var liCont = document.getElementsByClassName("liCont");
 
-    for (var i = 0; i < liCont.length; i++) {
-        liCont[i].addEventListener("click", toggleActiveLi);
+    for (var j = 0; j < liCont.length; j++) {
+        liCont[j].addEventListener("click", toggleActiveLi);
     }
 }
 
@@ -335,4 +323,3 @@ function submitCategoryHandleResponse() {
     displayCategories(arr);
     document.getElementById("categoryName").value = "";
 }
-// Memory Palaces
