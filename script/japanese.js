@@ -29,7 +29,7 @@ function toggleDropDown(e) {
     // Close Memory Palace list
     var mpList = document.getElementsByClassName("mpList activeMpList");
     var mpListForm = document.getElementsByClassName("activeMpListForm");
-    while (mpList) {
+    while (mpList.length > 0) {
         mpList[0].className = "mpList";
         mpListForm[0].className = "hideDropDown";
     }
@@ -52,7 +52,7 @@ function outsideClick(e) {
             }
             var mpList = document.getElementsByClassName("mpList activeMpList");
             var mpListForm = document.getElementsByClassName("activeMpListForm");
-            while (mpList) {
+            while (mpList.length > 0) {
                 mpList[0].className = "mpList";
                 mpListForm[0].className = "hideDropDown";
             }
@@ -60,8 +60,8 @@ function outsideClick(e) {
     }
 }
 function createInputText(e) {
-    if(document.getElementsByClassName("roadmapPlaces")) {
-        var removeInput = document.getElementsByClassName("roadmapPlaces");
+    if(document.getElementsByClassName("addRoadmapPlaces")) {
+        var removeInput = document.getElementsByClassName("addRoadmapPlaces");
         var n = removeInput.length;
         for(var i = 0; i < n; i++) {
             removeInput[0].parentNode.removeChild(removeInput[0]);
@@ -79,7 +79,7 @@ function createInputText(e) {
     for(var i = 0; i < n; i++) {
         label = document.createElement("label");
         label.setAttribute("for", i);
-        label.setAttribute("class", "roadmapPlaces");
+        label.setAttribute("class", "addRoadmapPlaces");
         if (i < 9) {
             label.innerHTML = "&nbsp&nbsp";
             label.innerHTML += i + 1;
@@ -89,21 +89,21 @@ function createInputText(e) {
         input = document.createElement("input");
         input.setAttribute("type", "text");
         input.setAttribute("name", i);
-        input.setAttribute("class", "roadmapPlaces");
+        input.setAttribute("class", "addRoadmapPlaces");
         tempCont.appendChild(label);
         tempCont.appendChild(input);
     }
     var br = document.createElement("br");
-    br.setAttribute("class", "roadmapPlaces");
+    br.setAttribute("class", "addRoadmapPlaces");
     tempCont.appendChild(br);
     var submit = document.createElement("input");
     submit.setAttribute("type", "button");
-    submit.setAttribute("id", "roadmapSubmit");
+    submit.setAttribute("id", "addRoadmapSubmit");
     submit.setAttribute("value", "Add");
-    submit.setAttribute("class", "submit roadmapPlaces");
+    submit.setAttribute("class", "submit addRoadmapPlaces");
     tempCont.appendChild(submit);
     
-    document.getElementById("roadmapForm").appendChild(tempCont);
+    document.getElementById("addRoadmapForm").appendChild(tempCont);
 }
 var activeBlock = null;
 var addWord = document.getElementById("addWord");

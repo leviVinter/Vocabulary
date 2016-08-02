@@ -138,7 +138,9 @@ footer {
     width: 3.4em;
 }
 #roadmapsBlock {
-    min-width: 12em;
+    min-width: 13em;
+    max-height: 30em;
+    overflow: auto;
 }
 #addRoadmapBlock {
     top: -2px;
@@ -148,17 +150,17 @@ footer {
     padding-right: 0;
     z-index: 100;
 }
-#roadmapForm {
+#addRoadmapForm {
     margin-right: 0.3em;
     min-height: 60px;
     max-height: 28em;
     overflow: auto;
 }
 
-#roadmapLabel {
+#addRoadmapLabel {
     width: 3.5em;
 }
-#roadmapForm span {
+#addRoadmapForm span {
     margin: 1em 0 0.5em 0.1em;
 }
 #number {
@@ -169,7 +171,7 @@ footer {
     margin: 1em 0 0.5em 0.8em;
     padding: 3px 9px;
 }
-label.roadmapPlaces {
+label.addRoadmapPlaces {
     width: 2em;
     float: left;
     margin-left: 1.5em;
