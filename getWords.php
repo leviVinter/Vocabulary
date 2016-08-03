@@ -13,12 +13,12 @@ if (isset($_POST['category'])) {
     
     $category = $_POST['category'];
 
-    $query = "SELECT categoryNo FROM categories WHERE category='$category'";
+    $query = "SELECT categoryID FROM categories WHERE category='$category'";
     $result = $conn->query($query);
     if(!$result) die("Database access failed: " . $conn->error);
-    $categoryNo = $result->fetch_array(MYSQLI_NUM);
+    $categoryID = $result->fetch_array(MYSQLI_NUM);
 
-    $query = "SELECT word,meaning,grammar,story FROM words WHERE categoryNo='$categoryNo[0]'";
+    $query = "SELECT word,meaning,grammar,story FROM words WHERE categoryID='$categoryID[0]'";
     $result = $conn->query($query);
     if(!$result) die("Database access failed: " . $conn->error);
 
