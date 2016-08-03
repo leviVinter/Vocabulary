@@ -170,54 +170,57 @@ function createCategoryCont(arr) {
     var li = "";
     for (var i = 1; i < n; i++) {
         li +=
-            '<li class="liCont">' + arr[i].word +
+            '<li class="liCont">' + 
+                '<a href="#">' + arr[i].word + '</a>' +
                 '<div class="hideDropdown">' +
-                    '<form>' +
-                        '<label for="meaning">Meaning:</label>' +
-                        '<input type="text" name="meaning" value="' + arr[i].meaning + '"><br>' +
-                        '<label for="grammar">Grammar:</label>' +
-                        '<input type="text" name="grammar" value="' + arr[i].grammar + '"><br>' +
-                        '<label for="story">Story</label><br>' +
-                        '<textarea name="story">' + arr[i].story + '</textarea>' +
-                        '<br>' +
-                        '<input type="button" class="submit" value="Save Changes">' +
-                    '</form>' +
+                    '<label for="meaning">Meaning:</label>' +
+                    '<input type="text" name="meaning" value="' + arr[i].meaning + '"><br>' +
+                    '<label for="grammar">Grammar:</label>' +
+                    '<input type="text" name="grammar" value="' + arr[i].grammar + '"><br>' +
+                    '<label for="story">Story</label><br>' +
+                    '<textarea name="story">' + arr[i].story + '</textarea>' +
+                    '<br>' +
+                    '<input type="button" class="submit" value="Save Changes">' +
                 '</div>' +
             '</li>';
     }
+    // put content in the correct category
     var id = arr[0].replace(/\s/g, "");
     var categoryDropdown = document.getElementById(id + "Dropdown");
     if(n > 1) {
         categoryDropdown.children[0].innerHTML = li;
     }
-    categoryDropdown.className = "categoryCont";
+    categoryDropdown.className = "showCategoryCont";
+    // add eventListener for every <a> in the category
     var liCont = document.getElementsByClassName("liCont");
 
     for (var j = 0; j < liCont.length; j++) {
-        liCont[j].addEventListener("click", toggleActiveLi);
+        liCont[j].children[0].addEventListener("click", toggleActiveLi);
     }
 }
 
 function toggleCategoryCont(e) {
-    var x = document.getElementById(e.currentTarget.parentNode.id + "Dropdown");
-    if (!x.children[0].children[0] && x.className == "hideDropdown") {
-        var id = e.currentTarget.children[0].innerHTML;
-        var params = "category=" + id;
+    e.preventDefault();
+    var targetDropdown = document.getElementById(e.currentTarget.parentNode.id + "Dropdown");
+    if (!targetDropdown.children[0].children[0] && targetDropdown.className == "hideDropdown") {
+        var categoryName = e.currentTarget.children[0].innerHTML;
+        var params = "category=" + categoryName;
         var request = new ajaxRequest();
         request.open("POST", "getWords.php", true);
         request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         request.onreadystatechange = categoryContHandleResponse;
         request.send(params);
+        return;
+    }
+
+    if (targetDropdown.className == "hideDropdown") {
+        targetDropdown.className = "showCategoryCont";
     } else {
-        if (x.className == "hideDropdown") {
-            x.className = "categoryCont";
-        } else {
-            x.className = "hideDropdown";
-            var li = x.children[0].children;
-            for (var i = 0; i < li.length; i++) {
-                li[i].className = "liCont";
-                li[i].children[0].className = "hideDropdown";
-            }
+        targetDropdown.className = "hideDropdown";
+        var words = targetDropdown.children[0].children;
+        for (var i = 0; i < words.length; i++) {
+            words[i].className = "liCont";
+            words[i].children[1].className = "hideDropdown";
         }
     }
 }
@@ -237,19 +240,17 @@ function autoGrowTextArea(textArea) {
 }
 
 function toggleActiveLi(e) {
-    var x = e.currentTarget;
-    var child = x.children[0];
-    if (x.className == "liCont") {
-        x.className = "liCont activeLi";
-    } else {
-        x.className = "liCont";
-    }
-    if (child.className == "hideDropdown") {
+    e.preventDefault();
+    var targetParent = e.target.parentNode;
+    var child = targetParent.children[1];
+    if (targetParent.className == "liCont") {
+        targetParent.className = "liCont activeLi";
         child.className = "description";
     } else {
+        targetParent.className = "liCont";
         child.className = "hideDropdown";
     }
-    var textarea = child.children[0].children[8];
+    var textarea = child.children[8];
     autoGrowTextArea(textarea);
     textarea.addEventListener("keyup", autoGrowTextArea);
 }

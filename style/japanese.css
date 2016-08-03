@@ -266,22 +266,22 @@ section {
     padding-top: 6em;
     width: 100%;
 }
-#vocabulary > div {
+#vocabularyDiv {
     max-width: 900px;
     margin: 0 auto;
     padding: 3em 0;
 }
-#vocabulary > div > div {
+#vocabularyDiv > div {
     padding: 1em 0;
     border-bottom: 1px solid #000;
 }
-#vocabulary > div > div:last-child {
+#vocabularyDiv > div:last-child {
     border-bottom: none;
 }
-#vocabulary a {
+#vocabularyDiv a {
     display: inline-block;
 }
-#vocabulary h2 {
+#vocabularyDiv h2 {
     display: inline;
 }
 .categoryArrow {
@@ -291,7 +291,7 @@ section {
     float: right;
     margin: 1em 1em;
 }
-.categoryCont {
+.showCategoryCont {
     background: url(../img/blackboard.png) repeat 0 0;
     background-size: 100%;
     display: block;
@@ -304,10 +304,31 @@ section {
     padding: 1em 1em;
     color: #fff;
 }
+#vocabularyDiv ul {
+    list-style: none;
+    font-size: 130%;
+    line-height: 1.4em;
+}
+#vocabularyDiv li {
+    padding-left: 0.5em;
+}
+#vocabularyDiv li.activeLi {
+    background: url(../img/tiled-paper.jpg) repeat 0 0;
+    border: 1px solid #D6C85C;
+    padding: 0.5em 0.5em 0 0.5em;
+    color: #000;
+    font-weight: bold;
+    overflow: hidden;
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside:avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+#vocabularyDiv li.activeLi a:hover {
+    font-size: 105%;
+}
 .description {
     font-size: 80%;
-    margin-left: -0.5em;
-    text-indent: 0;
     font-weight: normal;
     padding-top: 0.5em;
     padding-bottom: 1em;
@@ -315,31 +336,6 @@ section {
     -moz-column-break-inside:avoid;
     page-break-inside: avoid;
     break-inside: avoid;
-}
-#vocabulary li.activeLi {
-    background: url(../img/tiled-paper.jpg) repeat 0 0;
-    border: 1px solid #D6C85C;
-    padding: 0.5em 0.5em 0 1em;
-    font-weight: bold;
-    color: #000;
-    overflow: hidden;
-    -webkit-column-break-inside: avoid;
-    -moz-column-break-inside:avoid;
-    page-break-inside: avoid;
-    break-inside: avoid;
-}
-#vocabulary ul {
-    list-style: none;
-    font-size: 130%;
-    line-height: 1.4em;
-}
-#vocabulary li {
-    cursor: pointer;
-    padding-left: 0.5em;
-    text-indent: -0.5em;
-}
-#vocabulary li:hover {
-    font-weight: bold;
 }
 .activeLi label {
     display: inline-block;
