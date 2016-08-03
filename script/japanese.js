@@ -151,18 +151,24 @@ function ajaxRequest() {
     }
     return request;
 }
+function handleResponseReturnArray(that) {
+    if (that.readyState !== 4)
+        return;
+    if (that.status !== 200) {
+        alert("Ajax error: " + that.statusText);
+        return;
+    }
+    if (that.responseText === null) {
+        alert("Ajax error: No data received");
+        return;
+    }
+    var arr = JSON.parse(that.responseText);
+    return arr;
+}
 function categoryContHandleResponse() {
-    if (this.readyState == 4) {
-        if (this.status == 200) {
-            if (this.responseText !== null) {
-                var arr = JSON.parse(this.responseText);
-                createCategoryCont(arr);
-            } else {
-                alert("Ajax error: No data received");
-            }
-        } else {
-            alert("Ajax error: " + this.statusText);
-        }
+    var arr = handleResponseReturnArray(this);
+    if (arr) {
+        createCategoryCont(arr);
     }
 }
 function createCategoryCont(arr) {
@@ -223,21 +229,6 @@ function toggleCategoryCont(e) {
         }
     }
 }
-
-function autoGrowTextArea(textArea) {
-    var textField = textArea;
-    if(textArea.target) {
-        textField = textArea.target;
-    }
-    if (textField.clientHeight < textField.scrollHeight) {
-        textField.style.height = textField.scrollHeight + "px";
-        if (textField.clientHeight < textField.scrollHeight) {
-            textField.style.height = 
-            (textField.scrollHeight * 2 - textField.clientHeight) + "px";
-        }
-    }
-}
-
 function toggleActiveLi(e) {
     e.preventDefault();
     var targetParent = e.target.parentNode;
@@ -253,6 +244,19 @@ function toggleActiveLi(e) {
     autoGrowTextArea(textarea);
     textarea.addEventListener("keyup", autoGrowTextArea);
 }
+function autoGrowTextArea(textArea) {
+    var textField = textArea;
+    if(textArea.target) {
+        textField = textArea.target;
+    }
+    if (textField.clientHeight < textField.scrollHeight) {
+        textField.style.height = textField.scrollHeight + "px";
+        if (textField.clientHeight < textField.scrollHeight) {
+            textField.style.height = 
+            (textField.scrollHeight * 2 - textField.clientHeight) + "px";
+        }
+    }
+}
 
 // Display category
 getCategories();
@@ -263,13 +267,9 @@ function getCategories() {
     request.send(null);
 }
 function getCategoriesHandleResponse() {
-    if(this.readyState == 4) {
-        if(this.status == 200) {
-            if(this.responseText !== null) {
-                var arr = JSON.parse(this.responseText);
-                displayCategories(arr);
-            }
-        }
+    var arr = handleResponseReturnArray(this);
+    if (arr) {
+        displayCategories(arr);
     }
 }
 function displayCategories(arr) {
@@ -313,17 +313,9 @@ function submitCategory() {
 }
 
 function submitCategoryHandleResponse() {
-    if (this.readyState != 4) 
-        return;
-    if (this.status != 200) {
-        alert("Ajax error: " + this.statusText);
-        return;
+    var arr = handleResponseReturnArray(this);
+    if (arr) {
+        displayCategories(arr);
+        document.getElementById("categoryName").value = "";
     }
-    if (this.responseText === null) {
-        alert("Ajax error: No data received");
-        return;
-    }
-    var arr = JSON.parse(this.responseText);
-    displayCategories(arr);
-    document.getElementById("categoryName").value = "";
 }
