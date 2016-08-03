@@ -34,12 +34,15 @@ function toggleDropdown(e) {
 }
 function toggleAddRoadmap(e) {
     e.preventDefault();
-    var target = document.getElementById(e.currentTarget.id + "Dropdown");
-    if(target.className === "") {
-        target.className = "hideDropdown";
+    var target = document.getElementById(e.currentTarget.id);
+    var targetDropdown = document.getElementById(e.currentTarget.id + "Dropdown");
+    if(target.className === "activeAddMemopal") {
+        target.className = "";
+        targetDropdown.className = "hideDropdown";
         return;
     }
-    target.className = "";
+    target.className = "activeAddMemopal";
+    targetDropdown.className = "";
 }
 function toggleMpForm(e) {
     var target = e.currentTarget;
@@ -71,6 +74,7 @@ function outsideClick(e) {
     }
 }
 function hideMpDropdowns() {
+    document.getElementById("addRoadmap").className = "";
     document.getElementById("addRoadmapDropdown").className = "hideDropdown";
     var mpList = document.getElementsByClassName("mpList activeMpList");
     var mpListForm = document.getElementsByClassName("activeMpListForm");
@@ -233,7 +237,7 @@ function autoGrowTextArea(textArea) {
 }
 
 function toggleActiveLi(e) {
-    var x = e.target;
+    var x = e.currentTarget;
     var child = x.children[0];
     if (x.className == "liCont") {
         x.className = "liCont activeLi";

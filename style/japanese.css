@@ -137,23 +137,28 @@ footer {
 #categoryLabel {
     width: 3.4em;
 }
-#test {
-    overflow-y: auto;
-}
 #roadmapsDropdown {
-    min-width: 13em;
+    min-width: 17em;
     max-height: 30em;
     overflow: auto;
+    overflow-x: hidden;
+    padding: 0;
+}
+#addRoadmap {
+    display: block;
+    padding: 1em 0em 0.5em 0.5em;
 }
 #addRoadmapDropdown {
-    border-left-width: 1px;
     min-width: 16.5em;
-    padding-right: 0;
-    z-index: 100;
+    padding: 0.5em 0;
+    background-color: #3A518A;
+    padding-left: 1em;
+}
+.activeAddMemopal {
+    background-color: #3A518A;
 }
 #addRoadmapForm {
-    margin-right: 0.3em;
-    min-height: 60px;
+    margin-right: 0em;
 }
 #addRoadmapLabel {
     width: 3.5em;
@@ -215,20 +220,21 @@ input[type=button]:hover {
 }
 .mpList {
     display: block;
-    padding: 0.3em 0 0.3em 0.3em;
+    padding: 0.3em 0 0.3em 0.5em;
 }
 /* First Memory Palace in navigation list */
 #__0 {
-    padding-top: 1em;
+    padding-top: 0.5em;
 }
 .activeMpList {
     background-color: #3A518A;
-    font-weight: bold;
+    padding-left: 0.5em;
 }
 .activeMpListForm {
     background-color: #3A518A;
     padding-left: 0.2em;
-    padding-bottom: 0.3em;
+    padding-bottom: 0.8em;
+    padding-left: 2em;
 }
 .activeMpListForm > label {
     display: inline-block;
