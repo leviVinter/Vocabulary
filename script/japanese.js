@@ -212,7 +212,6 @@ function toggleCategoryCont(e) {
         request.send(params);
         return;
     }
-
     if (targetDropdown.className == "hideDropdown") {
         targetDropdown.className = "showCategoryCont";
     } else {

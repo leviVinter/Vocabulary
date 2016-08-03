@@ -70,3 +70,27 @@ function outsideClick(e) {
         }
     }
 }
+function toggleCategoryCont(e) {
+    e.preventDefault();
+    var targetDropdown = document.getElementById(e.currentTarget.parentNode.id + "Dropdown");
+    if (!targetDropdown.children[0].children[0] && targetDropdown.className == "hideDropdown") {
+        var id = e.currentTarget.children[0].innerHTML;
+        var params = "category=" + id;
+        var request = new ajaxRequest();
+        request.open("POST", "getWords.php", true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.onreadystatechange = categoryContHandleResponse;
+        request.send(params);
+    } else {
+        if (targetDropdown.className == "hideDropdown") {
+            targetDropdown.className = "categoryCont";
+        } else {
+            targetDropdown.className = "hideDropdown";
+            var li = targetDropdown.children[0].children;
+            for (var i = 0; i < li.length; i++) {
+                li[i].className = "liCont";
+                li[i].children[0].className = "hideDropdown";
+            }
+        }
+    }
+}
