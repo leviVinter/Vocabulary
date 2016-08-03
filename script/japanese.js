@@ -9,8 +9,8 @@ function main() {
 
     document.getElementById("addWord").addEventListener("click", toggleDropdown);
     document.getElementById("addCategory").addEventListener("click", toggleDropdown);
-    document.getElementById("roadmaps").addEventListener("click", toggleDropdown);
-    document.getElementById("addRoadmap").addEventListener("click", toggleAddRoadmap);
+    document.getElementById("memopals").addEventListener("click", toggleDropdown);
+    document.getElementById("createMemopal").addEventListener("click", toggleAddRoadmap);
     document.getElementById("createInputs").addEventListener("click", createInputText);
     document.getElementById("submitCategory").addEventListener("click", submitCategory);
     window.addEventListener("click", outsideClick);
@@ -61,9 +61,9 @@ function outsideClick(e) {
     var a = activeDropdown;
     var w = document.getElementById("addWord");
     var c = document.getElementById("addCategory");
-    var r = document.getElementById("roadmaps");
-    var ar = document.getElementById("addRoadmap");
-    var ard = document.getElementById("addRoadmapDropdown");
+    var r = document.getElementById("memopals");
+    var ar = document.getElementById("createMemopal");
+    var ard = document.getElementById("createMemopalDropdown");
     var t = e.target;
 
     if (t != a && t.parentNode != a && t.parentNode.parentNode != a &&  
@@ -74,8 +74,8 @@ function outsideClick(e) {
     }
 }
 function hideMpDropdowns() {
-    document.getElementById("addRoadmap").className = "";
-    document.getElementById("addRoadmapDropdown").className = "hideDropdown";
+    document.getElementById("createMemopal").className = "";
+    document.getElementById("createMemopalDropdown").className = "hideDropdown";
     var mpList = document.getElementsByClassName("mpList activeMpList");
     var mpListForm = document.getElementsByClassName("activeMpListForm");
     while (mpList.length > 0) {
@@ -84,11 +84,12 @@ function hideMpDropdowns() {
     }
 }
 function createInputText(e) {
-    if(document.getElementsByClassName("addRoadmapPlaces")) {
-        var removeInput = document.getElementsByClassName("addRoadmapPlaces");
-        var length = removeInput.length;
-        for(var i = 0; i < length; i++) {
+    if(document.getElementsByClassName("createMemopalPlaces")) {
+        var removeInput = document.getElementsByClassName("addMemopalInputButton");
+        var removeLabel = document.getElementsByClassName("createMemopalLabelBr");
+        while (removeInput.length > 0) {
             removeInput[0].parentNode.removeChild(removeInput[0]);
+            removeLabel[0].parentNode.removeChild(removeLabel[0]);
         }
     }
     var n = document.getElementById("number").value;
@@ -105,7 +106,7 @@ function createInputText(e) {
     for(var j = 0; j < n; j++) {
         label = document.createElement("label");
         label.setAttribute("for", j);
-        label.setAttribute("class", "addRoadmapPlaces");
+        label.setAttribute("class", "createMemopalLabelBr");
         if (j < 9) {
             label.innerHTML = "&nbsp&nbsp";
             label.innerHTML += j + 1;
@@ -115,21 +116,21 @@ function createInputText(e) {
         input = document.createElement("input");
         input.setAttribute("type", "text");
         input.setAttribute("name", j);
-        input.setAttribute("class", "addRoadmapPlaces");
+        input.setAttribute("class", "addMemopalInputButton");
         tempCont.appendChild(label);
         tempCont.appendChild(input);
     }
     var br = document.createElement("br");
-    br.setAttribute("class", "addRoadmapPlaces");
+    br.setAttribute("class", "createMemopalLabelBr");
     tempCont.appendChild(br);
     var submit = document.createElement("input");
     submit.setAttribute("type", "button");
-    submit.setAttribute("id", "addRoadmapSubmit");
+    submit.setAttribute("id", "createMemopalSubmit");
     submit.setAttribute("value", "Add");
-    submit.setAttribute("class", "submit addRoadmapPlaces");
+    submit.setAttribute("class", "submit addMemopalInputButton");
     tempCont.appendChild(submit);
-    
-    document.getElementById("addRoadmapForm").appendChild(tempCont);
+    document.getElementById("createMemopalForm").appendChild(tempCont);
+    document.getElementById("createMemopalSubmit").addEventListener("click", submitMemopal);
 }
 
 
@@ -151,7 +152,7 @@ function ajaxRequest() {
     }
     return request;
 }
-function handleResponseReturnArray(that) {
+function handleResponseReturn(that) {
     if (that.readyState !== 4)
         return;
     if (that.status !== 200) {
@@ -166,7 +167,7 @@ function handleResponseReturnArray(that) {
     return arr;
 }
 function categoryContHandleResponse() {
-    var arr = handleResponseReturnArray(this);
+    var arr = handleResponseReturn(this);
     if (arr) {
         createCategoryCont(arr);
     }
@@ -267,7 +268,7 @@ function getCategories() {
     request.send(null);
 }
 function getCategoriesHandleResponse() {
-    var arr = handleResponseReturnArray(this);
+    var arr = handleResponseReturn(this);
     if (arr) {
         displayCategories(arr);
     }
@@ -313,9 +314,42 @@ function submitCategory() {
 }
 
 function submitCategoryHandleResponse() {
-    var arr = handleResponseReturnArray(this);
+    var arr = handleResponseReturn(this);
     if (arr) {
         displayCategories(arr);
         document.getElementById("categoryName").value = "";
     }
+}
+// Create Memory Palace
+
+function submitMemopal(e) {
+    var name = getElementById("createMemopalName").value;
+    if (!name) {
+        alert("Type in name for new Memory Palace");
+        return;
+    }
+    var places = document.getElementsByClassName("createMemopalPlaces");
+    var placesValue = [];
+    for (var i = 0; i < places.length; i++) {
+        if (!places[i].value) {
+            alert("Type in value for each place in the new Memory Palace");
+            return;
+        }
+        placesValue.push(places[i].value);
+    }
+    var request = new ajaxRequest();
+    var params = "name=" + name + "&places=" + placesValue;
+    request.open("POST", "submitMemoryPalace.php", true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.onreadystatechange = submitMemopalHandleResponse;
+    request.send(params);
+}
+function submitMemopalHandleResponse() {
+    var arr = handleResponseReturn(this);
+    if (arr) {
+        displayMemopal(arr);
+    }
+}
+function displayMemopal(arr) {
+    
 }

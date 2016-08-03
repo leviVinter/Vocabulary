@@ -153,18 +153,18 @@ footer {
 #categoryLabel {
     width: 3.4em;
 }
-#roadmapsDropdown {
+#memopalsDropdown {
     min-width: 17em;
     max-height: 30em;
     overflow: auto;
     overflow-x: hidden;
     padding: 0;
 }
-#addRoadmap {
+#createMemopal {
     display: block;
     padding: 1em 0em 0.5em 0.5em;
 }
-#addRoadmapDropdown {
+#createMemopalDropdown {
     min-width: 16.5em;
     padding: 0.5em 0;
     background-color: #3A518A;
@@ -173,13 +173,13 @@ footer {
 .activeAddMemopal {
     background-color: #3A518A;
 }
-#addRoadmapForm {
+#createMemopalForm {
     margin-right: 0em;
 }
-#addRoadmapLabel {
+#createMemopalLabel {
     width: 3.5em;
 }
-#addRoadmapForm span {
+#createMemopalForm span {
     margin: 1em 0 0.5em 0.1em;
 }
 #number {
@@ -190,7 +190,7 @@ footer {
     margin: 1em 0 0.5em 0.8em;
     padding: 3px 9px;
 }
-label.addRoadmapPlaces {
+label.createMemopalLabelBr {
     width: 2em;
     float: left;
     margin-left: 1.5em;
