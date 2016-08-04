@@ -501,6 +501,64 @@ function createWord() {
 function createWordHandleResponse() {
     var obj = handleResponseReturn(this);
     if (obj) {
-        alert(obj);
+        displayWordAfterSubmit(obj);
     }
+}
+function displayWordAfterSubmit(obj) {
+    var li = document.createElement("li");
+    li.className = "liCont";
+    var a = document.createElement("a");
+    a.href = "#";
+    a.innerText = obj.word;
+    var div = document.createElement("div");
+    div.className = "hideDropdown";
+    var labelMeaning = document.createElement("label");
+    labelMeaning.for = "meaning";
+    labelMeaning.innerText = "Meaning:";
+    var inputMeaning = document.createElement("input");
+    inputMeaning.type = "text";
+    inputMeaning.name = "meaning";
+    inputMeaning.value = obj.meaning;
+    var br1 = document.createElement("br");
+    var labelGrammar = document.createElement("label");
+    labelGrammar.for = "grammar";
+    labelGrammar.innerText = "Grammar:";
+    var inputGrammar = document.createElement("input");
+    inputGrammar.type = "text";
+    inputGrammar.name = "grammar";
+    inputGrammar.value = obj.grammar;
+    var br2 = document.createElement("br");
+    var labelStory = document.createElement("label");
+    labelStory.for = "story";
+    labelStory.innerText = "Story";
+    var br3 = document.createElement("br");
+    var textarea = document.createElement("textarea");
+    textarea.name = "story";
+    if (!obj.story) {
+        textarea.value = "";
+    } else {
+        textarea.value = obj.story;
+    }
+    var br4 = document.createElement("br");
+    var button = document.createElement("input");
+    button.type = "button";
+    button.className = "submit";
+    button.value = "Save Changes";
+    div.appendChild(labelMeaning);
+    div.appendChild(inputMeaning);
+    div.appendChild(br1);
+    div.appendChild(labelGrammar);
+    div.appendChild(inputGrammar);
+    div.appendChild(br2);
+    div.appendChild(labelStory);
+    div.appendChild(br3);
+    div.appendChild(textarea);
+    div.appendChild(br4);
+    div.appendChild(button);
+    li.appendChild(a);
+    li.appendChild(div);
+    var id = obj.category.replace(/\s/g, "");
+    var categoryDropdown = document.getElementById(id + "Dropdown");
+    categoryDropdown.children[0].appendChild(li);
+    a.addEventListener("click", toggleActiveLi);
 }

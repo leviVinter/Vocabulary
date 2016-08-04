@@ -60,10 +60,15 @@
     $result = $conn->query($query);
     if(!$result) die("Database access failed in words: " . $conn->error);
 
-    $query = "SELECT * FROM words WHERE word='$word'";
-    $result = $conn->query($query);
-    if(!$result) die("Database access failed: " . $conn->error);
-    $returnString = $result->fetch_array(MYSQLI_NUM);
-
-    echo json_encode($returnString);
+    class wordObject {
+        public $word, $meaning, $grammar, $category, $memopal, $place;
+    }
+    $returnObj = new wordObject();
+    $returnObj->word = $word;
+    $returnObj->meaning = $meaning;
+    $returnObj->grammar = $grammar;
+    $returnObj->category = $category;
+    $returnObj->memopal = $memopal;
+    $returnObj->place = $place;
+    echo json_encode($returnObj);
 ?>
