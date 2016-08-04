@@ -320,7 +320,7 @@ function displayMemopals(arr) {
             } else {
                 memopalsString += '<label>' + j + '</label>';
             }
-            memopalsString += '<input class="mpListFormInput" type="text" value="' + place + '"><br>';
+            memopalsString += '<input class="mpListFormInput __' + id + '" type="text" value="' + place + '"><br>';
         }
         memopalsString += '<input type="button" value="Update"></div>';
     }
@@ -329,10 +329,44 @@ function displayMemopals(arr) {
     document.getElementById("createInputs").addEventListener("click", createInputText);
     document.getElementById("createMemopal").addEventListener("click", toggleAddRoadmap);
     var mpList = document.getElementsByClassName("mpList");
-    for (var i = 0; i < mpList.length; i++) {
-        mpList[i].addEventListener("click", toggleMpForm);
+    for (var k = 0; k < mpList.length; k++) {
+        mpList[k].addEventListener("click", toggleMpForm);
     }
-
+    displayMemopalsInAddWord();
+}
+function displayMemopalsInAddWord() {
+    var chooseMemopal = document.getElementById("chooseMemopal");
+    var memopals = document.getElementsByClassName("mpList");
+    var choosePlace = document.getElementById("choosePlace");
+    var fragment = document.createDocumentFragment();
+    var option = null;
+    for (var i = 0; i < memopals.length; i++) {
+        option = document.createElement("option");
+        option.text = memopals[i].innerText;
+        fragment.appendChild(option);
+    }
+    chooseMemopal.appendChild(fragment);
+    //chooseMemopal.onchange = "displayPlacesInAddWord(this)";
+    chooseMemopal.addEventListener("change", function() {
+        displayPlacesInAddWord(this);
+    });
+}
+function displayPlacesInAddWord(that) {
+    var selectedOption = that.options[that.selectedIndex].text;
+    var id = selectedOption.replace(/\s/g, "");
+    var choosePlace = document.getElementById("choosePlace");
+    while (choosePlace.options.length > 1) {
+        choosePlace.remove(1);
+    }
+    var placeList = document.getElementsByClassName("__" + id);
+    var fragment = document.createDocumentFragment();
+    var option = null;
+    for (var i = 0; i < placeList.length; i++) {
+        option = document.createElement("option");
+        option.text = placeList[i].value;
+        fragment.appendChild(option);
+    }
+    choosePlace.appendChild(fragment);
 }
 // Create Category
 function submitCategory() {
@@ -404,7 +438,7 @@ function displayMemopalAfterSubmit() {
             label.innerHTML = i + 1;
         }
         input = document.createElement("input");
-        input.setAttribute("class", "mpListFormInput");
+        input.className = "mpListFormInput __" + nameId;
         input.setAttribute("type", "text");
         input.setAttribute("value", places[i].value);
         br = document.createElement("br");
@@ -423,7 +457,12 @@ function displayMemopalAfterSubmit() {
     document.getElementById("__" + nameId).addEventListener("click", toggleMpForm);
     // Remove text in inputs
     document.getElementById("createMemopalName").value = "";
-    for (var i = 0; i < places.length; i++) {
-        places[i].value = "";
+    for (var j = 0; j < places.length; j++) {
+        places[j].value = "";
     }
+    // Add Memory Palace as option in Add Word
+    var chooseMemopal = document.getElementById("chooseMemopal");
+    var option = document.createElement("option");
+    option.text = name;
+    chooseMemopal.appendChild(option);
 }
