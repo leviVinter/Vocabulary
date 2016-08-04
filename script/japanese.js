@@ -107,8 +107,8 @@ function createInputText(e) {
     var label = null;
     for(var j = 0; j < n; j++) {
         label = document.createElement("label");
-        label.setAttribute("for", j);
-        label.setAttribute("class", "createMemopalLabel");
+        label.for = j;
+        label.className = "createMemopalLabel";
         if (j < 9) {
             label.innerHTML = "&nbsp&nbsp";
             label.innerHTML += j + 1;
@@ -116,20 +116,20 @@ function createInputText(e) {
             label.innerHTML = j + 1;
         }
         input = document.createElement("input");
-        input.setAttribute("type", "text");
-        input.setAttribute("name", j);
-        input.setAttribute("class", "createMemopalInput");
+        input.type = "text";
+        input.name = j;
+        input.className = "createMemopalInput";
         tempCont.appendChild(label);
         tempCont.appendChild(input);
     }
     var br = document.createElement("br");
-    br.setAttribute("class", "createMemopalBr");
+    br.className = "createMemopalBr";
     tempCont.appendChild(br);
     var submit = document.createElement("input");
-    submit.setAttribute("type", "button");
-    submit.setAttribute("id", "createMemopalSubmit");
-    submit.setAttribute("value", "Add");
-    submit.setAttribute("class", "submit");
+    submit.type = "button";
+    submit.id = "createMemopalSubmit";
+    submit.value = "Add";
+    submit.className = "submit";
     tempCont.appendChild(submit);
     document.getElementById("createMemopalForm").appendChild(tempCont);
     document.getElementById("createMemopalSubmit").addEventListener("click", submitMemopal);
