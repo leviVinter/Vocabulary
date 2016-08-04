@@ -466,3 +466,41 @@ function displayMemopalAfterSubmit() {
     option.text = name;
     chooseMemopal.appendChild(option);
 }
+// Create new word
+document.getElementById("submitWord").addEventListener("click", createWord);
+function createWord() {
+    var word = document.getElementById("addWordWord").value;
+    var meaning = document.getElementById("addWordMeaning").value;
+    var grammar = document.getElementById("addWordGrammar").value;
+    var chooseCategory = document.getElementById("chooseCategory");
+    var category = chooseCategory.options[chooseCategory.selectedIndex].text;
+    var chooseMemopal = document.getElementById("chooseMemopal");
+    var memopal = chooseMemopal.options[chooseMemopal.selectedIndex].text;
+    if (memopal == "Memory Palace")
+        memopal = null;
+    var choosePlace = document.getElementById("choosePlace");
+    var place = choosePlace.options[choosePlace.selectedIndex].text;
+    if (place == "Place")
+        place = null;
+    var story = document.getElementById("addWordStory").value;
+    var params = "word=" + word;
+    // check which parameters to send
+    var valueArr = [meaning, grammar, category, memopal, place, story];
+    var keyArr = ["&meaning=", "&grammar=", "&category=", "&memopal=", "&place=", "&story="];
+    for (var i = 0; i < valueArr.length; i++) {
+        if (valueArr[i]) {
+            params += keyArr[i] + valueArr[i];
+        }
+    }
+    var request = new ajaxRequest();
+    request.open("POST", "createWord.php", true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.onreadystatechange = createWordHandleResponse;
+    request.send(params);
+}
+function createWordHandleResponse() {
+    var obj = handleResponseReturn(this);
+    if (obj) {
+        alert(obj);
+    }
+}
