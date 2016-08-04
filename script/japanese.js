@@ -45,6 +45,7 @@ function toggleAddRoadmap(e) {
     targetDropdown.className = "";
 }
 function toggleMpForm(e) {
+    e.preventDefault();
     var target = e.currentTarget;
     var form = document.getElementById(target.id + "Dropdown");
     if (target.className !== "mpList activeMpList") {
@@ -351,9 +352,52 @@ function submitMemopal(e) {
 function submitMemopalHandleResponse() {
     var arr = handleResponseReturn(this);
     if (arr) {
-        displayMemopal(arr);
+        displayMemopalAfterSubmit();
     }
 }
-function displayMemopal(arr) {
-    alert("Good Job duders");
+function displayMemopalAfterSubmit() {
+    alert("Good Job duder");
+    var name = document.getElementById("createMemopalName").value;
+    var nameId = name.replace(/\s/g, "");
+    var places = document.getElementsByClassName("createMemopalInput");
+    var tempCont = document.createDocumentFragment();
+    var a = document.createElement("a");
+    a.setAttribute("href", "#");
+    a.setAttribute("id", "__" + nameId);
+    a.setAttribute("class", "mpList");
+    a.innerHTML = name;
+    var div = document.createElement("div");
+    div.setAttribute("id", "__" + nameId + "Dropdown");
+    div.setAttribute("class", "hideDropdown");
+    var label = null, input = null, br = null;
+    for (var i = 0; i < places.length; i++) {
+        label = document.createElement("label");
+        if (i < 9) {
+            label.innerHTML = "&nbsp;&nbsp" + (i + 1);
+        } else {
+            label.innerHTML = i + 1;
+        }
+        input = document.createElement("input");
+        input.setAttribute("class", "mpListFormInput");
+        input.setAttribute("type", "text");
+        input.setAttribute("value", places[i].value);
+        br = document.createElement("br");
+        div.appendChild(label);
+        div.appendChild(input);
+        div.appendChild(br);
+    }
+    var button = document.createElement("input");
+    button.setAttribute("id", "mpListUpdate");
+    button.setAttribute("type", "button");
+    button.setAttribute("value", "Update");
+    div.appendChild(button);
+    tempCont.appendChild(a);
+    tempCont.appendChild(div);
+    document.getElementById("memopalsDropdown").appendChild(tempCont);
+    document.getElementById("__" + nameId).addEventListener("click", toggleMpForm);
+    // Remove text in inputs
+    document.getElementById("createMemopalName").value = "";
+    for (var i = 0; i < places.length; i++) {
+        places[i].value = "";
+    }
 }
