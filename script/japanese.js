@@ -2,19 +2,15 @@ var activeDropdown = null;
 main();
 
 function main() {
-    var mpList = document.getElementsByClassName("mpList");
-    for (var i = 0; i < mpList.length; i++) {
-        mpList[i].addEventListener("click", toggleMpForm);
-    }
-
+    loadFromDatabase();
+    addAllEventListeners();
+}
+function addAllEventListeners() {
     document.getElementById("addWord").addEventListener("click", toggleDropdown);
     document.getElementById("addCategory").addEventListener("click", toggleDropdown);
     document.getElementById("memopals").addEventListener("click", toggleDropdown);
-    document.getElementById("createMemopal").addEventListener("click", toggleAddRoadmap);
-    document.getElementById("createInputs").addEventListener("click", createInputText);
     document.getElementById("submitCategory").addEventListener("click", submitCategory);
     window.addEventListener("click", outsideClick);
-    loadFromDatabase();
 }
 
 // Navigation
@@ -309,6 +305,34 @@ function displayCategories(arr) {
         category[j].addEventListener("click", toggleCategoryCont);
     }
     document.getElementById("chooseCategory").innerHTML += optionString;
+}
+function displayMemopals(arr) {
+    var memopalsString = "";
+    for (var i = 0; i < arr.length; i++) {
+        var name = arr[i][0];
+        var id = name.replace(/\s/g, "");
+        memopalsString += '<a href="#" id="__' + id + '" class="mpList">' + name + '</a>' +
+                            '<div id="__' + id + 'Dropdown" class="hideDropdown">';
+        for (var j = 1; j < arr[i].length; j++) {
+            var place = arr[i][j];
+            if (j < 10) {
+                memopalsString += '<label>&nbsp;&nbsp;' + j + '</label>';
+            } else {
+                memopalsString += '<label>' + j + '</label>';
+            }
+            memopalsString += '<input class="mpListFormInput" type="text" value="' + place + '"><br>';
+        }
+        memopalsString += '<input type="button" value="Update"></div>';
+    }
+    document.getElementById("memopalsDropdown").innerHTML += memopalsString;
+    // add eventListeners for Memory Palace navigation tab
+    document.getElementById("createInputs").addEventListener("click", createInputText);
+    document.getElementById("createMemopal").addEventListener("click", toggleAddRoadmap);
+    var mpList = document.getElementsByClassName("mpList");
+    for (var i = 0; i < mpList.length; i++) {
+        mpList[i].addEventListener("click", toggleMpForm);
+    }
+
 }
 // Create Category
 function submitCategory() {

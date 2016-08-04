@@ -29,7 +29,7 @@
         $result->data_seek($j);
         $row = $result->fetch_array(MYSQLI_NUM);
         array_push($tempArr, $row[0]);
-        $subquery = "SELECT place FROM places WHERE places.memoryPalaceID='$row[1]'";
+        $subquery = "SELECT place FROM places WHERE places.memoryPalaceID='$row[1]' ORDER BY placeID";
         $subresult = $conn->query($subquery);
         if(!$subresult) die("Database access failed: " . $conn->error);
         $subrows = $subresult->num_rows;
