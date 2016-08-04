@@ -84,13 +84,17 @@ function hideMpDropdowns() {
     }
 }
 function createInputText(e) {
-    if(document.getElementsByClassName("createMemopalPlaces")) {
-        var removeInput = document.getElementsByClassName("addMemopalInputButton");
-        var removeLabel = document.getElementsByClassName("createMemopalLabelBr");
+    if(document.getElementsByClassName("createMemopalInput").length > 0) {
+        var removeInput = document.getElementsByClassName("createMemopalInput");
+        var removeLabel = document.getElementsByClassName("createMemopalLabel");
         while (removeInput.length > 0) {
             removeInput[0].parentNode.removeChild(removeInput[0]);
             removeLabel[0].parentNode.removeChild(removeLabel[0]);
         }
+        var button = document.getElementById("createMemopalSubmit");
+        button.parentNode.removeChild(button);
+        var br = document.getElementsByClassName("createMemopalBr")[0];
+        br.parentNode.removeChild(br);
     }
     var n = document.getElementById("number").value;
     if (n <= 0) {
@@ -106,7 +110,7 @@ function createInputText(e) {
     for(var j = 0; j < n; j++) {
         label = document.createElement("label");
         label.setAttribute("for", j);
-        label.setAttribute("class", "createMemopalLabelBr");
+        label.setAttribute("class", "createMemopalLabel");
         if (j < 9) {
             label.innerHTML = "&nbsp&nbsp";
             label.innerHTML += j + 1;
@@ -116,18 +120,18 @@ function createInputText(e) {
         input = document.createElement("input");
         input.setAttribute("type", "text");
         input.setAttribute("name", j);
-        input.setAttribute("class", "addMemopalInputButton");
+        input.setAttribute("class", "createMemopalInput");
         tempCont.appendChild(label);
         tempCont.appendChild(input);
     }
     var br = document.createElement("br");
-    br.setAttribute("class", "createMemopalLabelBr");
+    br.setAttribute("class", "createMemopalBr");
     tempCont.appendChild(br);
     var submit = document.createElement("input");
     submit.setAttribute("type", "button");
     submit.setAttribute("id", "createMemopalSubmit");
     submit.setAttribute("value", "Add");
-    submit.setAttribute("class", "submit addMemopalInputButton");
+    submit.setAttribute("class", "submit");
     tempCont.appendChild(submit);
     document.getElementById("createMemopalForm").appendChild(tempCont);
     document.getElementById("createMemopalSubmit").addEventListener("click", submitMemopal);
@@ -323,15 +327,15 @@ function submitCategoryHandleResponse() {
 // Create Memory Palace
 
 function submitMemopal(e) {
-    var name = getElementById("createMemopalName").value;
+    var name = document.getElementById("createMemopalName").value;
     if (!name) {
         alert("Type in name for new Memory Palace");
         return;
     }
-    var places = document.getElementsByClassName("createMemopalPlaces");
+    var places = document.getElementsByClassName("createMemopalInput");
     var placesValue = [];
     for (var i = 0; i < places.length; i++) {
-        if (!places[i].value) {
+        if (places[i].value == "") {
             alert("Type in value for each place in the new Memory Palace");
             return;
         }
@@ -351,5 +355,5 @@ function submitMemopalHandleResponse() {
     }
 }
 function displayMemopal(arr) {
-    
+    alert("Good Job duders");
 }
