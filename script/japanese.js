@@ -14,6 +14,7 @@ function main() {
     document.getElementById("createInputs").addEventListener("click", createInputText);
     document.getElementById("submitCategory").addEventListener("click", submitCategory);
     window.addEventListener("click", outsideClick);
+    loadFromDatabase();
 }
 
 // Navigation
@@ -168,8 +169,8 @@ function handleResponseReturn(that) {
         alert("Ajax error: No data received");
         return;
     }
-    var arr = JSON.parse(that.responseText);
-    return arr;
+    var response = JSON.parse(that.responseText);
+    return response;
 }
 function categoryContHandleResponse() {
     var arr = handleResponseReturn(this);
@@ -264,18 +265,19 @@ function autoGrowTextArea(textArea) {
     }
 }
 
-// Display category
-getCategories();
-function getCategories() {
+// Startup functions
+
+function loadFromDatabase() {
     var request = new ajaxRequest();
-    request.open("GET", "getCategories.php", true);
-    request.onreadystatechange = getCategoriesHandleResponse;
+    request.open("GET", "loadFromDatabase.php", true);
+    request.onreadystatechange = loadFromDatabaseHandleResponse;
     request.send(null);
 }
-function getCategoriesHandleResponse() {
-    var arr = handleResponseReturn(this);
-    if (arr) {
-        displayCategories(arr);
+function loadFromDatabaseHandleResponse() {
+    var obj = handleResponseReturn(this);
+    if (obj) {
+        displayCategories(obj.categories);
+        displayMemopals(obj.memopals);
     }
 }
 function displayCategories(arr) {
