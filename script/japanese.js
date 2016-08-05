@@ -177,19 +177,52 @@ function categoryContHandleResponse() {
 function createCategoryCont(arr) {
     var n = arr.length;
     var li = "";
+    var memopals = document.getElementsByClassName("mpList");
     for (var i = 1; i < n; i++) {
         li +=
             '<li class="liCont">' + 
                 '<a href="#">' + arr[i].word + '</a>' +
-                '<div class="hideDropdown">' +
+                '<div id="word' + arr[i].wordID + '__" class="hideDropdown">' +
                     '<label for="meaning">Meaning:</label>' +
                     '<input type="text" name="meaning" value="' + arr[i].meaning + '"><br>' +
                     '<label for="grammar">Grammar:</label>' +
                     '<input type="text" name="grammar" value="' + arr[i].grammar + '"><br>' +
+                    '<span>Memory Palace</span>' +
+                        '<select>';
+        // Check which memory palace belongs to the word. If none then None is selected
+        if(!arr[i].memopal) {
+                li += '<option selected>None</option>';
+            } else {
+                li += '<option>None</option>';
+            }
+        for (var j = 0; j < memopals.length; j++) {
+            if (arr[i].memopal == memopals[j].innerText) {
+                li += '<option selected>' + memopals[j].innerText + '</option>';
+            } else {
+                li += '<option>' + memopals[j].innerText + '</option>';
+            }
+        }
+        li +=           '</select>' +
+                        '<select>';
+        // Check which place belongs to the word
+        if(!arr[i].memopal) {
+            li += '<option selected>None</option>';
+        } else {
+            var id = arr[i].memopal.replace(/\s/g, "");
+            var places = document.getElementsByClassName("__" + id);
+            for (var k = 0; k < places.length; k++) {
+                if (arr[i].place == places[k].value) {
+                    li += '<option selected>' + places[k].value + '</option>';
+                } else {
+                    li += '<option>' + places[k].value + '</option>';
+                }
+            }
+        }
+        li +=           '</select>' +
                     '<label for="story">Story</label><br>' +
                     '<textarea name="story">' + arr[i].story + '</textarea>' +
                     '<br>' +
-                    '<input type="button" class="submit" value="Save Changes">' +
+                    '<input name="word' + arr[i].wordID + '__" type="button" class="submit" value="Save Changes">' +
                 '</div>' +
             '</li>';
     }
@@ -243,7 +276,7 @@ function toggleActiveLi(e) {
         targetParent.className = "liCont";
         child.className = "hideDropdown";
     }
-    var textarea = child.children[8];
+    var textarea = child.children[11];
     autoGrowTextArea(textarea);
     textarea.addEventListener("keyup", autoGrowTextArea);
 }
@@ -381,6 +414,7 @@ function submitCategory() {
 function submitCategoryHandleResponse() {
     var arr = handleResponseReturn(this);
     if (arr) {
+        alert("You added a new category. Congratulations!");
         displayCategories(arr);
         document.getElementById("categoryName").value = "";
     }
@@ -501,6 +535,7 @@ function createWord() {
 function createWordHandleResponse() {
     var obj = handleResponseReturn(this);
     if (obj) {
+        alert("You added a new word! Congratulations!");
         displayWordAfterSubmit(obj);
     }
 }
