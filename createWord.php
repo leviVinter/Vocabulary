@@ -70,5 +70,6 @@
     $returnObj->category = $category;
     $returnObj->memopal = $memopal;
     $returnObj->place = $place;
-    echo json_encode($returnObj);
+    $returnArr = [$returnObj];
+    echo json_encode($returnArr);
 ?>

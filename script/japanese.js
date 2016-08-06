@@ -171,73 +171,109 @@ function handleResponseReturn(that) {
 function categoryContHandleResponse() {
     var arr = handleResponseReturn(this);
     if (arr) {
-        createCategoryCont(arr);
+        getCategoryCont(arr);
     }
 }
-function createCategoryCont(arr) {
-    var n = arr.length;
-    var li = "";
+function getCategoryCont(arr) {
     var memopals = document.getElementsByClassName("mpList");
-    for (var i = 1; i < n; i++) {
-        li +=
-            '<li class="liCont">' + 
-                '<a href="#">' + arr[i].word + '</a>' +
-                '<div id="word' + arr[i].wordID + '__" class="hideDropdown">' +
-                    '<label for="meaning">Meaning:</label>' +
-                    '<input type="text" name="meaning" value="' + arr[i].meaning + '"><br>' +
-                    '<label for="grammar">Grammar:</label>' +
-                    '<input type="text" name="grammar" value="' + arr[i].grammar + '"><br>' +
-                    '<span>Memory Palace</span>' +
-                        '<select>';
-        // Check which memory palace belongs to the word. If none then None is selected
-        if(!arr[i].memopal) {
-                li += '<option selected>None</option>';
-            } else {
-                li += '<option>None</option>';
-            }
-        for (var j = 0; j < memopals.length; j++) {
-            if (arr[i].memopal == memopals[j].innerText) {
-                li += '<option selected>' + memopals[j].innerText + '</option>';
-            } else {
-                li += '<option>' + memopals[j].innerText + '</option>';
-            }
+    for (var i = 0; i < arr.length; i++) {
+        var li = document.createElement("li");
+        li.className = "liCont";
+        var a = document.createElement("a");
+        a.href = "#";
+        a.innerText = arr[i].word;
+        var div = document.createElement("div");
+        div.id = "word" + arr[i].wordID + "__";
+        div.className = "hideDropdown";
+        var labelMeaning = document.createElement("label");
+        labelMeaning.for = "meaning";
+        labelMeaning.innerText = "Meaning:";
+        var inputMeaning = document.createElement("input");
+        inputMeaning.type = "text";
+        inputMeaning.name = "meaning";
+        inputMeaning.value = arr[i].meaning;
+        var br1 = document.createElement("br");
+        var labelGrammar = document.createElement("label");
+        labelGrammar.for = "grammar";
+        labelGrammar.innerText = "Grammar:";
+        var inputGrammar = document.createElement("input");
+        inputGrammar.type = "text";
+        inputGrammar.name = "grammar";
+        inputGrammar.value = arr[i].grammar;
+        var br2 = document.createElement("br");
+        var span = document.createElement("span");
+        span.innerText = "Memory Palace";
+        var select1 = document.createElement("select");
+        var option = document.createElement("option");
+        if (!arr[i].memopal) {
+            option.selected = true;
         }
-        li +=           '</select>' +
-                        '<select>';
-        // Check which place belongs to the word
-        if(!arr[i].memopal) {
-            li += '<option selected>None</option>';
-        } else {
+        option.text  = "None";
+        select1.appendChild(option);
+        for (var j = 0; j < memopals.length; j++) {
+            option = document.createElement("option");
+            if (memopals[j].innerText == arr[i].memopal) {
+                option.selected = true;
+            }
+            option.text = memopals[j].innerText;
+            select1.appendChild(option);
+        }
+        var br3 = document.createElement("br");
+        var select2 = document.createElement("select");
+        select2.id = "word" + arr[i].wordID + "__Places";
+        select2.className = "secondSelectCategoryCont";
+        option = document.createElement("option");
+        if (arr[i].memopal) {
             var id = arr[i].memopal.replace(/\s/g, "");
             var places = document.getElementsByClassName("__" + id);
             for (var k = 0; k < places.length; k++) {
-                if (arr[i].place == places[k].value) {
-                    li += '<option selected>' + places[k].value + '</option>';
-                } else {
-                    li += '<option>' + places[k].value + '</option>';
+                option = document.createElement("option");
+                option.text = places[k].value;
+                if (places[k].value == arr[i].place) {
+                    option.selected = true;
                 }
+                select2.appendChild(option);
             }
         }
-        li +=           '</select>' +
-                    '<label for="story">Story</label><br>' +
-                    '<textarea name="story">' + arr[i].story + '</textarea>' +
-                    '<br>' +
-                    '<input name="word' + arr[i].wordID + '__" type="button" class="submit" value="Save Changes">' +
-                '</div>' +
-            '</li>';
-    }
-    // put content in the correct category
-    var id = arr[0].replace(/\s/g, "");
-    var categoryDropdown = document.getElementById(id + "Dropdown");
-    if(n > 1) {
-        categoryDropdown.children[0].innerHTML = li;
-    }
-    categoryDropdown.className = "showCategoryCont";
-    // add eventListener for every <a> in the category
-    var liCont = document.getElementsByClassName("liCont");
-
-    for (var j = 0; j < liCont.length; j++) {
-        liCont[j].children[0].addEventListener("click", toggleActiveLi);
+        var labelStory = document.createElement("label");
+        labelStory.for = "story";
+        labelStory.innerText = "Story";
+        var br4 = document.createElement("br");
+        var textarea = document.createElement("textarea");
+        textarea.name = "story";
+        if (!arr[i].story) {
+            textarea.value = "";
+        } else {
+            textarea.value = arr[i].story;
+        }
+        var br5 = document.createElement("br");
+        var button = document.createElement("input");
+        button.type = "button";
+        button.className = "submit";
+        button.value = "Save Changes";
+        div.appendChild(labelMeaning);
+        div.appendChild(inputMeaning);
+        div.appendChild(br1);
+        div.appendChild(labelGrammar);
+        div.appendChild(inputGrammar);
+        div.appendChild(br2);
+        div.appendChild(span);
+        div.appendChild(select1);
+        div.appendChild(br3);
+        div.appendChild(select2);
+        div.appendChild(labelStory);
+        div.appendChild(br4);
+        div.appendChild(textarea);
+        div.appendChild(br5);
+        div.appendChild(button);
+        li.appendChild(a);
+        li.appendChild(div);
+        var idCategory = arr[i].category.replace(/\s/g, "");
+        var categoryDropdown = document.getElementById(idCategory + "Dropdown");
+        categoryDropdown.className = "showCategoryCont";
+        categoryDropdown.children[0].appendChild(li);
+        a.addEventListener("click", toggleActiveLi);
+        select1.addEventListener("change", displayPlacesOnChange);
     }
 }
 
@@ -276,7 +312,7 @@ function toggleActiveLi(e) {
         targetParent.className = "liCont";
         child.className = "hideDropdown";
     }
-    var textarea = child.children[11];
+    var textarea = child.children[12];
     autoGrowTextArea(textarea);
     textarea.addEventListener("keyup", autoGrowTextArea);
 }
@@ -370,7 +406,6 @@ function displayMemopals(arr) {
 function displayMemopalsInAddWord() {
     var chooseMemopal = document.getElementById("chooseMemopal");
     var memopals = document.getElementsByClassName("mpList");
-    var choosePlace = document.getElementById("choosePlace");
     var fragment = document.createDocumentFragment();
     var option = null;
     for (var i = 0; i < memopals.length; i++) {
@@ -379,18 +414,17 @@ function displayMemopalsInAddWord() {
         fragment.appendChild(option);
     }
     chooseMemopal.appendChild(fragment);
-    //chooseMemopal.onchange = "displayPlacesInAddWord(this)";
-    chooseMemopal.addEventListener("change", function() {
-        displayPlacesInAddWord(this);
-    });
+    chooseMemopal.addEventListener("change", displayPlacesOnChange);
 }
-function displayPlacesInAddWord(that) {
-    var selectedOption = that.options[that.selectedIndex].text;
+function displayPlacesOnChange(e) {
+    var target = e.currentTarget;
+    var selectedOption = target.options[target.selectedIndex].text;
     var id = selectedOption.replace(/\s/g, "");
-    var choosePlace = document.getElementById("choosePlace");
-    while (choosePlace.options.length > 1) {
-        choosePlace.remove(1);
+    var choosePlace = document.getElementById(target.parentNode.id + "Places");
+    while (choosePlace.options.length > 0) {
+        choosePlace.remove(0);
     }
+    if (selectedOption == "None") { return; }
     var placeList = document.getElementsByClassName("__" + id);
     var fragment = document.createDocumentFragment();
     var option = null;

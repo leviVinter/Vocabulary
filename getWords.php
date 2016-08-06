@@ -8,13 +8,11 @@ if (isset($_POST['category'])) {
     header("Cache-Control: no-cache");
 
     class wordObject {
-        public $wordID, $word, $meaning, $grammar, $story, $memopal, $place;
+        public $wordID, $word, $meaning, $grammar, $category, $memopal, $place, $story;
     }
     
     $category = $_POST['category'];
 
-    $wordsArray = [];
-    array_push($wordsArray, $category);
 
     $query = "SELECT categoryID FROM categories WHERE category='$category'";
     $result = $conn->query($query);
@@ -27,6 +25,8 @@ if (isset($_POST['category'])) {
 
     $rows = $result->num_rows;
 
+    $wordsArray = [];
+    
     for($j = 0; $j < $rows; $j++) {
         $result->data_seek($j);
         $row = $result->fetch_array(MYSQLI_ASSOC);
@@ -35,6 +35,7 @@ if (isset($_POST['category'])) {
         $object->word = $row["word"];
         $object->meaning = $row["meaning"];
         $object->grammar = $row["grammar"];
+        $object->category = $category;
         $object->story = $row["story"];
         $subquery = "SELECT place,memoryPalace FROM places,memorypalaces WHERE placeID='" . 
                     $row['placeID'] . "' AND memorypalaces.memoryPalaceID=places.memoryPalaceID";
