@@ -23,14 +23,11 @@
     } else {
         $category = $_POST['category'];
     }
-    if(!isset($_POST['memopal'])) {
+    if(!isset($_POST['memopal']) || $_POST['memopal'] == null) {
         $memopal = null;
-    } else {
-        $memopal = $_POST['memopal'];
-    }
-    if(!isset($_POST['place'])) {
         $place = null;
     } else {
+        $memopal = $_POST['memopal'];
         $place = $_POST['place'];
     }
     if(!isset($_POST['story'])) {
