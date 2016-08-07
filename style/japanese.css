@@ -199,6 +199,12 @@
     padding: 1em 1em;
     color: #fff;
 }
+.showCategoryCont .deleteButton {
+    top: -2.7em;
+    left: 53em;
+    width: 2em;
+    height: 2em;
+}
 #mainSectionDiv ul {
     list-style: none;
     font-size: 130%;
@@ -232,19 +238,11 @@
     page-break-inside: avoid;
     break-inside: avoid;
 }
-.deleteButton {
-    background: url(../img/delete-buttons.png) no-repeat 0 0;
-    background-size: 200% auto;
-}
-.deleteButton:hover {
-    background-position-x: -16px;
-}
 .flashcard .deleteButton {
-    position: absolute;
     top: -1.5em;
-    left: 22.5em;
-    width: 1em;
-    height: 1em;  
+    left: 21.5em;
+    width: 2em;
+    height: 2em;
 }
 .flashcard > span {
     margin-right: 1em;

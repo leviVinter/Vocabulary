@@ -132,3 +132,12 @@ input[type=button]:hover {
     margin-right: auto !important;
     margin-top: 0.3em !important;
 }
+.deleteButton {
+    position: absolute;
+    background: url(../img/trashcans.png) no-repeat 0 0;
+    background-size: 200% auto;
+    cursor: pointer;
+}
+.deleteButton:hover {
+    background-position-x: -34px;
+}

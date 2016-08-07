@@ -218,3 +218,34 @@ function displayWordAfterSubmit(obj) {
     categoryDropdown.children[0].appendChild(li);
     a.addEventListener("click", toggleFlashcard);
 }
+function displayCategories(arr) {
+    var htmlString = '';
+    var optionString = '';
+    for(var i = 0; i < arr.length; i++) {
+        //Display categories in main section
+        var id = arr[i].replace(/\s/g, "");
+        htmlString +=		
+            '<div id="' + id + '">' +
+				'<a href="#" class="category" onclick="return false"><h2>' + arr[i] + '</h2>' +
+					'<div id="categoryArrow" class="categoryArrow"></div></a>' +
+				'<div id="' + id + 'Dropdown" class="hideDropdown">' +
+                    '<div class="deleteButton" title="Delete category"></div>' +
+					'<ul>' +
+					'</ul>' +
+				'</div>' +
+			'</div>';
+        //Display options in AddWord select tag
+        if(arr[i] == "Default") {
+            optionString += '<option selected>' + arr[i] + '</option>';
+            continue;
+        }
+        optionString += '<option>' + arr[i] + '</option>';
+    }
+    document.getElementById("mainSectionDiv").innerHTML += htmlString;
+    var category = document.getElementsByClassName("category");
+
+    for(var j = 0; j < category.length; j++) {
+        category[j].addEventListener("click", toggleCategoryCont);
+    }
+    document.getElementById("chooseCategory").innerHTML += optionString;
+}

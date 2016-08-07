@@ -23,34 +23,48 @@ function loadAtStartupHandleResponse() {
     }
 }
 function displayCategories(arr) {
-    var htmlString = '';
-    var optionString = '';
-    for(var i = 0; i < arr.length; i++) {
-        //Display categories in main section
+    var fragmentDiv = document.createDocumentFragment();
+    var fragmentOpt = document.createDocumentFragment();
+    for (var i = 0; i < arr.length; i++) {
         var id = arr[i].replace(/\s/g, "");
-        htmlString +=		
-            '<div id="' + id + '">' +
-				'<a href="#" class="category" onclick="return false"><h2>' + arr[i] + '</h2>' +
-					'<div id="categoryArrow" class="categoryArrow"></div></a>' +
-				'<div id="' + id + 'Dropdown" class="hideDropdown">' +
-					'<ul>' +
-					'</ul>' +
-				'</div>' +
-			'</div>';
-        //Display options in AddWord select tag
-        if(arr[i] == "Various") {
-            optionString += '<option selected>' + arr[i] + '</option>';
-            continue;
+        var div1 = document.createElement("div");
+        div1.id = id;
+        var a = document.createElement("a");
+        a.href = "#";
+        a.className = "category";
+        var h2 = document.createElement("h2");
+        h2.innerText = arr[i];
+        var div2 = document.createElement("div");
+        div2.className = "categoryArrow";
+        a.appendChild(h2);
+        a.appendChild(div2);
+        var div3 = document.createElement("div");
+        div3.id = id + "Dropdown";
+        div3.className = "hideDropdown";
+        var div4 = document.createElement("div");
+        div4.className = "deleteButton";
+        div4.title = "Delete category";
+        var ul = document.createElement("ul");
+        div3.appendChild(div4);
+        div3.appendChild(ul);
+        div1.appendChild(a);
+        div1.appendChild(div3);
+        fragmentDiv.appendChild(div1);
+        // Display options in AddWord select tag
+        var option = document.createElement("option");
+        if (arr[i] == "Default") {
+            option.selected = true;
         }
-        optionString += '<option>' + arr[i] + '</option>';
+        option.text = arr[i];
+        fragmentOpt.appendChild(option);
     }
-    document.getElementById("mainSectionDiv").innerHTML += htmlString;
+    document.getElementById("mainSectionDiv").appendChild(fragmentDiv);
+    document.getElementById("chooseCategory").appendChild(fragmentOpt);
     var category = document.getElementsByClassName("category");
 
     for(var j = 0; j < category.length; j++) {
         category[j].addEventListener("click", toggleCategoryCont);
     }
-    document.getElementById("chooseCategory").innerHTML += optionString;
 }
 function displayMemopals(arr) {
     var memopalsString = "";
@@ -207,7 +221,7 @@ function createCategoryCont(arr) {
         var idCategory = arr[i].category.replace(/\s/g, "");
         var categoryDropdown = document.getElementById(idCategory + "Dropdown");
         categoryDropdown.className = "showCategoryCont";
-        categoryDropdown.children[0].appendChild(li);
+        categoryDropdown.children[1].appendChild(li);
         a.addEventListener("click", toggleFlashcard);
         select1.addEventListener("change", displayPlacesOnChange);
         div2.addEventListener("click", deleteWord);
@@ -254,7 +268,7 @@ function createWordHandleResponse() {
         // Check if the category container is loaded. If not don't add new word to the container
         var categoryContId = arr[0].category.replace(/\s/g, "") + "Dropdown";
         var categoryCont = document.getElementById(categoryContId);
-        if (!categoryCont.children[0].children[0] && categoryCont.className == "hideDropdown")
+        if (!categoryCont.children[1].children[0] && categoryCont.className == "hideDropdown")
           return;
         createCategoryCont(arr);
     }
@@ -365,9 +379,9 @@ function displayMemopalAfterSubmit() {
 // Delete word
 //
 function deleteWord(e) {
-    /*if (!confirm("Do you really want to delete this word?")) {
+    if (!confirm("Do you really want to delete this WORD?")) {
         return;
-    }*/
+    }
     var parentId = e.currentTarget.parentNode.id;
     var length = parentId.length;
     var wordId = parentId.slice(4, length - 2);
@@ -381,8 +395,21 @@ function deleteWord(e) {
 function deleteWordHandleResponse() {
     var str = readyStateChange(this);
     if (str) {
-        alert(str);
-        return;
         deleteWordFromCategoryCont(str);
     }
+}
+function deleteWordFromCategoryCont(str) {
+    var id = "word" + str + "__";
+    var liParent = document.getElementById(id).parentNode;
+    liParent.parentNode.removeChild(liParent);
+}
+//
+// Delete Category
+//
+function deleteCategory(e) {
+    if (!confirm("Do you really want to delete this CATEGORY and all its contents?")) {
+        return;
+    }
+    var category = e.currentTarget.innerText;
+
 }

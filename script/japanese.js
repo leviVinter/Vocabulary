@@ -133,14 +133,14 @@ function hideMemopalDropdowns() {
 function toggleCategoryCont(e) {
     e.preventDefault();
     var targetDropdown = document.getElementById(e.currentTarget.parentNode.id + "Dropdown");
-    if (!targetDropdown.children[0].children[0] && targetDropdown.className == "hideDropdown") {
+    if (!targetDropdown.children[1].children[0] && targetDropdown.className == "hideDropdown") {
         requestCategoryCont(e.currentTarget);
     }
     if (targetDropdown.className == "hideDropdown") {
         targetDropdown.className = "showCategoryCont";
     } else {
         targetDropdown.className = "hideDropdown";
-        var words = targetDropdown.children[0].children;
+        var words = targetDropdown.children[1].children;
         for (var i = 0; i < words.length; i++) {
             words[i].className = "liCont";
             words[i].children[1].className = "hideDropdown";
