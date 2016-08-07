@@ -42,8 +42,11 @@ function displayCategories(arr) {
         div3.id = id + "Dropdown";
         div3.className = "hideDropdown";
         var div4 = document.createElement("div");
-        div4.className = "deleteButton";
-        div4.title = "Delete category";
+        if (arr[i] !== "Default") {
+            div4.className = "deleteButton";
+            div4.title = "Delete category";
+            div4.addEventListener("click", deleteCategory);
+        }
         var ul = document.createElement("ul");
         div3.appendChild(div4);
         div3.appendChild(ul);
@@ -277,7 +280,7 @@ function createWordHandleResponse() {
 // Create Category
 //
 function submitCategory() {
-    var params = "newCategory=" + document.getElementById("categoryName").value;
+    var params = "newCategory=" + document.getElementById("addCategoryName").value;
     var request = new ajaxRequest();
     request.open("POST", "submitCategory.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -305,7 +308,7 @@ function submitMemopal(e) {
     var places = document.getElementsByClassName("addMemopalInput");
     var placesValue = [];
     for (var i = 0; i < places.length; i++) {
-        if (places[i].value == "") {
+        if (places[i].value === "") {
             alert("Type in value for each place in the new Memory Palace");
             return;
         }
@@ -410,6 +413,31 @@ function deleteCategory(e) {
     if (!confirm("Do you really want to delete this CATEGORY and all its contents?")) {
         return;
     }
-    var category = e.currentTarget.innerText;
-
+    var categoryName = e.currentTarget.parentNode.parentNode.children[0].children[0].innerText;
+    var categoryDropdownId = categoryName.replace(/\s/g, "") + "Dropdown";
+    var allLi = document.getElementById(categoryDropdownId).children[1].children;
+    var wordIds = [];
+    for (var i = 0; i < allLi.length; i++) {
+        var flashcardId = allLi[i].children[1].id;
+        var idLength = flashcardId.length;
+        var id = flashcardId.slice(4, idLength - 2);
+        wordIds.push(id);
+    }
+    var params = "category=" + categoryName + "&wordIds=" + wordIds;
+    var request = new ajaxRequest();
+    request.open("POST", "deleteCategory.php", true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.onreadystatechange = deleteCategoryHandleResponse;
+    request.send(params);
+}
+function deleteCategoryHandleResponse() {
+    var str = readyStateChange(this);
+    if (str) {
+        removeCategoryFromMainSection(str);
+    }
+}
+function removeCategoryFromMainSection(str) {
+    var id = str.replace(/\s/g, "");
+    var category = document.getElementById(id);
+    category.parentNode.removeChild(category);
 }
