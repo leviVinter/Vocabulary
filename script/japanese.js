@@ -160,7 +160,7 @@ function toggleFlashcard(e) {
         child.className = "hideDropdown";
     }
     // Make textarea height dynamic
-    var textarea = child.children[12];
+    var textarea = child.children[13];
     autoGrowTextArea(textarea);
     textarea.addEventListener("keyup", autoGrowTextArea);
 }

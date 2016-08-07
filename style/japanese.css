@@ -232,6 +232,20 @@
     page-break-inside: avoid;
     break-inside: avoid;
 }
+.deleteButton {
+    background: url(../img/delete-buttons.png) no-repeat 0 0;
+    background-size: 200% auto;
+}
+.deleteButton:hover {
+    background-position-x: -16px;
+}
+.flashcard .deleteButton {
+    position: absolute;
+    top: -1.5em;
+    left: 22.5em;
+    width: 1em;
+    height: 1em;  
+}
 .flashcard > span {
     margin-right: 1em;
 }
