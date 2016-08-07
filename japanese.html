@@ -7,6 +7,7 @@
 	<meta name="keywords" content="Japanese, English, Svenska, Glossary">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="style/reset.css" rel="stylesheet">
+	<link href="style/style.css" rel="stylesheet">
 	<link href="style/japanese.css" rel="stylesheet">
 	<link href="style/sprites.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Dekko|Itim|Walter+Turncoat|
@@ -31,30 +32,30 @@
 	<nav id="navigation">
         <div class="headerContent">
             <div>
-                <a href="japanese.html" id="topic">Japanese</a>
+                <a href="japanese.html" id="subject">Japanese</a>
             </div>
             <div>
                 <a href="#" id="addWord">Add Word</a>
 				<div id="addWordDropdown" class="hideDropdown">
 					<form>
-						<label for="word">Word</label>
-						<input id="addWordWord" type="text" name="word"><br>
-						<label for="meaning">Meaning</label>
-						<input id="addWordMeaning" type="text" name="meaning"><br>
-						<label for="grammar">Grammar</label>
-						<input id="addWordGrammar" type="text" name="grammar"><br>
+						<label>Word</label>
+						<input id="addWordWord" type="text"><br>
+						<label>Meaning</label>
+						<input id="addWordMeaning" type="text"><br>
+						<label>Grammar</label>
+						<input id="addWordGrammar" type="text"><br>
 						<span id="addWordCategory">Category</span>
 						<select id="chooseCategory"></select>
-						<span id="createWordMemopal">Memory Palace</span>
-						<div id="createWordMemopalAndPlace">
+						<span id="addWordMemopal">Memory Palace</span>
+						<div id="addWordMemopalAndPlace">
 							<select id="chooseMemopal">
 								<option selected>None</option>
 							</select>
-							<select id="createWordMemopalAndPlacePlaces">
+							<select id="addWordMemopalAndPlacePlaces">
 							</select>
 						</div>
-						<label for="story">Story</label><br>
-						<textarea id="addWordStory" name="story"></textarea>
+						<label>Story</label><br>
+						<textarea id="addWordStory"></textarea>
 						<input id="submitWord" type="button" class="submit" value="Add">
 					</form>
 				</div>
@@ -63,8 +64,8 @@
                 <a href="#" id="addCategory">Add Category</a>
 				<div id="addCategoryDropdown" class="hideDropdown">
 					<form>
-						<label for="name" id="categoryLabel">Name</label>
-						<input id="categoryName" type="text" name="name"><br>
+						<label id="addCategoryLabel">Name</label>
+						<input id="addCategoryName" type="text"><br>
 						<input type="button" id="submitCategory" class="submit" value="Add">
 					</form>
 				</div>
@@ -72,25 +73,25 @@
             <div>
                 <a href="#" id="memopals">Memory Palaces</a>
 				<div id="memopalsDropdown" class="hideDropdown">
-					<a href="#" id="createMemopal">Add New</a>
-					<div id="createMemopalDropdown" class="hideDropdown">
-						<form id="createMemopalForm">
-							<label for="name" id="createMemopalLabel">Name</label>
-							<input type="text" id="createMemopalName" name="name"><br>
+					<a href="#" id="addMemopal">Add New</a>
+					<div id="addMemopalDropdown" class="hideDropdown">
+						<form id="addMemopalForm">
+							<label id="addMemopalLabel">Name</label>
+							<input type="text" id="addMemopalName"><br>
 							<span>No. of places</span>
-							<input id="number" type="number" max="30" min="1">
-							<input id="createInputs" type="button" value="Create">
+							<input id="addMemopalNumber" type="number" max="30" min="1">
+							<input id="addMemopalCreateInputs" type="button" value="Create">
 						</form>
 					</div>
 				</div>
             </div>
             <div id="search">
-                <label for="search">Search</label>
+                <label>Search</label>
             </div>
         </div>
     </nav>
-	<section id="vocabulary">
-		<div id="vocabularyDiv">
+	<section id="mainSection">
+		<div id="mainSectionDiv">
 		</div>
 	</section>
 	<footer>

@@ -36,19 +36,19 @@ function toggleAddMemopal(e) {
     targetDropdown.className = "";
 }
 function createAddMemopalInputs(e) {
-    if(document.getElementsByClassName("createMemopalInput").length > 0) {
-        var removeInput = document.getElementsByClassName("createMemopalInput");
-        var removeLabel = document.getElementsByClassName("createMemopalLabel");
+    if(document.getElementsByClassName("addMemopalInput").length > 0) {
+        var removeInput = document.getElementsByClassName("addMemopalInput");
+        var removeLabel = document.getElementsByClassName("addMemopalLabel");
         while (removeInput.length > 0) {
             removeInput[0].parentNode.removeChild(removeInput[0]);
             removeLabel[0].parentNode.removeChild(removeLabel[0]);
         }
-        var button = document.getElementById("createMemopalSubmit");
+        var button = document.getElementById("addMemopalSubmit");
         button.parentNode.removeChild(button);
-        var br = document.getElementsByClassName("createMemopalBr")[0];
+        var br = document.getElementsByClassName("addMemopalBr")[0];
         br.parentNode.removeChild(br);
     }
-    var n = document.getElementById("number").value;
+    var n = document.getElementById("addMemopalNumber").value;
     if (n <= 0) {
         return;
     }
@@ -61,8 +61,7 @@ function createAddMemopalInputs(e) {
     var label = null;
     for(var j = 0; j < n; j++) {
         label = document.createElement("label");
-        label.for = j;
-        label.className = "createMemopalLabel";
+        label.className = "addMemopalLabel";
         if (j < 9) {
             label.innerHTML = "&nbsp&nbsp";
             label.innerHTML += j + 1;
@@ -71,32 +70,31 @@ function createAddMemopalInputs(e) {
         }
         input = document.createElement("input");
         input.type = "text";
-        input.name = j;
-        input.className = "createMemopalInput";
+        input.className = "addMemopalInput";
         tempCont.appendChild(label);
         tempCont.appendChild(input);
     }
     var br = document.createElement("br");
-    br.className = "createMemopalBr";
+    br.className = "addMemopalBr";
     tempCont.appendChild(br);
     var submit = document.createElement("input");
     submit.type = "button";
-    submit.id = "createMemopalSubmit";
+    submit.id = "addMemopalSubmit";
     submit.value = "Add";
     submit.className = "submit";
     tempCont.appendChild(submit);
-    document.getElementById("createMemopalForm").appendChild(tempCont);
-    document.getElementById("createMemopalSubmit").addEventListener("click", submitMemopal);
+    document.getElementById("addMemopalForm").appendChild(tempCont);
+    document.getElementById("addMemopalSubmit").addEventListener("click", submitMemopal);
 }
 function toggleMemopalPlaces(e) {
     e.preventDefault();
     var target = e.currentTarget;
     var form = document.getElementById(target.id + "Dropdown");
-    if (target.className !== "mpList activeMpList") {
-        target.className = "mpList activeMpList";
-        form.className = "activeMpListForm";
+    if (target.className !== "memopalList activeMemopalList") {
+        target.className = "memopalList activeMemopalList";
+        form.className = "activeMemopalListForm";
     } else {
-        target.className = "mpList";
+        target.className = "memopalList";
         form.className = "hideDropdown";
     }
 }
@@ -107,8 +105,8 @@ function hideDropdown(e) {
     var w = document.getElementById("addWord");
     var c = document.getElementById("addCategory");
     var r = document.getElementById("memopals");
-    var ar = document.getElementById("createMemopal");
-    var ard = document.getElementById("createMemopalDropdown");
+    var ar = document.getElementById("addMemopal");
+    var ard = document.getElementById("addMemopalDropdown");
     var t = e.target;
     // Check if a nav dropdown is open. Close if it is
     if (t != a && t.parentNode != a && t.parentNode.parentNode != a &&  
@@ -119,13 +117,13 @@ function hideDropdown(e) {
     }
 }
 function hideMemopalDropdowns() {
-    document.getElementById("createMemopal").className = "";
-    document.getElementById("createMemopalDropdown").className = "hideDropdown";
-    var mpList = document.getElementsByClassName("mpList activeMpList");
-    var mpListForm = document.getElementsByClassName("activeMpListForm");
-    while (mpList.length > 0) {
-        mpList[0].className = "mpList";
-        mpListForm[0].className = "hideDropdown";
+    document.getElementById("addMemopal").className = "";
+    document.getElementById("addMemopalDropdown").className = "hideDropdown";
+    var memopalList = document.getElementsByClassName("memopalList activeMemopalList");
+    var memopalListForm = document.getElementsByClassName("activeMemopalListForm");
+    while (memopalList.length > 0) {
+        memopalList[0].className = "memopalList";
+        memopalListForm[0].className = "hideDropdown";
     }
 }
 
@@ -156,7 +154,7 @@ function toggleFlashcard(e) {
     var child = targetParent.children[1];
     if (targetParent.className == "liCont") {
         targetParent.className = "liCont activeLi";
-        child.className = "description";
+        child.className = "flashcard";
     } else {
         targetParent.className = "liCont";
         child.className = "hideDropdown";
