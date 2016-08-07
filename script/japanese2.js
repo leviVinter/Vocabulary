@@ -210,6 +210,7 @@ function createCategoryCont(arr) {
         categoryDropdown.children[0].appendChild(li);
         a.addEventListener("click", toggleFlashcard);
         select1.addEventListener("change", displayPlacesOnChange);
+        div2.addEventListener("click", deleteWord);
     }
 }
 //
@@ -360,5 +361,28 @@ function displayMemopalAfterSubmit() {
     option.text = name;
     chooseMemopal.appendChild(option);
 }
-
-
+//
+// Delete word
+//
+function deleteWord(e) {
+    /*if (!confirm("Do you really want to delete this word?")) {
+        return;
+    }*/
+    var parentId = e.currentTarget.parentNode.id;
+    var length = parentId.length;
+    var wordId = parentId.slice(4, length - 2);
+    var params = "wordID=" + wordId;
+    var request = new ajaxRequest();
+    request.open("POST", "deleteWord.php", true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.onreadystatechange = deleteWordHandleResponse;
+    request.send(params);
+}
+function deleteWordHandleResponse() {
+    var str = readyStateChange(this);
+    if (str) {
+        alert(str);
+        return;
+        deleteWordFromCategoryCont(str);
+    }
+}
