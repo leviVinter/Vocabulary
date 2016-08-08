@@ -88,6 +88,7 @@ function displayMemopals(arr) {
         var div2 = document.createElement("div");
         div2.className = "deleteButton";
         div2.title = "Delete Memory Palace";
+        div2.addEventListener("click", deleteMemopal);
         div1.appendChild(div2);
         var place = null;
         for (var j = 1; j < arr[i].length; j++) {
@@ -178,6 +179,7 @@ function createCategoryCont(arr) {
         var span = document.createElement("span");
         span.innerText = "Memory Palace";
         var select1 = document.createElement("select");
+        select1.className = "chooseMemopal";
         var option = document.createElement("option");
         if (!arr[i].memopal) {
             option.selected = true;
@@ -265,7 +267,7 @@ function createWord() {
     if (memopal == "None") {
         memopal = null;
     } else {
-      var choosePlace = document.getElementById("choosePlace");
+      var choosePlace = document.getElementById("addWordMemopalAndPlacePlaces");
       place = choosePlace.options[choosePlace.selectedIndex].text;
     }
     var story = document.getElementById("addWordStory").value;
@@ -364,6 +366,7 @@ function displayMemopalAfterSubmit() {
     var div2 = document.createElement("div");
     div2.className = "deleteButton";
     div2.title = "Delete Memory Palace";
+    div2.addEventListener("click", deleteMemopal);
     div1.appendChild(div2);
     var label = null, input = null, br = null;
     for (var i = 0; i < places.length; i++) {
@@ -464,4 +467,45 @@ function removeCategoryFromMainSection(str) {
     var id = str.replace(/\s/g, "");
     var category = document.getElementById(id);
     category.parentNode.removeChild(category);
+}
+//
+// Delete Memopal
+//
+function deleteMemopal(e) {
+    if (!confirm("Do you really want to delete this MEMOPAL?")) {
+        return;
+    }
+    var dropdownId = e.currentTarget.parentNode.id;
+    var memopalId = dropdownId.slice(0, dropdownId.length - 8);
+    var memopal = document.getElementById(memopalId).innerText;
+    var params = "memopal=" + memopal;
+    var request = new ajaxRequest();
+    request.open("POST", "deleteMemopal.php", true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.onreadystatechange = deleteMemopalHandleResponse;
+    request.send(params);
+}
+function deleteMemopalHandleResponse() {
+    var str = readyStateChange(this);
+    if (str) {
+        removeMemopalFromPage(str);
+    }
+}
+function removeMemopalFromPage(str) {
+    var nameId = "__" + str;
+    var dropdown = document.getElementById(nameId + "Dropdown");
+    var name = document.getElementById(nameId);
+    name.parentNode.removeChild(dropdown);
+    name.parentNode.removeChild(name);
+    var chooseMemopals = document.getElementsByClassName("chooseMemopal");
+    for (var i = 0; i < chooseMemopals.length; i++) {
+        var options = chooseMemopals[i].children;
+        for (var j = 0; j < options.length; j++) {
+            var option = options[j];
+            if (option.text == str) {
+                chooseMemopals[i].removeChild(option);
+                break;
+            }
+        }
+    }
 }

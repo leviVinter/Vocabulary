@@ -37,8 +37,8 @@ if (isset($_POST['category'])) {
         $object->grammar = $row["grammar"];
         $object->category = $category;
         $object->story = $row["story"];
-        $subquery = "SELECT place,memoryPalace FROM places,memorypalaces WHERE placeID='" . 
-                    $row['placeID'] . "' AND memorypalaces.memoryPalaceID=places.memoryPalaceID";
+        $subquery = "SELECT place,memoryPalace FROM places NATURAL JOIN memorypalaces 
+                    WHERE placeID='" . $row['placeID'] . "'";
         $subresult = $conn->query($subquery);
         if(!$subresult) die("Database access failed in subquery: " . $conn->error);
         $subrow = $subresult->fetch_array(MYSQLI_NUM);

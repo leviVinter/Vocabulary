@@ -7,7 +7,8 @@ require_once 'login.php';
 try {
     $conn = new PDO("mysql:host=$hn;dbname=$db", $un, $pw);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare('DELETE FROM categories WHERE category = :category');
+    $stmt = $conn->prepare('DELETE FROM categories WHERE category = :category'); 
+            
     $stmt->bindParam(':category', $category);
     $category = $_POST['category'];
     $stmt->execute();
