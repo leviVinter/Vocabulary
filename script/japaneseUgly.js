@@ -278,3 +278,59 @@ function displayMemopals(arr) {
     }
     displayMemopalsInAddWord();
 }
+function displayMemopalAfterSubmit() {
+    alert("Good Job duder");
+    var name = document.getElementById("addMemopalName").value;
+    var nameId = name.replace(/\s/g, "");
+    var places = document.getElementsByClassName("addMemopalInput");
+    var fragment = document.createDocumentFragment();
+    var a = document.createElement("a");
+    a.href = "#";
+    a.id = "__" + nameId;
+    a.className = "memopalList";
+    a.innerHTML = name;
+    var div1 = document.createElement("div");
+    div1.id = "__" + nameId + "Dropdown";
+    div1.className = "hideDropdown";
+    var div2 = document.createElement("div");
+    div2.className = "deleteButton";
+    div2.title = "Delete Memory Palace";
+    div2.addEventListener("click", deleteMemopal);
+    div1.appendChild(div2);
+    var label = null, input = null, br = null;
+    for (var i = 0; i < places.length; i++) {
+        label = document.createElement("label");
+        if (i < 9) {
+            label.innerHTML = "&nbsp;&nbsp" + (i + 1);
+        } else {
+            label.innerHTML = i + 1;
+        }
+        input = document.createElement("input");
+        input.className = "memopalListFormInput __" + nameId;
+        input.type = "text";
+        input.value = places[i].value;
+        br = document.createElement("br");
+        div1.appendChild(label);
+        div1.appendChild(input);
+        div1.appendChild(br);
+    }
+    var button = document.createElement("input");
+    button.id = "memopalListUpdate";
+    button.type = "button";
+    button.value = "Update";
+    div1.appendChild(button);
+    fragment.appendChild(a);
+    fragment.appendChild(div1);
+    document.getElementById("memopalsDropdown").appendChild(fragment);
+    document.getElementById("__" + nameId).addEventListener("click", toggleMemopalPlaces);
+    // Remove text in inputs
+    document.getElementById("addMemopalName").value = "";
+    for (var j = 0; j < places.length; j++) {
+        places[j].value = "";
+    }
+    // Add Memory Palace as option in Add Word
+    var chooseMemopal = document.getElementById("chooseMemopal");
+    var option = document.createElement("option");
+    option.text = name;
+    chooseMemopal.appendChild(option);
+}

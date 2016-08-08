@@ -22,6 +22,7 @@ function loadAtStartupHandleResponse() {
     if (obj) {
         displayCategories(obj.categories);
         displayMemopals(obj.memopals);
+        displayMemopalsInAddWord();
     }
 }
 function displayCategories(arr) {
@@ -82,14 +83,14 @@ function displayMemopals(arr) {
         a.className = "memopalList";
         a.innerText = name;
         a.addEventListener("click", toggleMemopalPlaces);
-        var div1 = document.createElement("div");
-        div1.id = "__" + id + "Dropdown";
-        div1.className = "hideDropdown";
+        var form = document.createElement("form");
+        form.id = "__" + id + "Dropdown";
+        form.className = "hideDropdown";
         var div2 = document.createElement("div");
         div2.className = "deleteButton";
         div2.title = "Delete Memory Palace";
         div2.addEventListener("click", deleteMemopal);
-        div1.appendChild(div2);
+        form.appendChild(div2);
         var place = null;
         for (var j = 1; j < arr[i].length; j++) {
             place = arr[i][j];
@@ -104,19 +105,20 @@ function displayMemopals(arr) {
             input.type = "text";
             input.value = place;
             var br = document.createElement("br");
-            div1.appendChild(label);
-            div1.appendChild(input);
-            div1.appendChild(br);
+            form.appendChild(label);
+            form.appendChild(input);
+            form.appendChild(br);
         }
         var button = document.createElement("input");
         button.type = "button";
         button.value = "Update";
-        div1.appendChild(button);
+        button.addEventListener("click", updateMemopal);
+        form.appendChild(button);
         fragment.appendChild(a);
-        fragment.appendChild(div1);
+        fragment.appendChild(form);
     }
     document.getElementById("memopalsDropdown").appendChild(fragment);
-    displayMemopalsInAddWord();
+    
 }
 function displayMemopalsInAddWord() {
     var chooseMemopal = document.getElementById("chooseMemopal");
@@ -361,64 +363,19 @@ function submitMemopal(e) {
 function submitMemopalHandleResponse() {
     var arr = readyStateChange(this);
     if (arr) {
-        displayMemopalAfterSubmit();
-    }
-}
-function displayMemopalAfterSubmit() {
-    alert("Good Job duder");
-    var name = document.getElementById("addMemopalName").value;
-    var nameId = name.replace(/\s/g, "");
-    var places = document.getElementsByClassName("addMemopalInput");
-    var fragment = document.createDocumentFragment();
-    var a = document.createElement("a");
-    a.href = "#";
-    a.id = "__" + nameId;
-    a.className = "memopalList";
-    a.innerHTML = name;
-    var div1 = document.createElement("div");
-    div1.id = "__" + nameId + "Dropdown";
-    div1.className = "hideDropdown";
-    var div2 = document.createElement("div");
-    div2.className = "deleteButton";
-    div2.title = "Delete Memory Palace";
-    div2.addEventListener("click", deleteMemopal);
-    div1.appendChild(div2);
-    var label = null, input = null, br = null;
-    for (var i = 0; i < places.length; i++) {
-        label = document.createElement("label");
-        if (i < 9) {
-            label.innerHTML = "&nbsp;&nbsp" + (i + 1);
-        } else {
-            label.innerHTML = i + 1;
+        displayMemopals(arr);
+        // Remove text in inputs
+        document.getElementById("addMemopalName").value = "";
+        var places = document.getElementsByClassName("addMemopalInput");
+        for (var j = 0; j < places.length; j++) {
+            places[j].value = "";
         }
-        input = document.createElement("input");
-        input.className = "memopalListFormInput __" + nameId;
-        input.type = "text";
-        input.value = places[i].value;
-        br = document.createElement("br");
-        div1.appendChild(label);
-        div1.appendChild(input);
-        div1.appendChild(br);
+        // Add Memory Palace as option in Add Word
+        var chooseMemopal = document.getElementById("chooseMemopal");
+        var option = document.createElement("option");
+        option.text = arr[0][0];
+        chooseMemopal.appendChild(option);
     }
-    var button = document.createElement("input");
-    button.id = "memopalListUpdate";
-    button.type = "button";
-    button.value = "Update";
-    div1.appendChild(button);
-    fragment.appendChild(a);
-    fragment.appendChild(div1);
-    document.getElementById("memopalsDropdown").appendChild(fragment);
-    document.getElementById("__" + nameId).addEventListener("click", toggleMemopalPlaces);
-    // Remove text in inputs
-    document.getElementById("addMemopalName").value = "";
-    for (var j = 0; j < places.length; j++) {
-        places[j].value = "";
-    }
-    // Add Memory Palace as option in Add Word
-    var chooseMemopal = document.getElementById("chooseMemopal");
-    var option = document.createElement("option");
-    option.text = name;
-    chooseMemopal.appendChild(option);
 }
 //
 // Delete word
@@ -561,5 +518,31 @@ function updateFlashcardHandleResponse() {
     var str = readyStateChange(this);
     if (str) {
         alert("You have updated the flashcard");
+    }
+}
+//
+// Update memopal
+//
+function updateMemopal(e) {
+    var form = e.currentTarget.parentNode;
+    var id = form.id;
+    var nameId = id.slice(0, id.length - 8);
+    var memopal = document.getElementById(nameId).innerText;
+    var places = form.elements;
+    var placesArr = [];
+    for (var i = 0; i < places.length - 1; i++) {
+        placesArr.push(places[i].value);
+    }
+    var params = "memopal=" + memopal + "&places=" + placesArr;
+    var request = new ajaxRequest();
+    request.open("POST", "updateMemopal.php", true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.onreadystatechange = updateMemopalHandleResponse;
+    request.send(params);
+}
+function updateMemopalHandleResponse() {
+    var str = readyStateChange(this);
+    if (str) {
+        alert("This Memory Palace has been updated!");
     }
 }

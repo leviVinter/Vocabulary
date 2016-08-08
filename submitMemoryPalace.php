@@ -23,11 +23,12 @@
         if(!$result) die("Database access failed" . $conn->error);
     }
 
-    $returnArray = [];
-    array_push($returnArray, $name);
-    for($j = 1; $j < count($places); $j++) {
-        array_push($returnArray, $places[$j]);
+    $arr = [];
+    array_push($arr, $name);
+    for($j = 0; $j < count($places); $j++) {
+        array_push($arr, $places[$j]);
     }
+    $returnArr = [$arr];
 
-    echo json_encode($returnArray);
+    echo json_encode($returnArr);
 ?>
