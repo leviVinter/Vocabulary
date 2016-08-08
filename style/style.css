@@ -139,5 +139,5 @@ input[type=button]:hover {
     cursor: pointer;
 }
 .deleteButton:hover {
-    background-position-x: -34px;
+    background-position: -34px 0;
 }

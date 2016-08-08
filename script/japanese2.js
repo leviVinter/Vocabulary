@@ -158,9 +158,9 @@ function createCategoryCont(arr) {
         var a = document.createElement("a");
         a.href = "#";
         a.innerText = arr[i].word;
-        var div1 = document.createElement("div");
-        div1.id = "word" + arr[i].wordID + "__";
-        div1.className = "hideDropdown";
+        var form = document.createElement("form");
+        form.id = "word" + arr[i].wordID + "__";
+        form.className = "hideDropdown";
         var div2 = document.createElement("div");
         div2.className = "deleteButton";
         div2.title = "Delete word";
@@ -169,17 +169,20 @@ function createCategoryCont(arr) {
         var inputMeaning = document.createElement("input");
         inputMeaning.type = "text";
         inputMeaning.value = arr[i].meaning;
+        inputMeaning.name = "meaning";
         var br1 = document.createElement("br");
         var labelGrammar = document.createElement("label");
         labelGrammar.innerText = "Grammar:";
         var inputGrammar = document.createElement("input");
         inputGrammar.type = "text";
         inputGrammar.value = arr[i].grammar;
+        inputGrammar.name = "grammar";
         var br2 = document.createElement("br");
         var span = document.createElement("span");
         span.innerText = "Memory Palace";
         var select1 = document.createElement("select");
         select1.className = "chooseMemopal";
+        select1.name = "memopalSelect";
         var option = document.createElement("option");
         if (!arr[i].memopal) {
             option.selected = true;
@@ -198,6 +201,7 @@ function createCategoryCont(arr) {
         var select2 = document.createElement("select");
         select2.id = "word" + arr[i].wordID + "__Places";
         select2.className = "placeSelectFlashcard";
+        select2.name = "placeSelect";
         option = document.createElement("option");
         if (arr[i].memopal) {
             var id = arr[i].memopal.replace(/\s/g, "");
@@ -220,29 +224,31 @@ function createCategoryCont(arr) {
         } else {
             textarea.value = arr[i].story;
         }
+        textarea.name = "story";
         var br5 = document.createElement("br");
         var button = document.createElement("input");
         button.type = "button";
         button.className = "submit";
         button.value = "Save Changes";
-        div1.appendChild(div2);
-        div1.appendChild(labelMeaning);
-        div1.appendChild(inputMeaning);
-        div1.appendChild(br1);
-        div1.appendChild(labelGrammar);
-        div1.appendChild(inputGrammar);
-        div1.appendChild(br2);
-        div1.appendChild(span);
-        div1.appendChild(select1);
-        div1.appendChild(br3);
-        div1.appendChild(select2);
-        div1.appendChild(labelStory);
-        div1.appendChild(br4);
-        div1.appendChild(textarea);
-        div1.appendChild(br5);
-        div1.appendChild(button);
+        button.addEventListener("click", updateFlashcard);
+        form.appendChild(div2);
+        form.appendChild(labelMeaning);
+        form.appendChild(inputMeaning);
+        form.appendChild(br1);
+        form.appendChild(labelGrammar);
+        form.appendChild(inputGrammar);
+        form.appendChild(br2);
+        form.appendChild(span);
+        form.appendChild(select1);
+        form.appendChild(br3);
+        form.appendChild(select2);
+        form.appendChild(labelStory);
+        form.appendChild(br4);
+        form.appendChild(textarea);
+        form.appendChild(br5);
+        form.appendChild(button);
         li.appendChild(a);
-        li.appendChild(div1);
+        li.appendChild(form);
         var idCategory = arr[i].category.replace(/\s/g, "");
         var categoryDropdown = document.getElementById(idCategory + "Dropdown");
         categoryDropdown.className = "showCategoryCont";
@@ -257,6 +263,10 @@ function createCategoryCont(arr) {
 //
 function createWord() {
     var word = document.getElementById("addWordWord").value;
+    if (!word) {
+        alert("You must type in a word");
+        return;
+    }
     var meaning = document.getElementById("addWordMeaning").value;
     var grammar = document.getElementById("addWordGrammar").value;
     var chooseCategory = document.getElementById("chooseCategory");
@@ -302,6 +312,11 @@ function createWordHandleResponse() {
 // Create Category
 //
 function submitCategory() {
+    var newCategory = document.getElementById("addCategoryName").value;
+    if (!newCategory) {
+        alert("You must type in a category name");
+        return;
+    }
     var params = "newCategory=" + document.getElementById("addCategoryName").value;
     var request = new ajaxRequest();
     request.open("POST", "submitCategory.php", true);
@@ -330,7 +345,7 @@ function submitMemopal(e) {
     var places = document.getElementsByClassName("addMemopalInput");
     var placesValue = [];
     for (var i = 0; i < places.length; i++) {
-        if (places[i].value === "") {
+        if (!places[i].value) {
             alert("Type in value for each place in the new Memory Palace");
             return;
         }
@@ -467,6 +482,13 @@ function removeCategoryFromMainSection(str) {
     var id = str.replace(/\s/g, "");
     var category = document.getElementById(id);
     category.parentNode.removeChild(category);
+    // remove this category from selection in Add Word
+    var categoryOptions = document.getElementById("chooseCategory").children;
+    for (var i = 0; i < categoryOptions.length; i++) {
+        if (categoryOptions[i].text === str) {
+            categoryOptions[i].parentNode.removeChild(categoryOptions[i]);
+        }
+    }
 }
 //
 // Delete Memopal
@@ -507,5 +529,37 @@ function removeMemopalFromPage(str) {
                 break;
             }
         }
+    }
+}
+//
+// Update flashcard
+//
+function updateFlashcard(e) {
+    var form = e.currentTarget.parentNode;
+    var meaning = form.meaning.value;
+    var grammar = form.grammar.value;
+    var memopalSelect = form.memopalSelect;
+    var memopal = memopalSelect.options[memopalSelect.selectedIndex].text;
+    var place = null;
+    if (memopal === "None") {
+        memopal = null;
+    } else {
+        var placeSelect = form.placeSelect;
+        place = placeSelect.options[placeSelect.selectedIndex].text;
+    }
+    var story = form.story.value;
+    var wordId = form.id.slice(4, form.id.length - 2);
+    var params = "wordID=" + wordId + "&meaning=" + meaning + "&grammar=" + grammar +
+                "&memopal=" + memopal + "&place=" + place + "&story=" + story;
+    var request = new ajaxRequest();
+    request.open("POST", "updateFlashcard.php", true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.onreadystatechange = updateFlashcardHandleResponse;
+    request.send(params);
+}
+function updateFlashcardHandleResponse() {
+    var str = readyStateChange(this);
+    if (str) {
+        alert("You have updated the flashcard");
     }
 }
