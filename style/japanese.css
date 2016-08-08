@@ -115,7 +115,7 @@
 }
 #memopalsDropdown .memopalList {
     display: block;
-    padding: 0.3em 0 0.3em 0.5em;
+    padding: 0.3em 4em 0.3em 0.5em;
 }
 /* First Memory Palace in navigation list */
 #memopalsDropdown #__0 {
@@ -127,9 +127,8 @@
 }
 .activeMemopalListForm {
     background-color: #3A518A;
-    padding-left: 0.2em;
     padding-bottom: 0.8em;
-    padding-left: 2em;
+    padding-left: 1em;
 }
 .activeMemopalListForm > label {
     display: inline-block;
@@ -144,13 +143,22 @@
     background-color: transparent;
     border-width: 0px 0px 0px 0px;
     outline: none;
-    width: 11.5em;
+    width: 14em;
     font-size: 85%;
 }
 .activeMemopalListForm > input[type=button] {
     display: block;
     padding: 3px 9px;
     margin: 0.5em auto 0 auto;
+}
+.activeMemopalListForm .deleteButton {
+    top: -1.5em;
+    left: 13em;
+    height: 1.5em;
+    width: 1.5em;
+}
+.activeMemopalListForm .deleteButton:hover {
+    background-position-x: -25px;
 }
 /* 
     Main section 
@@ -168,7 +176,7 @@
 }
 #mainSectionDiv > div {
     padding: 1em 0;
-    border-bottom: 1px solid #000;
+    border-bottom: 2px solid #C2C2C2;
 }
 #mainSectionDiv > div:last-child {
     border-bottom: none;
