@@ -36,55 +36,45 @@ function toggleAddMemopal(e) {
     targetDropdown.className = "";
 }
 function createAddMemopalInputs(e) {
-    if(document.getElementsByClassName("addMemopalInput").length > 0) {
-        var removeInput = document.getElementsByClassName("addMemopalInput");
-        var removeLabel = document.getElementsByClassName("addMemopalLabel");
-        while (removeInput.length > 0) {
-            removeInput[0].parentNode.removeChild(removeInput[0]);
-            removeLabel[0].parentNode.removeChild(removeLabel[0]);
-        }
-        var button = document.getElementById("addMemopalSubmit");
-        button.parentNode.removeChild(button);
-        var br = document.getElementsByClassName("addMemopalBr")[0];
-        br.parentNode.removeChild(br);
+    var form = e.currentTarget.parentNode;
+    // Remove already created inputs
+    var formChildren = form.children;
+    while (formChildren.length > 6) {
+        formChildren[6].parentNode.removeChild(formChildren[6]);
     }
-    var n = document.getElementById("addMemopalNumber").value;
-    if (n <= 0) {
+    var n = form.inputNumber.value;
+    if (!n) 
         return;
-    }
-    if(n > 30) {
+    if (n <= 0) 
+        return;
+    if (n > 30) {
         n = 30;
     }
-    if (!n) return;
-    var tempCont = document.createDocumentFragment();
-    var input = null;
-    var label = null;
-    for(var j = 0; j < n; j++) {
+    var fragment = document.createDocumentFragment();
+    var input, label;
+    for (var j = 0; j < n; j++) {
         label = document.createElement("label");
         label.className = "addMemopalLabel";
         if (j < 9) {
-            label.innerHTML = "&nbsp&nbsp";
-            label.innerHTML += j + 1;
+            label.innerHTML = "&nbsp&nbsp" + (j + 1);
         } else {
             label.innerHTML = j + 1;
         }
         input = document.createElement("input");
         input.type = "text";
         input.className = "addMemopalInput";
-        tempCont.appendChild(label);
-        tempCont.appendChild(input);
+        fragment.appendChild(label);
+        fragment.appendChild(input);
     }
     var br = document.createElement("br");
-    br.className = "addMemopalBr";
-    tempCont.appendChild(br);
-    var submit = document.createElement("input");
-    submit.type = "button";
-    submit.id = "addMemopalSubmit";
-    submit.value = "Add";
-    submit.className = "submit";
-    tempCont.appendChild(submit);
-    document.getElementById("addMemopalForm").appendChild(tempCont);
-    document.getElementById("addMemopalSubmit").addEventListener("click", submitMemopal);
+    var button = document.createElement("input");
+    button.type = "button";
+    button.value = "Add";
+    button.className = "submit";
+    button.addEventListener("click", submitMemopal);
+    fragment.appendChild(br);
+    fragment.appendChild(button);
+    form.appendChild(fragment);
 }
 function toggleMemopalPlaces(e) {
     e.preventDefault();
@@ -182,13 +172,15 @@ function autoGrowTextArea(textArea) {
 //
 function displayPlacesOnChange(e) {
     var target = e.currentTarget;
-    var selectedOption = target.options[target.selectedIndex].text;
-    var id = selectedOption.replace(/\s/g, "");
-    var choosePlace = document.getElementById(target.parentNode.id + "Places");
-    while (choosePlace.options.length > 0) {
-        choosePlace.remove(0);
+    var form = target.parentNode;
+    var memopal = target.options[target.selectedIndex].text;
+    var id = memopal.replace(/\s/g, "");
+    var placeSelect = form.placeSelect;
+    while (placeSelect.options.length > 0) {
+        placeSelect.remove(0);
     }
-    if (selectedOption == "None") { return; }
+    if (memopal == "None")
+        return;
     var placeList = document.getElementsByClassName("__" + id);
     var fragment = document.createDocumentFragment();
     var option = null;
@@ -197,5 +189,5 @@ function displayPlacesOnChange(e) {
         option.text = placeList[i].value;
         fragment.appendChild(option);
     }
-    choosePlace.appendChild(fragment);
+    placeSelect.appendChild(fragment);
 }

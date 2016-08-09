@@ -1,5 +1,5 @@
 <?php
-    if(isset($_POST['newCategory'])) {
+    if(isset($_POST['category'])) {
 
     require_once 'login.php';
     $conn = new mysqli($hn, $un, $pw, $db);
@@ -7,12 +7,12 @@
 
     header("Content-Type: application/json");
     
-    $newCategory = $_POST['newCategory'];
-    $query = "INSERT INTO categories VALUES(NULL,'$newCategory',1)";
+    $category = $_POST['category'];
+    $query = "INSERT INTO categories VALUES(NULL,'$category',1)";
     $result = $conn->query($query);
     if(!$result) die("Database access failed: " . $conn->error);
 
-    $returnArr = [$newCategory];
+    $returnArr = [$category];
 
     echo json_encode($returnArr);
 

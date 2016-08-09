@@ -36,51 +36,45 @@
             </div>
             <div>
                 <a href="#" id="addWord">Add Word</a>
-				<div id="addWordDropdown" class="hideDropdown">
+				<form id="addWordDropdown" class="hideDropdown">
 					<label>Word</label>
-					<input id="addWordWord" type="text"><br>
+					<input name="word" id="addWordWord" type="text"><br>
 					<label>Meaning</label>
-					<input id="addWordMeaning" type="text"><br>
+					<input name="meaning" id="addWordMeaning" type="text"><br>
 					<label>Grammar</label>
-					<input id="addWordGrammar" type="text"><br>
+					<input name="grammar" id="addWordGrammar" type="text"><br>
 					<span id="addWordCategory">Category</span>
-					<select id="chooseCategory"></select>
+					<select name="category" id="chooseCategory"></select>
 					<span id="addWordMemopal">Memory Palace</span>
-					<div id="addWordMemopalAndPlace">
-						<select id="chooseMemopal" class="chooseMemopal">
-							<option selected>None</option>
-						</select>
-						<select id="addWordMemopalAndPlacePlaces">
-						</select>
-					</div>
+					<select name="memopalSelect" id="chooseMemopal" class="chooseMemopal">
+						<option selected>None</option>
+					</select>
+					<select name="placeSelect" id="choosePlace">
+					</select>
 					<label>Story</label><br>
-					<textarea id="addWordStory"></textarea>
+					<textarea name="story" id="addWordStory"></textarea>
 					<input id="submitWord" type="button" class="submit" value="Add">
-				</div>
+				</form>
             </div>
             <div>
                 <a href="#" id="addCategory">Add Category</a>
-				<div id="addCategoryDropdown" class="hideDropdown">
-					<form>
-						<label id="addCategoryLabel">Name</label>
-						<input id="addCategoryName" type="text"><br>
-						<input type="button" id="submitCategory" class="submit" value="Add">
-					</form>
-				</div>
+				<form id="addCategoryDropdown" class="hideDropdown">
+					<label id="addCategoryLabel">Name</label>
+					<input name="name" id="addCategoryName" type="text"><br>
+					<input type="button" id="submitCategory" class="submit" value="Add">
+				</form>
             </div>
             <div>
                 <a href="#" id="memopals">Memory Palaces</a>
 				<div id="memopalsDropdown" class="hideDropdown">
 					<a href="#" id="addMemopal">Add New</a>
-					<div id="addMemopalDropdown" class="hideDropdown">
-						<form id="addMemopalForm">
-							<label id="addMemopalLabel">Name</label>
-							<input name="name" type="text" id="addMemopalName"><br>
-							<span>No. of places</span>
-							<input id="addMemopalNumber" type="number" max="30" min="1">
-							<input id="addMemopalCreateInputs" type="button" value="Create">
-						</form>
-					</div>
+					<form id="addMemopalDropdown" class="hideDropdown">
+						<label id="addMemopalLabel">Name</label>
+						<input name="name" type="text" id="addMemopalName"><br>
+						<span>No. of places</span>
+						<input name="inputNumber" id="addMemopalNumber" type="number" max="30" min="1">
+						<input id="addMemopalCreateInputs" type="button" value="Create">
+					</form>
 				</div>
             </div>
             <div id="search">

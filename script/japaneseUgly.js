@@ -334,3 +334,123 @@ function displayMemopalAfterSubmit() {
     option.text = name;
     chooseMemopal.appendChild(option);
 }
+function submitCategory() {
+    var newCategory = document.getElementById("addCategoryName").value;
+    if (!newCategory) {
+        alert("You must type in a category name");
+        return;
+    }
+    var params = "newCategory=" + document.getElementById("addCategoryName").value;
+    var request = new ajaxRequest();
+    request.open("POST", "submitCategory.php", true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.onreadystatechange = submitCategoryHandleResponse;
+    request.send(params);
+}
+function createAddMemopalInputs(e) {
+    if(document.getElementsByClassName("addMemopalInput").length > 0) {
+        var removeInput = document.getElementsByClassName("addMemopalInput");
+        var removeLabel = document.getElementsByClassName("addMemopalLabel");
+        while (removeInput.length > 0) {
+            removeInput[0].parentNode.removeChild(removeInput[0]);
+            removeLabel[0].parentNode.removeChild(removeLabel[0]);
+        }
+        var button = document.getElementById("addMemopalSubmit");
+        button.parentNode.removeChild(button);
+        var br = document.getElementsByClassName("addMemopalBr")[0];
+        br.parentNode.removeChild(br);
+    }
+    var n = document.getElementById("addMemopalNumber").value;
+    if (n <= 0) {
+        return;
+    }
+    if(n > 30) {
+        n = 30;
+    }
+    if (!n) return;
+    var tempCont = document.createDocumentFragment();
+    var input = null;
+    var label = null;
+    for(var j = 0; j < n; j++) {
+        label = document.createElement("label");
+        label.className = "addMemopalLabel";
+        if (j < 9) {
+            label.innerHTML = "&nbsp&nbsp";
+            label.innerHTML += j + 1;
+        } else {
+            label.innerHTML = j + 1;
+        }
+        input = document.createElement("input");
+        input.type = "text";
+        input.className = "addMemopalInput";
+        tempCont.appendChild(label);
+        tempCont.appendChild(input);
+    }
+    var br = document.createElement("br");
+    br.className = "addMemopalBr";
+    tempCont.appendChild(br);
+    var submit = document.createElement("input");
+    submit.type = "button";
+    submit.id = "addMemopalSubmit";
+    submit.value = "Add";
+    submit.className = "submit";
+    tempCont.appendChild(submit);
+    document.getElementById("addMemopalDropdown").appendChild(tempCont);
+    document.getElementById("addMemopalSubmit").addEventListener("click", submitMemopal);
+}
+function createWord() {
+    var word = document.getElementById("addWordWord").value;
+    if (!word) {
+        alert("You must type in a word");
+        return;
+    }
+    var meaning = document.getElementById("addWordMeaning").value;
+    var grammar = document.getElementById("addWordGrammar").value;
+    var chooseCategory = document.getElementById("chooseCategory");
+    var category = chooseCategory.options[chooseCategory.selectedIndex].text;
+    var chooseMemopal = document.getElementById("chooseMemopal");
+    var memopal = chooseMemopal.options[chooseMemopal.selectedIndex].text;
+    var place = null;
+    if (memopal == "None") {
+        memopal = null;
+    } else {
+      var choosePlace = document.getElementById("addWordMemopalAndPlacePlaces");
+      place = choosePlace.options[choosePlace.selectedIndex].text;
+    }
+    var story = document.getElementById("addWordStory").value;
+    var params = "word=" + word;
+    // check which parameters to send
+    var valueArr = [meaning, grammar, category, memopal, place, story];
+    var keyArr = ["&meaning=", "&grammar=", "&category=", "&memopal=", "&place=", "&story="];
+    for (var i = 0; i < valueArr.length; i++) {
+        if (valueArr[i]) {
+            params += keyArr[i] + valueArr[i];
+        }
+    }
+    var request = new ajaxRequest();
+    request.open("POST", "createWord.php", true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.onreadystatechange = createWordHandleResponse;
+    request.send(params);
+}
+function deleteCategory(e) {
+    if (!confirm("Do you really want to delete this CATEGORY and all its contents?")) {
+        return;
+    }
+    var categoryName = e.currentTarget.parentNode.parentNode.children[0].children[0].innerText;
+    var categoryDropdownId = categoryName.replace(/\s/g, "") + "Dropdown";
+    var allLi = document.getElementById(categoryDropdownId).children[1].children;
+    var wordIds = [];
+    for (var i = 0; i < allLi.length; i++) {
+        var flashcardId = allLi[i].children[1].id;
+        var idLength = flashcardId.length;
+        var id = flashcardId.slice(4, idLength - 2);
+        wordIds.push(id);
+    }
+    var params = "category=" + categoryName + "&wordIds=" + wordIds;
+    var request = new ajaxRequest();
+    request.open("POST", "deleteCategory.php", true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    request.onreadystatechange = deleteCategoryHandleResponse;
+    request.send(params);
+}

@@ -263,28 +263,30 @@ function createCategoryCont(arr) {
 //
 // Create new word
 //
-function createWord() {
-    var word = document.getElementById("addWordWord").value;
+function createWord(e) {
+    var form = e.currentTarget.parentNode;
+    var word = form.word.value;
     if (!word) {
         alert("You must type in a word");
         return;
     }
-    var meaning = document.getElementById("addWordMeaning").value;
-    var grammar = document.getElementById("addWordGrammar").value;
-    var chooseCategory = document.getElementById("chooseCategory");
-    var category = chooseCategory.options[chooseCategory.selectedIndex].text;
-    var chooseMemopal = document.getElementById("chooseMemopal");
-    var memopal = chooseMemopal.options[chooseMemopal.selectedIndex].text;
-    var place = null;
-    if (memopal == "None") {
+    var meaning = form.meaning.value;
+    var grammar = form.grammar.value;
+    var categorySelect = form.category;
+    var category = categorySelect.options[categorySelect.selectedIndex].text;
+    var memopalSelect = form.memopalSelect;
+    var memopal = memopalSelect.options[memopalSelect.selectedIndex].text;
+    var place;
+    if (memopal === "None") {
         memopal = null;
+        place = null;
     } else {
-      var choosePlace = document.getElementById("addWordMemopalAndPlacePlaces");
-      place = choosePlace.options[choosePlace.selectedIndex].text;
+        var placeSelect = form.placeSelect;
+        place = placeSelect.options[placeSelect.selectedIndex].text;
     }
-    var story = document.getElementById("addWordStory").value;
+    var story = form.story.value;
     var params = "word=" + word;
-    // check which parameters to send
+    // If variable doesn't have a value, don't send it
     var valueArr = [meaning, grammar, category, memopal, place, story];
     var keyArr = ["&meaning=", "&grammar=", "&category=", "&memopal=", "&place=", "&story="];
     for (var i = 0; i < valueArr.length; i++) {
@@ -302,6 +304,19 @@ function createWordHandleResponse() {
     var arr = readyStateChange(this);
     if (arr) {
         alert("You added a new word! Congratulations!");
+        // Remove inputs from Add Word
+        var form = document.getElementById("addWordDropdown");
+        form.word.value = "";
+        form.meaning.value = "";
+        form.grammar.value = "";
+        form.category.selectedIndex = 0;
+        form.memopalSelect.selectedIndex = 0;
+        var placeSelect = form.placeSelect;
+        while (placeSelect.hasChildNodes()) {
+            placeSelect.removeChild(placeSelect.lastChild);
+        }
+        placeSelect.selectedIndex = 0;
+        form.story.value = "";
         // Check if the category container is loaded. If not don't add new word to the container
         var categoryContId = arr[0].category.replace(/\s/g, "") + "Dropdown";
         var categoryCont = document.getElementById(categoryContId);
@@ -313,45 +328,46 @@ function createWordHandleResponse() {
 //
 // Create Category
 //
-function submitCategory() {
-    var newCategory = document.getElementById("addCategoryName").value;
-    if (!newCategory) {
-        alert("You must type in a category name");
+function submitCategory(e) {
+    var form = e.currentTarget.parentNode;
+    var name = form.name.value;
+    if (!name) {
+        alert("You must type in a Category name");
         return;
     }
-    var params = "newCategory=" + document.getElementById("addCategoryName").value;
+    var params = "category=" + name;
     var request = new ajaxRequest();
     request.open("POST", "submitCategory.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.onreadystatechange = submitCategoryHandleResponse;
     request.send(params);
 }
-
 function submitCategoryHandleResponse() {
     var arr = readyStateChange(this);
     if (arr) {
         alert("You added a new category. Congratulations!");
         displayCategories(arr);
-        document.getElementById("categoryName").value = "";
+        document.getElementById("addCategoryName").value = "";
     }
 }
 //
 // Create Memory Palace
 //
 function submitMemopal(e) {
-    var name = document.getElementById("addMemopalName").value;
+    var form = e.currentTarget.parentNode;
+    var name = form.name.value;
     if (!name) {
         alert("Type in name for new Memory Palace");
         return;
     }
     var places = document.getElementsByClassName("addMemopalInput");
-    var placesValue = [];
+    var placeValues = [];
     for (var i = 0; i < places.length; i++) {
         if (!places[i].value) {
             alert("Type in value for each place in the new Memory Palace");
             return;
         }
-        placesValue.push(places[i].value);
+        placeValues.push(places[i].value);
     }
     var request = new ajaxRequest();
     var params = "name=" + name + "&places=" + placesValue;
@@ -413,16 +429,7 @@ function deleteCategory(e) {
         return;
     }
     var categoryName = e.currentTarget.parentNode.parentNode.children[0].children[0].innerText;
-    var categoryDropdownId = categoryName.replace(/\s/g, "") + "Dropdown";
-    var allLi = document.getElementById(categoryDropdownId).children[1].children;
-    var wordIds = [];
-    for (var i = 0; i < allLi.length; i++) {
-        var flashcardId = allLi[i].children[1].id;
-        var idLength = flashcardId.length;
-        var id = flashcardId.slice(4, idLength - 2);
-        wordIds.push(id);
-    }
-    var params = "category=" + categoryName + "&wordIds=" + wordIds;
+    var params = "category=" + categoryName;
     var request = new ajaxRequest();
     request.open("POST", "deleteCategory.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

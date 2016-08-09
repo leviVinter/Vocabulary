@@ -54,12 +54,12 @@
     text-align: center;
     margin-top: 0.5em;
 }
-#addWordMemopalAndPlace {
+#chooseMemopal {
     margin-left: 0.5em;
-    margin-bottom: 0.5em;
 }
-#chooseMemopal, #addWordMemopalAndPlacePlaces {
+#chooseMemopal, #choosePlace {
     width: 9em;
+    margin-bottom: 0.5em;
 }
 #addWordDropdown textarea {
     width: 15.8em;
@@ -91,13 +91,13 @@
     background-color: #3A518A;
     padding-left: 1em;
 }
-#addMemopalForm {
+#addMemopalDropdown {
     margin-right: 0em;
 }
 #addMemopalLabel {
     width: 3.5em;
 }
-#addMemopalForm span {
+#addMemopalDropdown span {
     margin: 1em 0 0.5em 0.1em;
 }
 #addMemopalNumber {
@@ -108,7 +108,7 @@
     margin: 1em 0 0.5em 0.8em;
     padding: 3px 9px;
 }
-#addMemopalForm .addMemopalLabel {
+#addMemopalDropdown .addMemopalLabel {
     width: 2em;
     float: left;
     margin-left: 1.5em;
