@@ -14,7 +14,7 @@
 #navigation .headerContent {
     padding: 0.3em 0;
 }
-#navigation > div > div {
+#navigation > div > ul > li {
     display: inline-block;
     width: 10em;
     padding: 0.4em 0;
@@ -45,6 +45,14 @@
 #subject {
     font-weight: bold;
     font-style: oblique;
+}
+#subjectDropdown {
+    min-width: 10em;
+    text-align: center;
+    padding: 0;
+}
+#subjectDropdown li {
+    padding: 0.4em 0;
 }
 #addWordDropdown {
     min-width: 16.3em;

@@ -6,14 +6,15 @@ function addAllEventListeners() {
     document.getElementById("addCategory").addEventListener("click", toggleNavDropdown);
     document.getElementById("memopals").addEventListener("click", toggleNavDropdown);
     document.getElementById("submitCategory").addEventListener("click", submitCategory);
-    document.getElementById("submitWord").addEventListener("click", createWord);
+    document.getElementById("submitWord").addEventListener("click", submitWord);
     document.getElementById("addMemopalCreateInputs").addEventListener("click", createAddMemopalInputs);
     document.getElementById("addMemopal").addEventListener("click", toggleAddMemopal);
+    document.getElementById("subject").addEventListener("click", toggleNavDropdown);
     window.addEventListener("click", hideDropdown);
 }
 function loadAtStartup() {
     var request = new ajaxRequest();
-    request.open("GET", "loadAtStartup.php", true);
+    request.open("GET", "php/loadAtStartup.php", true);
     request.onreadystatechange = loadAtStartupHandleResponse;
     request.send(null);
 }
@@ -140,7 +141,7 @@ function requestCategoryCont(target) {
     var categoryName = target.children[0].innerHTML;
     var params = "category=" + categoryName;
     var request = new ajaxRequest();
-    request.open("POST", "getWords.php", true);
+    request.open("POST", "php/getWords.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.onreadystatechange = categoryContHandleResponse;
     request.send(params);
@@ -150,9 +151,14 @@ function categoryContHandleResponse() {
     var arr = readyStateChange(this);
     if (arr) {
         createCategoryCont(arr);
+        var idCategory = arr[0].category.replace(/\s/g, "");
+        var categoryDropdown = document.getElementById(idCategory + "Dropdown");
+        categoryDropdown.className = "showCategoryCont";
     }
 }
 function createCategoryCont(arr) {
+    var idCategory = arr[0].category.replace(/\s/g, "");
+    var categoryDropdown = document.getElementById(idCategory + "Dropdown");
     var memopals = document.getElementsByClassName("memopalList");
     for (var i = 0; i < arr.length; i++) {
         var li = document.createElement("li");
@@ -251,9 +257,6 @@ function createCategoryCont(arr) {
         form.appendChild(button);
         li.appendChild(a);
         li.appendChild(form);
-        var idCategory = arr[i].category.replace(/\s/g, "");
-        var categoryDropdown = document.getElementById(idCategory + "Dropdown");
-        categoryDropdown.className = "showCategoryCont";
         categoryDropdown.children[1].appendChild(li);
         a.addEventListener("click", toggleFlashcard);
         select1.addEventListener("change", displayPlacesOnChange);
@@ -263,7 +266,8 @@ function createCategoryCont(arr) {
 //
 // Create new word
 //
-function createWord(e) {
+function submitWord(e) {
+    var subject = document.getElementById("subject").innerText;
     var form = e.currentTarget.parentNode;
     var word = form.word.value;
     if (!word) {
@@ -285,22 +289,22 @@ function createWord(e) {
         place = placeSelect.options[placeSelect.selectedIndex].text;
     }
     var story = form.story.value;
-    var params = "word=" + word;
+    var params = "word=" + word + "&subject=" + subject + "&category=" + category;
     // If variable doesn't have a value, don't send it
-    var valueArr = [meaning, grammar, category, memopal, place, story];
-    var keyArr = ["&meaning=", "&grammar=", "&category=", "&memopal=", "&place=", "&story="];
+    var valueArr = [meaning, grammar, memopal, place, story];
+    var keyArr = ["&meaning=", "&grammar=", "&memopal=", "&place=", "&story="];
     for (var i = 0; i < valueArr.length; i++) {
         if (valueArr[i]) {
             params += keyArr[i] + valueArr[i];
         }
     }
     var request = new ajaxRequest();
-    request.open("POST", "createWord.php", true);
+    request.open("POST", "php/submitWord.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    request.onreadystatechange = createWordHandleResponse;
+    request.onreadystatechange = submitWordHandleResponse;
     request.send(params);
 }
-function createWordHandleResponse() {
+function submitWordHandleResponse() {
     var arr = readyStateChange(this);
     if (arr) {
         alert("You added a new word! Congratulations!");
@@ -331,13 +335,14 @@ function createWordHandleResponse() {
 function submitCategory(e) {
     var form = e.currentTarget.parentNode;
     var name = form.name.value;
+    var subject = document.getElementById("subject").innerText;
     if (!name) {
         alert("You must type in a Category name");
         return;
     }
-    var params = "category=" + name;
+    var params = "category=" + name + "&subject=" + subject;
     var request = new ajaxRequest();
-    request.open("POST", "submitCategory.php", true);
+    request.open("POST", "php/submitCategory.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.onreadystatechange = submitCategoryHandleResponse;
     request.send(params);
@@ -371,7 +376,7 @@ function submitMemopal(e) {
     }
     var request = new ajaxRequest();
     var params = "name=" + name + "&places=" + placesValue;
-    request.open("POST", "submitMemoryPalace.php", true);
+    request.open("POST", "php/submitMemoryPalace.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.onreadystatechange = submitMemopalHandleResponse;
     request.send(params);
@@ -405,7 +410,7 @@ function deleteWord(e) {
     var wordId = parentId.slice(4, length - 2);
     var params = "wordID=" + wordId;
     var request = new ajaxRequest();
-    request.open("POST", "deleteWord.php", true);
+    request.open("POST", "php/deleteWord.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.onreadystatechange = deleteWordHandleResponse;
     request.send(params);
@@ -431,7 +436,7 @@ function deleteCategory(e) {
     var categoryName = e.currentTarget.parentNode.parentNode.children[0].children[0].innerText;
     var params = "category=" + categoryName;
     var request = new ajaxRequest();
-    request.open("POST", "deleteCategory.php", true);
+    request.open("POST", "php/deleteCategory.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.onreadystatechange = deleteCategoryHandleResponse;
     request.send(params);
@@ -466,7 +471,7 @@ function deleteMemopal(e) {
     var memopal = document.getElementById(memopalId).innerText;
     var params = "memopal=" + memopal;
     var request = new ajaxRequest();
-    request.open("POST", "deleteMemopal.php", true);
+    request.open("POST", "php/deleteMemopal.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.onreadystatechange = deleteMemopalHandleResponse;
     request.send(params);
@@ -516,7 +521,7 @@ function updateFlashcard(e) {
     var params = "wordID=" + wordId + "&meaning=" + meaning + "&grammar=" + grammar +
                 "&memopal=" + memopal + "&place=" + place + "&story=" + story;
     var request = new ajaxRequest();
-    request.open("POST", "updateFlashcard.php", true);
+    request.open("POST", "php/updateFlashcard.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.onreadystatechange = updateFlashcardHandleResponse;
     request.send(params);
@@ -542,7 +547,7 @@ function updateMemopal(e) {
     }
     var params = "memopal=" + memopal + "&places=" + placesArr;
     var request = new ajaxRequest();
-    request.open("POST", "updateMemopal.php", true);
+    request.open("POST", "php/updateMemopal.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.onreadystatechange = updateMemopalHandleResponse;
     request.send(params);

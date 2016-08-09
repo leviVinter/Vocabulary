@@ -31,55 +31,65 @@
 	</header>
 	<nav id="navigation">
         <div class="headerContent">
-            <div>
-                <a href="japanese.html" id="subject">Japanese</a>
-            </div>
-            <div>
-                <a href="#" id="addWord">Add Word</a>
-				<form id="addWordDropdown" class="hideDropdown">
-					<label>Word</label>
-					<input name="word" id="addWordWord" type="text"><br>
-					<label>Meaning</label>
-					<input name="meaning" id="addWordMeaning" type="text"><br>
-					<label>Grammar</label>
-					<input name="grammar" id="addWordGrammar" type="text"><br>
-					<span id="addWordCategory">Category</span>
-					<select name="category" id="chooseCategory"></select>
-					<span id="addWordMemopal">Memory Palace</span>
-					<select name="memopalSelect" id="chooseMemopal" class="chooseMemopal">
-						<option selected>None</option>
-					</select>
-					<select name="placeSelect" id="choosePlace">
-					</select>
-					<label>Story</label><br>
-					<textarea name="story" id="addWordStory"></textarea>
-					<input id="submitWord" type="button" class="submit" value="Add">
-				</form>
-            </div>
-            <div>
-                <a href="#" id="addCategory">Add Category</a>
-				<form id="addCategoryDropdown" class="hideDropdown">
-					<label id="addCategoryLabel">Name</label>
-					<input name="name" id="addCategoryName" type="text"><br>
-					<input type="button" id="submitCategory" class="submit" value="Add">
-				</form>
-            </div>
-            <div>
-                <a href="#" id="memopals">Memory Palaces</a>
-				<div id="memopalsDropdown" class="hideDropdown">
-					<a href="#" id="addMemopal">Add New</a>
-					<form id="addMemopalDropdown" class="hideDropdown">
-						<label id="addMemopalLabel">Name</label>
-						<input name="name" type="text" id="addMemopalName"><br>
-						<span>No. of places</span>
-						<input name="inputNumber" id="addMemopalNumber" type="number" max="30" min="1">
-						<input id="addMemopalCreateInputs" type="button" value="Create">
+			<ul>
+				<li>
+					<a href="japanese.html" id="subject">Japanese</a>
+					<ul id="subjectDropdown" class="hideDropdown">
+						<li>
+							<a href="#" onclick="return false">English</a>
+						</li>
+						<li>
+							<a href="#" onclick="return false">Swedish</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" id="addWord">Add Word</a>
+					<form id="addWordDropdown" class="hideDropdown">
+						<label>Word</label>
+						<input name="word" id="addWordWord" type="text"><br>
+						<label>Meaning</label>
+						<input name="meaning" id="addWordMeaning" type="text"><br>
+						<label>Grammar</label>
+						<input name="grammar" id="addWordGrammar" type="text"><br>
+						<span id="addWordCategory">Category</span>
+						<select name="category" id="chooseCategory"></select>
+						<span id="addWordMemopal">Memory Palace</span>
+						<select name="memopalSelect" id="chooseMemopal" class="chooseMemopal">
+							<option selected>None</option>
+						</select>
+						<select name="placeSelect" id="choosePlace">
+						</select>
+						<label>Story</label><br>
+						<textarea name="story" id="addWordStory"></textarea>
+						<input id="submitWord" type="button" class="submit" value="Add">
 					</form>
-				</div>
-            </div>
-            <div id="search">
-                <label>Search</label>
-            </div>
+				</li>
+				<li>
+					<a href="#" id="addCategory">Add Category</a>
+					<form id="addCategoryDropdown" class="hideDropdown">
+						<label id="addCategoryLabel">Name</label>
+						<input name="name" id="addCategoryName" type="text"><br>
+						<input type="button" id="submitCategory" class="submit" value="Add">
+					</form>
+				</li>
+				<li>
+					<a href="#" id="memopals">Memory Palaces</a>
+					<div id="memopalsDropdown" class="hideDropdown">
+						<a href="#" id="addMemopal">Add New</a>
+						<form id="addMemopalDropdown" class="hideDropdown">
+							<label id="addMemopalLabel">Name</label>
+							<input name="name" type="text" id="addMemopalName"><br>
+							<span>No. of places</span>
+							<input name="inputNumber" id="addMemopalNumber" type="number" max="30" min="1">
+							<input id="addMemopalCreateInputs" type="button" value="Create">
+						</form>
+					</div>
+				</li>
+				<li id="search">
+					<label>Search</label>
+				</li>
+			</ul>
         </div>
     </nav>
 	<section id="mainSection">

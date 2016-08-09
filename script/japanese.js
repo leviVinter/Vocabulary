@@ -92,6 +92,7 @@ function hideDropdown(e) {
     if (!activeDropdown) 
         return;
     var a = activeDropdown;
+    var s = document.getElementById("subject");
     var w = document.getElementById("addWord");
     var c = document.getElementById("addCategory");
     var r = document.getElementById("memopals");
@@ -101,7 +102,7 @@ function hideDropdown(e) {
     // Check if a nav dropdown is open. Close if it is
     if (t != a && t.parentNode != a && t.parentNode.parentNode != a &&  
         t.parentNode.parentNode.parentNode != a &&
-        t != w && t != c && t != r && t != ar) {
+        t != s && t != w && t != c && t != r && t != ar) {
         activeDropdown.className = "hideDropdown";
         hideMemopalDropdowns();
     }
