@@ -1,54 +1,47 @@
 <?php
-    require_once 'login.php';
-    $conn = new mysqli($hn, $un, $pw, $db);
-    if($conn->connect_error) die($conn->connect_error);
+    if (!isset($_POST['subject'])) die("Params is not set");
 
-    header("Content-Type: application/json");
-    header("Cache-Control: no-cache");
+    try {
+        require_once 'login.php';
+        $conn = new PDO("mysql:host=$hn;dbname=$db", $un, $pw);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $query = "SELECT category FROM categories";
-    $result = $conn->query($query);
-    if(!$result) die("Database access failed: " . $conn->error);
-
-    $rows = $result->num_rows;
-
-    $categories = [];
-
-    for($i = 0; $i < $rows; $i++) {
-        $result->data_seek($i);
-        $row = $result->fetch_array(MYSQLI_NUM);
-        array_push($categories, $row[0]);
-    }
-    $query = "SELECT memoryPalace,memoryPalaceID FROM memorypalaces";
-    $result = $conn->query($query);
-    if(!$result) die("Database access failed: " . $conn->error);
-    $rows = $result->num_rows;
-    $memopals = [];
-    for ($j = 0; $j < $rows; $j++) {
-        $tempArr = [];
-        $result->data_seek($j);
-        $row = $result->fetch_array(MYSQLI_NUM);
-        array_push($tempArr, $row[0]);
-        $subquery = "SELECT place FROM places WHERE places.memoryPalaceID='$row[1]' ORDER BY placeID";
-        $subresult = $conn->query($subquery);
-        if(!$subresult) die("Database access failed: " . $conn->error);
-        $subrows = $subresult->num_rows;
-        for ($k = 0; $k < $subrows; $k++) {
-            $subresult->data_seek($k);
-            $subrow = $subresult->fetch_array(MYSQLI_NUM);
-            array_push($tempArr, $subrow[0]);
+        $stmt = $conn->prepare('SELECT category FROM categories NATURAL JOIN subjects
+                                WHERE subject=:subject ORDER BY categoryID');
+        $stmt->bindParam(':subject', $subject);
+        $subject = $_POST['subject'];
+        $stmt->execute();
+        $categories = [];
+        while ($row = $stmt->fetch()) {
+            $categories[] = $row[0];
         }
-        array_push($memopals, $tempArr);
-
+        $stmt = $conn->prepare('SELECT memoryPalace FROM memorypalaces ORDER BY memoryPalaceID');
+        $stmt->execute();
+        # Make arrays, in the second array each row will contain memopal name and all its places
+        # Each of those will then be pushed into the first
+        $memopals = [];
+        while ($row = $stmt->fetch()) {
+            $memopalAndPlaces = [];
+            $memopal = $row[0];
+            $memopalAndPlaces[] = $memopal;
+            $substmt = $conn->prepare('SELECT place FROM places NATURAL JOIN memorypalaces
+                                        WHERE memoryPalace=:memopal ORDER BY placeID');
+            $substmt->bindParam(':memopal', $memopal);
+            $substmt->execute();
+            while ($subrow = $substmt->fetch()) {
+                $memopalAndPlaces[] = $subrow[0];
+            }
+            $memopals[] = $memopalAndPlaces;
+        }
+        class Obj {
+            public $categories, $memopals;
+        }   
+        $returnObj = new Obj();
+        $returnObj->categories = $categories;
+        $returnObj->memopals = $memopals;
+        echo json_encode($returnObj);
+    } catch(PDOException $e) {
+        echo "Error: " . $e->getMessage();
     }
-    class Obj {
-        public $categories, $memopals;
-    }
-    $returnObj = new Obj();
-    $returnObj->categories = $categories;
-    $returnObj->memopals = $memopals;
-    echo json_encode($returnObj);
-
-    $result->close();
-    $conn->close();
+    $conn = null;
 ?>

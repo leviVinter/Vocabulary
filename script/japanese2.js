@@ -13,10 +13,13 @@ function addAllEventListeners() {
     window.addEventListener("click", hideDropdown);
 }
 function loadAtStartup() {
+    var subject = document.getElementById("subject").innerText;
+    var params = "subject=" + subject;
     var request = new ajaxRequest();
-    request.open("GET", "php/loadAtStartup.php", true);
+    request.open("POST", "php/loadAtStartup.php", true);
+    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.onreadystatechange = loadAtStartupHandleResponse;
-    request.send(null);
+    request.send(params);
 }
 function loadAtStartupHandleResponse() {
     var obj = readyStateChange(this);
