@@ -136,8 +136,9 @@ function displayMemopalsInAddWord() {
 // Get category Content
 //
 function requestCategoryCont(target) {
+    var subject = document.getElementById("subject").innerText;
     var categoryName = target.children[0].innerHTML;
-    var params = "category=" + categoryName;
+    var params = "category=" + categoryName + "&subject=" + subject;
     var request = new ajaxRequest();
     request.open("POST", "php/getWords.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

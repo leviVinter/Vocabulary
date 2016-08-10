@@ -1,57 +1,54 @@
 <?php
-if (isset($_POST['category'])) {
-    require_once 'login.php';
-    $conn = new mysqli($hn, $un, $pw, $db);
-    if($conn->connect_error) die($conn->connect_error);
+    if(!isset($_POST['category']) || !isset($_POST['subject'])) die("Param is not set");
 
-    header("Content-Type: application/json");
-    header("Cache-Control: no-cache");
+    try {
+        require_once 'login.php';
+        $conn = new PDO("mysql:host=$hn;dbname=$db", $un, $pw);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    class wordObject {
-        public $wordID, $word, $meaning, $grammar, $category, $memopal, $place, $story;
+        $stmt = $conn->prepare('SELECT categoryID FROM categories NATURAL JOIN subjects 
+                                WHERE category=:category AND subject=:subject');
+        $stmt->bindParam(':category', $category);
+        $stmt->bindParam(':subject', $subject);
+        $category = $_POST['category'];
+        $subject = $_POST['subject'];
+        $stmt->execute();
+        $row = $stmt->fetch();
+        $categoryID = $row[0];
+
+        $stmt = $conn->prepare('SELECT wordID,word,meaning,grammar,story,placeID FROM words
+                                WHERE categoryID=:categoryID');
+        $stmt->bindParam(':categoryID', $categoryID);
+        $stmt->execute();
+
+        class wordObject {
+            public $wordID, $word, $meaning, $grammar, $category, $memopal, $place, $story;
+        }
+
+        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $wordsArray = [];
+        while($row = $stmt->fetch()) {
+            $object = new wordObject();
+            $object->wordID = $row['wordID'];
+            $object->word = $row['word'];
+            $object->meaning = $row['meaning'];
+            $object->grammar = $row['grammar'];
+            $object->category = $category;
+            $object->story = $row['story'];
+            $substmt = $conn->prepare('SELECT place,memoryPalace FROM places NATURAL JOIN memorypalaces
+                                        WHERE placeID=:placeID');
+            $substmt->bindParam(':placeID', $row['placeID']);
+            $substmt->execute();
+            $subrow = $substmt->fetch();
+            $object->place = $subrow[0];
+            $object->memopal = $subrow[1];
+            $wordsArray[] = $object;
+        }
+
+        echo json_encode($wordsArray);
+
+    } catch(PDOException $e) {
+        echo "Error: " . $e->getMessage();
     }
-    
-    $category = $_POST['category'];
-
-
-    $query = "SELECT categoryID FROM categories WHERE category='$category'";
-    $result = $conn->query($query);
-    if(!$result) die("Database access failed: " . $conn->error);
-    $categoryID = $result->fetch_array(MYSQLI_NUM);
-
-    $query = "SELECT wordID,word,meaning,grammar,story,placeID FROM words WHERE categoryID='$categoryID[0]'";
-    $result = $conn->query($query);
-    if(!$result) die("Database access failed: " . $conn->error);
-
-    $rows = $result->num_rows;
-
-    $wordsArray = [];
-    
-    for($j = 0; $j < $rows; $j++) {
-        $result->data_seek($j);
-        $row = $result->fetch_array(MYSQLI_ASSOC);
-        $object = new wordObject();
-        $object->wordID = $row["wordID"];
-        $object->word = $row["word"];
-        $object->meaning = $row["meaning"];
-        $object->grammar = $row["grammar"];
-        $object->category = $category;
-        $object->story = $row["story"];
-        $subquery = "SELECT place,memoryPalace FROM places NATURAL JOIN memorypalaces 
-                    WHERE placeID='" . $row['placeID'] . "'";
-        $subresult = $conn->query($subquery);
-        if(!$subresult) die("Database access failed in subquery: " . $conn->error);
-        $subrow = $subresult->fetch_array(MYSQLI_NUM);
-        $object->place = $subrow[0];
-        $object->memopal = $subrow[1];
-        array_push($wordsArray, $object);
-    }
-
-    $result->close();
-    $conn->close();
-
-    echo json_encode($wordsArray);
-} else {
-    echo "Can't find category";
-}
-    ?>
+    $conn = null;
+?>
