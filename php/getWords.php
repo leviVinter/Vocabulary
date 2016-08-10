@@ -26,14 +26,13 @@
         }
 
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $wordsArray = [];
+        $wordsArray = [$category];
         while($row = $stmt->fetch()) {
             $object = new wordObject();
             $object->wordID = $row['wordID'];
             $object->word = $row['word'];
             $object->meaning = $row['meaning'];
             $object->grammar = $row['grammar'];
-            $object->category = $category;
             $object->story = $row['story'];
             $substmt = $conn->prepare('SELECT place,memoryPalace FROM places NATURAL JOIN memorypalaces
                                         WHERE placeID=:placeID');

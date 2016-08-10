@@ -9,11 +9,10 @@ function addAllEventListeners() {
     document.getElementById("submitWord").addEventListener("click", submitWord);
     document.getElementById("addMemopalCreateInputs").addEventListener("click", createAddMemopalInputs);
     document.getElementById("addMemopal").addEventListener("click", toggleAddMemopal);
-    document.getElementById("subject").addEventListener("click", toggleNavDropdown);
     window.addEventListener("click", hideDropdown);
 }
 function loadAtStartup() {
-    var subject = document.getElementById("subject").innerText;
+    var subject = location.search.split("=")[1];
     var params = "subject=" + subject;
     var request = new ajaxRequest();
     request.open("POST", "php/loadAtStartup.php", true);
@@ -24,10 +23,35 @@ function loadAtStartup() {
 function loadAtStartupHandleResponse() {
     var obj = readyStateChange(this);
     if (obj) {
+        displaySubjects(obj.subjects);
         displayCategories(obj.categories);
         displayMemopals(obj.memopals);
         displayMemopalsInAddWord();
     }
+}
+function displaySubjects(arr) {
+    var fragment = document.createDocumentFragment();
+    var activeSubject = document.createElement("a");
+    activeSubject.href = "subject.html?s=" + arr[0];
+    activeSubject.id = "subject";
+    activeSubject.innerText = arr[0];
+    activeSubject.addEventListener("click", toggleNavDropdown);
+    var ul = document.createElement("ul");
+    ul.id = "subjectDropdown";
+    ul.className = "hideDropdown";
+    for (var i = 1; i < arr.length; i++) {
+        var li = document.createElement("li");
+        var a = document.createElement("a");
+        a.href = "subject.html?s=" + arr[i];
+        a.onclick = "return false";
+        a.innerText = arr[i];
+        li.appendChild(a);
+        ul.appendChild(li);
+    }
+    fragment.appendChild(activeSubject);
+    fragment.appendChild(ul);
+    var subjectLi = document.getElementById("subjectLi");
+    subjectLi.appendChild(fragment);
 }
 function displayCategories(arr) {
     var fragmentDiv = document.createDocumentFragment();
@@ -153,16 +177,16 @@ function categoryContHandleResponse() {
     var arr = readyStateChange(this);
     if (arr) {
         createCategoryCont(arr);
-        var idCategory = arr[0].category.replace(/\s/g, "");
+        var idCategory = arr[0].replace(/\s/g, "");
         var categoryDropdown = document.getElementById(idCategory + "Dropdown");
         categoryDropdown.className = "showCategoryCont";
     }
 }
 function createCategoryCont(arr) {
-    var idCategory = arr[0].category.replace(/\s/g, "");
+    var idCategory = arr[0].replace(/\s/g, "");
     var categoryDropdown = document.getElementById(idCategory + "Dropdown");
     var memopals = document.getElementsByClassName("memopalList");
-    for (var i = 0; i < arr.length; i++) {
+    for (var i = 1; i < arr.length; i++) {
         var li = document.createElement("li");
         li.className = "liCont";
         var h4 = document.createElement("h4");
@@ -323,7 +347,7 @@ function submitWordHandleResponse() {
         placeSelect.selectedIndex = 0;
         form.story.value = "";
         // Check if the category container is loaded. If not don't add new word to the container
-        var categoryContId = arr[0].category.replace(/\s/g, "") + "Dropdown";
+        var categoryContId = arr[0].replace(/\s/g, "") + "Dropdown";
         var categoryCont = document.getElementById(categoryContId);
         if (!categoryCont.children[1].children[0] && categoryCont.className == "hideDropdown")
           return;

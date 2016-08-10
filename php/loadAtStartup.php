@@ -6,10 +6,19 @@
         $conn = new PDO("mysql:host=$hn;dbname=$db", $un, $pw);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+        $stmt = $conn->prepare('SELECT subject FROM subjects WHERE subject NOT IN (:subject)');
+        $stmt->bindParam(':subject', $subject);
+        $subject = $_POST['subject'];
+        $stmt->execute();
+        $subjectArr = [];
+        $subjectArr[] = $subject;
+        while ($row = $stmt->fetch()) {
+            $subjectArr[] = $row[0];
+        }
+
         $stmt = $conn->prepare('SELECT category FROM categories NATURAL JOIN subjects
                                 WHERE subject=:subject ORDER BY categoryID');
         $stmt->bindParam(':subject', $subject);
-        $subject = $_POST['subject'];
         $stmt->execute();
         $categories = [];
         while ($row = $stmt->fetch()) {
@@ -34,9 +43,10 @@
             $memopals[] = $memopalAndPlaces;
         }
         class Obj {
-            public $categories, $memopals;
+            public $subjects, $categories, $memopals;
         }   
         $returnObj = new Obj();
+        $returnObj->subjects = $subjectArr;
         $returnObj->categories = $categories;
         $returnObj->memopals = $memopals;
         echo json_encode($returnObj);

@@ -65,17 +65,18 @@
             ':placeID' => $placeID,
             ':subjectID' => $subjectID));
         
+        $returnArr = [$category];
+        
         class wordObject {
-            public $word, $meaning, $grammar, $category, $memopal, $place;
+            public $word, $meaning, $grammar, $memopal, $place;
         }
-        $returnObj = new wordObject();
-        $returnObj->word = $word;
-        $returnObj->meaning = $meaning;
-        $returnObj->grammar = $grammar;
-        $returnObj->category = $category;
-        $returnObj->memopal = $memopal;
-        $returnObj->place = $place;
-        $returnArr = [$returnObj];
+        $wordObj = new wordObject();
+        $wordObj->word = $word;
+        $wordObj->meaning = $meaning;
+        $wordObj->grammar = $grammar;
+        $wordObj->memopal = $memopal;
+        $wordObj->place = $place;
+        $returnArr[] = $wordObj;
         echo json_encode($returnArr);
 
     } catch(PDOException $e) {
