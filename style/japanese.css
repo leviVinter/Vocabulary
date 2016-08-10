@@ -19,6 +19,12 @@
     width: 10em;
     padding: 0.4em 0;
 }
+#navigation h4 {
+    cursor: pointer;
+}
+#navigation h4:hover {
+    font-weight: bold;
+}
 .showDropdown {
     display: block;
     background-color: #5E7FCC;
@@ -189,8 +195,12 @@
 #mainSectionDiv > div:last-child {
     border-bottom: none;
 }
-#mainSectionDiv a {
+#mainSectionDiv .category {
     display: inline-block;
+    cursor: pointer;
+}
+#mainSectionDiv .category:hover {
+    font-weight: bold;
 }
 #mainSectionDiv h2 {
     display: inline;
@@ -229,6 +239,10 @@
 #mainSectionDiv li {
     padding-left: 0.5em;
 }
+.showCategoryCont h4:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
 #mainSectionDiv .activeLi {
     background: url(../img/tiled-paper.jpg) repeat 0 0;
     border: 1px solid #D6C85C;
@@ -241,7 +255,7 @@
     page-break-inside: avoid;
     break-inside: avoid;
 }
-#mainSectionDiv .activeLi a:hover {
+#mainSectionDiv .activeLi h4:hover {
     font-size: 105%;
 }
 .flashcard {
