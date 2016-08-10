@@ -1,34 +1,39 @@
 <?php
-    if(!isset($_POST['name']) || !isset($_POST['places'])) {
-        echo "Can't find name or places";
-        return;
+    if(!isset($_POST['memopal'])) die("Params is not set");
+
+    try {
+        require_once 'login.php';
+        $conn = new PDO("mysql:host=$hn;dbname=$db", $un, $pw);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        $stmt = $conn->prepare('INSERT INTO memorypalaces(memoryPalaceID,memoryPalace)
+                                VALUES(NULL, :memopal)');
+        $stmt->bindParam(':memopal', $memopal);
+        $memopal = $_POST['memopal'];
+        $stmt->execute();
+        $memopalID = $conn->lastInsertId();
+
+        $str = $_POST['places'];
+        $places = explode(",", $str);
+        
+        $sql = 'INSERT INTO places(placeID,place,memoryPalaceID) VALUES ';
+        $sqlParts = [];
+        for ($i = 0; $i < count($places); $i++) {
+            $sqlParts[] = "(NULL,?," . $memopalID . ")";
+        }
+        $sql .= implode(",", $sqlParts);
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($places);
+
+        $memopalAndPlaces = [];
+        $memopalAndPlaces[] = $memopal;
+        for($j = 0; $j < count($places); $j++) {
+            $memopalAndPlaces[] = $places[$j];
+        }
+        $returnArr = [$memopalAndPlaces];
+        echo json_encode($returnArr);
+    } catch(PDOException $e) {
+        echo "Error: " . $e->getMessage();
     }
-    require_once 'login.php';
-    $conn = new mysqli($hn, $un, $pw, $db);
-    if($conn->connect_error) die($conn->connect_error);
-
-    header("Content-Type: application/json");
-
-    $name = $_POST['name'];
-    $string = $_POST['places'];
-    $places = explode(",", $string);
-
-    $query = "INSERT INTO memorypalaces(memoryPalaceID,memoryPalace) VALUES(NULL, '$name')";
-    $result = $conn->query($query);
-    if(!$result) die("Database access failed" . $conn->error);
-    $memoryPalaceID = $conn->insert_id;
-    for ($i = 0; $i < count($places); $i++) {
-        $query = "INSERT INTO places(placeID,place,memoryPalaceID) VALUES(NULL, '$places[$i]', '$memoryPalaceID')";
-        $result = $conn->query($query);
-        if(!$result) die("Database access failed" . $conn->error);
-    }
-
-    $arr = [];
-    array_push($arr, $name);
-    for($j = 0; $j < count($places); $j++) {
-        array_push($arr, $places[$j]);
-    }
-    $returnArr = [$arr];
-
-    echo json_encode($returnArr);
 ?>

@@ -376,7 +376,7 @@ function submitMemopal(e) {
         placeValues.push(places[i].value);
     }
     var request = new ajaxRequest();
-    var params = "name=" + name + "&places=" + placeValues;
+    var params = "memopal=" + name + "&places=" + placeValues;
     request.open("POST", "php/submitMemoryPalace.php", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.onreadystatechange = submitMemopalHandleResponse;
